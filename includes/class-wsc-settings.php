@@ -7,6 +7,11 @@
 if ( ! class_exists( 'WeDevs_Settings_API_Test' ) ):
 	class WSC_Settings {
 
+		const OPTION_NAME = 'wsc';
+
+		/**
+		 * @var WeDevs_Settings_API
+		 */
 		private $settings_api;
 
 		private $page_title;
@@ -43,8 +48,8 @@ if ( ! class_exists( 'WeDevs_Settings_API_Test' ) ):
 		function get_settings_sections() {
 			$sections = array(
 				array(
-					'id'    => 'wsc',
-					'title' => __( 'Spell Shecker Settings', 'webspellchecker' )
+					'id'    => self::OPTION_NAME,
+					'title' => ''
 				)
 			);
 
@@ -100,7 +105,7 @@ if ( ! class_exists( 'WeDevs_Settings_API_Test' ) ):
 
 		function plugin_page() {
 			echo '<div class="wrap">';
-
+			echo "<h1>$this->page_title</h1>";
 			$this->settings_api->show_navigation();
 			$this->settings_api->show_forms();
 

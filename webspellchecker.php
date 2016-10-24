@@ -1,11 +1,11 @@
 <?php
 /**
-* Plugin Name: WebSpellChecker
-* Description: WebSpellChecker extension for Wordpress
-* Version:     1.0
-* Author:      WebSpellChecker LLC
-* Author URI:  http://www.webspellchecker.net/
-*/
+ * Plugin Name: WebSpellChecker
+ * Description: WebSpellChecker extension for Wordpress
+ * Version:     1.0
+ * Author:      WebSpellChecker LLC
+ * Author URI:  http://www.webspellchecker.net/
+ */
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -46,4 +46,5 @@ final class WebSpellChecker {
 function WSC() {
 	return WebSpellChecker::instance();
 }
+
 WSC();

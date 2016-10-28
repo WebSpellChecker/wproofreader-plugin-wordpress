@@ -56,7 +56,7 @@ final class WebSpellChecker {
 
 	public function register_textarea_scayt() {
 		wp_enqueue_script( 'webspellchecker_hosted', 'http://svc.webspellchecker.net/spellcheck31/lf/scayt3/scayt/scayt.js' );
-		wp_enqueue_script( 'webspellchecker', plugin_dir_url( __FILE__ ) . '/assets/scayt.js', array(), '', true );
+		wp_enqueue_script( 'webspellchecker', plugin_dir_url( __FILE__ ) . '/assets/scayt_textarea.js', array(), '', true );
 		wp_localize_script( 'webspellchecker', 'webSpellChecker',
 			array(
 				'options' => $this->options
@@ -65,17 +65,18 @@ final class WebSpellChecker {
 	}
 
 	public function init_tinymce_scayt() {
-		add_action( 'after_wp_tiny_mce', array( $this, 'register_tinymce_scayt_plugin' ) );
+		add_action( 'after_wp_tiny_mce', array( $this, 'register_tinymce_plugins' ) );
 		add_filter( 'tiny_mce_before_init', array( $this, 'update_tiny_mce_init_settings' ) );
 	}
 
-	public function register_tinymce_scayt_plugin() {
-		printf( '<script type="text/javascript" src="%s"></script>', plugin_dir_url( __FILE__ ) . '/assets/tinymce_scayt.js' );
+	public function register_tinymce_plugins() {
+		printf( '<script type="text/javascript" src="%s"></script>', plugin_dir_url( __FILE__ ) . '/assets/tinymce/scayt/plugin.js' );
+		printf( '<script type="text/javascript" src="%s"></script>', plugin_dir_url( __FILE__ ) . '/assets/tinymce/contextmenu/plugin.js' );
 	}
 
 	public function update_tiny_mce_init_settings( $init ) {
 		$scayt_settings = array(
-			'plugins'                     => $init['plugins'] . ',' . 'scayt',
+			'plugins'                     => $init['plugins'] . ',' . 'scayt,contextmenu',
 			'toolbar4'                    => "scayt",
 			'scayt_autoStartup'           => true,
 			'scayt_customerId'            => WSC_Settings::TRIAL_CUSTOMER_ID,

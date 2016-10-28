@@ -66,7 +66,7 @@ final class WebSpellChecker {
 
 	public function init_tinymce_scayt() {
 		add_action( 'after_wp_tiny_mce', array( $this, 'register_tinymce_plugins' ) );
-		add_filter( 'tiny_mce_before_init', array( $this, 'update_tiny_mce_init_settings' ) );
+		add_filter( 'tiny_mce_before_init', array( $this, 'add_scayt_init_settings' ) );
 	}
 
 	public function register_tinymce_plugins() {
@@ -74,7 +74,7 @@ final class WebSpellChecker {
 		printf( '<script type="text/javascript" src="%s"></script>', plugin_dir_url( __FILE__ ) . '/assets/tinymce/contextmenu/plugin.js' );
 	}
 
-	public function update_tiny_mce_init_settings( $init ) {
+	public function add_scayt_init_settings( $init ) {
 		$scayt_settings = array(
 			'plugins'                     => $init['plugins'] . ',' . 'scayt,contextmenu',
 			'toolbar4'                    => "scayt",

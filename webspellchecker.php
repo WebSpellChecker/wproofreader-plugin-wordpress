@@ -39,11 +39,11 @@ final class WebSpellChecker {
 		);
 
 		if ( 'on' == $this->options['text_editor'] || 'on' == $this->options['excerpt_field'] ) {
-			add_action( 'admin_enqueue_scripts', array( $this, 'register_scripts' ) );
+			add_action( 'admin_enqueue_scripts', array( $this, 'register_textarea_scayt' ) );
 		}
 
 		if ( 'on' == $this->options['visual_editor'] ) {
-			add_filter( 'tiny_mce_before_init', array( $this, 'scayt_init' ) );
+			$this->init_tinymce_scayt();
 		}
 
 		do_action( 'wsc_loaded' );
@@ -54,7 +54,7 @@ final class WebSpellChecker {
 		require_once dirname( __FILE__ ) . '/includes/class-wsc-settings.php';
 	}
 
-	public function register_scripts() {
+	public function register_textarea_scayt() {
 		wp_enqueue_script( 'webspellchecker_hosted', 'http://svc.webspellchecker.net/spellcheck31/lf/scayt3/scayt/scayt.js' );
 		wp_enqueue_script( 'webspellchecker', plugin_dir_url( __FILE__ ) . '/assets/scayt.js', array(), '', true );
 		wp_localize_script( 'webspellchecker', 'webSpellChecker',
@@ -64,10 +64,19 @@ final class WebSpellChecker {
 		);
 	}
 
-	public function scayt_init( $init ) {
-		$scayt_init = array(
-			'plugins'                     => $init['plugins'] . ',' . 'scayt link image table contextmenu',
-			'toolbar5'                    => 'scayt undo redo | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist | link image',
+	public function init_tinymce_scayt() {
+		add_action( 'after_wp_tiny_mce', array( $this, 'register_tinymce_scayt_plugin' ) );
+		add_filter( 'tiny_mce_before_init', array( $this, 'update_tiny_mce_init_settings' ) );
+	}
+
+	public function register_tinymce_scayt_plugin() {
+		printf( '<script type="text/javascript" src="%s"></script>', plugin_dir_url( __FILE__ ) . '/assets/tinymce_scayt.js' );
+	}
+
+	public function update_tiny_mce_init_settings( $init ) {
+		$scayt_settings = array(
+			'plugins'                     => $init['plugins'] . ',' . 'scayt',
+			'toolbar4'                    => "scayt",
 			'scayt_autoStartup'           => true,
 			'scayt_customerId'            => WSC_Settings::TRIAL_CUSTOMER_ID,
 			'scayt_moreSuggestions'       => 'on',
@@ -83,7 +92,7 @@ final class WebSpellChecker {
 			'scayt_elementsToIgnore'      => "del,pre"
 		);
 
-		return array_merge( $init, $scayt_init );
+		return array_merge( $init, $scayt_settings );
 	}
 }
 

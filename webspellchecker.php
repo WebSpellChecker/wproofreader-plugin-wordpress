@@ -3,8 +3,8 @@
  * Plugin Name: WebSpellChecker
  * Description: WebSpellChecker extension for Wordpress
  * Version:     1.0
- * Author:      WebSpellChecker LLC
- * Author URI:  http://www.webspellchecker.net/
+ * Author:      TeamDev Ltd
+ * Author URI:  https://www.teamdev.com/
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -38,7 +38,7 @@ final class WebSpellChecker {
 			'spell-checker-settings'
 		);
 
-		if ( 'on' == $this->options['text_editor'] ) {
+		if ( 'on' == $this->options['text_editor'] || 'on' == $this->options['excerpt_field'] ) {
 			add_action( 'admin_enqueue_scripts', array( $this, 'register_scripts' ) );
 		}
 
@@ -82,7 +82,6 @@ final class WebSpellChecker {
 			'scayt_context_mode'          => "default",
 			'scayt_elementsToIgnore'      => "del,pre"
 		);
-		$new_init   = array_merge( $init, $scayt_init );
 
 		return array_merge( $init, $scayt_init );
 	}

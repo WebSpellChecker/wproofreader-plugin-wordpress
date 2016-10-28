@@ -17,8 +17,9 @@ final class WebSpellChecker {
 
 	private $settings;
 
+	protected $options;
+
 	public static function instance() {
-		// If an instance hasn't been created and set to $instance create an instance and set it to $instance.
 		if ( null == self::$instance ) {
 			self::$instance = new self;
 		}
@@ -28,13 +29,23 @@ final class WebSpellChecker {
 
 	public function __construct() {
 		$this->includes();
+
+		$this->options = get_option( WSC_Settings::OPTION_NAME );
+
 		$this->settings = new WSC_Settings(
 			__( 'Spell Shecker Settings', 'webspellchecker' ),
 			__( 'Spell Shecker', 'webspellchecker' ),
 			'spell-checker-settings'
 		);
 
-		add_action( 'admin_enqueue_scripts', array( $this, 'register_scripts' ) );
+		if ( 'on' == $this->options['text_editor'] ) {
+			add_action( 'admin_enqueue_scripts', array( $this, 'register_scripts' ) );
+		}
+
+		if ( 'on' == $this->options['visual_editor'] ) {
+			add_filter( 'tiny_mce_before_init', array( $this, 'scayt_init' ) );
+		}
+
 		do_action( 'wsc_loaded' );
 	}
 
@@ -44,21 +55,36 @@ final class WebSpellChecker {
 	}
 
 	public function register_scripts() {
-		$spellchecker_options = get_option( WSC_Settings::OPTION_NAME );
-		$hosted_src           = ''; // todo wsc url
-		$spellchecker_init    = 'wsc.js';
-		if ( 'scayt' == $spellchecker_options['type'] ) {
-			$hosted_src        = 'http://svc.webspellchecker.net/spellcheck31/lf/scayt3/scayt/scayt.js';
-			$spellchecker_init = 'scayt.js';
-		}
-		wp_enqueue_script( 'webspellchecker_hosted', $hosted_src );
-		wp_enqueue_script( 'webspellchecker', plugin_dir_url( __FILE__ ) . '/assets/' . $spellchecker_init, array(), '', true );
-
+		wp_enqueue_script( 'webspellchecker_hosted', 'http://svc.webspellchecker.net/spellcheck31/lf/scayt3/scayt/scayt.js' );
+		wp_enqueue_script( 'webspellchecker', plugin_dir_url( __FILE__ ) . '/assets/scayt.js', array(), '', true );
 		wp_localize_script( 'webspellchecker', 'webSpellChecker',
 			array(
-				'options' => $spellchecker_options
+				'options' => $this->options
 			)
 		);
+	}
+
+	public function scayt_init( $init ) {
+		$scayt_init = array(
+			'plugins'                     => $init['plugins'] . ',' . 'scayt link image table contextmenu',
+			'toolbar5'                    => 'scayt undo redo | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist | link image',
+			'scayt_autoStartup'           => true,
+			'scayt_customerId'            => WSC_Settings::TRIAL_CUSTOMER_ID,
+			'scayt_moreSuggestions'       => 'on',
+			'scayt_contextCommands'       => "add,ignore",
+			'scayt_contextMenuItemsOrder' => "control,moresuggest,suggest",
+			'scayt_maxSuggestions'        => 6,
+			'scayt_minWordLength'         => 4,
+			'scayt_slang'                 => "en_US",
+			'scayt_uiTabs'                => "1,0,1",
+			'scayt_customDictionaryIds'   => "1,3001",
+			'scayt_userDictionaryName'    => "test_dic",
+			'scayt_context_mode'          => "default",
+			'scayt_elementsToIgnore'      => "del,pre"
+		);
+		$new_init   = array_merge( $init, $scayt_init );
+
+		return array_merge( $init, $scayt_init );
 	}
 }
 

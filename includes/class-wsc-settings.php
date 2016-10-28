@@ -8,6 +8,7 @@ if ( ! class_exists( 'WeDevs_Settings_API_Test' ) ):
 	class WSC_Settings {
 
 		const OPTION_NAME = 'wsc';
+		const TRIAL_CUSTOMER_ID = '1:nduHS3-xuxDG1-jCbTv4-mn7Il4-kRrAg3-nT2s44-3bH6Q3-LlSLf-ALWjs3-xBM9g2-EEfe53-Yv9';
 
 		/**
 		 * @var WeDevs_Settings_API
@@ -67,9 +68,9 @@ if ( ! class_exists( 'WeDevs_Settings_API_Test' ) ):
 					array(
 						'name'              => 'customer_id',
 						'label'             => __( 'Customer ID', 'webspellchecker' ),
-						'desc'              => __( 'Leave empty for 30-day free trial', 'webspellchecker' ),
+						'desc'              => __( 'For 30-day free trial', 'webspellchecker' ),
 						'type'              => 'text',
-						'default'           => '',
+						'default'           => self::TRIAL_CUSTOMER_ID,
 						'sanitize_callback' => 'sanitize_text_field'
 					),
 					array(
@@ -86,16 +87,6 @@ if ( ! class_exists( 'WeDevs_Settings_API_Test' ) ):
 						'name'  => 'excerpt_field',
 						'label' => __( 'Enable on excerpt field', 'webspellchecker' ),
 						'type'  => 'checkbox'
-					),
-					array(
-						'name'    => 'type',
-						'label'   => __( 'Spell Check Type', 'webspellchecker' ),
-						'type'    => 'radio',
-						'default' => 'scayt',
-						'options' => array(
-							'scayt' => 'SCAYT (SpellCheckAsYouType)',
-							'wsc'   => 'WSC (WebSpellChecker)'
-						)
 					),
 				)
 			);

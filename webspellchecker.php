@@ -56,8 +56,7 @@ final class WebSpellChecker {
 
 	public function register_textarea_scayt() {
 		wp_enqueue_script( 'webspellchecker_hosted', 'http://svc.webspellchecker.net/spellcheck31/lf/scayt3/scayt/scayt.js' );
-		wp_enqueue_script( 'webspellchecker', plugin_dir_url( __FILE__ ) . '/assets/scayt_textarea.js', array(), '', true );
-		wp_localize_script( 'webspellchecker', 'webSpellChecker',
+		wp_localize_script( 'webspellchecker_hosted', 'webSpellChecker',
 			array(
 				'options' => $this->options
 			)
@@ -72,6 +71,7 @@ final class WebSpellChecker {
 	public function register_tinymce_plugins() {
 		printf( '<script type="text/javascript" src="%s"></script>', plugin_dir_url( __FILE__ ) . '/assets/tinymce/scayt/plugin.js' );
 		printf( '<script type="text/javascript" src="%s"></script>', plugin_dir_url( __FILE__ ) . '/assets/tinymce/contextmenu/plugin.js' );
+		printf( '<script type="text/javascript" src="%s"></script>', plugin_dir_url( __FILE__ ) . '/assets/scayt_textarea.js' );
 	}
 
 	public function add_scayt_init_settings( $init ) {

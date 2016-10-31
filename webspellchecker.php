@@ -90,7 +90,8 @@ final class WebSpellChecker {
 			'scayt_customDictionaryIds'   => "1,3001",
 			'scayt_userDictionaryName'    => "test_dic",
 			'scayt_context_mode'          => "default",
-			'scayt_elementsToIgnore'      => "del,pre"
+			'scayt_elementsToIgnore'      => "del,pre",
+			'browser_spellcheck'          => false
 		);
 
 		return array_merge( $init, $scayt_settings );

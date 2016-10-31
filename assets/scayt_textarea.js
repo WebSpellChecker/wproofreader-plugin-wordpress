@@ -3,36 +3,10 @@
     var SCAYTElements = [];
     var availableEditors = [
         {
-            option: webSpellChecker.options.text_editor,
-            element: document.getElementById('content')
-        },
-        {
             option: webSpellChecker.options.excerpt_field,
             element: document.getElementById('excerpt')
         }
     ];
-
-    if (!tinymce && window.tinymce) {
-        tinymce = window.tinymce;
-        $$ = tinymce.$;
-        $$(document).on('click', function (event) {
-            var id, mode,
-                target = $$(event.target);
-            if (target.hasClass('wp-switch-editor')) {
-                id = target.attr('data-wp-editor-id');
-                mode = target.hasClass('switch-tmce') ? 'tmce' : 'html';
-                if ('html' == mode) {
-                    SCAYTElements = initSCAYT(availableEditors);
-                } else {
-                    if (SCAYTElements.length) {
-                        $(SCAYTElements).each(function () {
-                            this.setDisabled(true);
-                        })
-                    }
-                }
-            }
-        });
-    }
 
     function initSCAYT(availableEditors) {
         var elements = [];
@@ -92,9 +66,6 @@
         return elements;
     }
 
-    if( $('#wp-content-wrap').hasClass('html-active') ) {
-
-        initSCAYT(availableEditors);
-    }
+    SCAYTElements = initSCAYT(availableEditors);
 
 }(jQuery));

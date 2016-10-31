@@ -79,11 +79,6 @@ if ( ! class_exists( 'WeDevs_Settings_API_Test' ) ):
 						'type'  => 'checkbox'
 					),
 					array(
-						'name'  => 'text_editor',
-						'label' => __( 'Enable on text editor', 'webspellchecker' ),
-						'type'  => 'checkbox'
-					),
-					array(
 						'name'  => 'excerpt_field',
 						'label' => __( 'Enable on excerpt field', 'webspellchecker' ),
 						'type'  => 'checkbox'

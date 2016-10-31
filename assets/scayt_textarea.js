@@ -1,5 +1,4 @@
 (function($){
-    var tinymce, $$;
     var SCAYTElements = [];
     var availableEditors = [
         {

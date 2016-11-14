@@ -98,11 +98,7 @@ final class WebSpellChecker {
 	}
 
 	public function get_option( $name ) {
-		if ( isset( $this->options[ $name ] ) ) {
-			return $this->options[ $name ];
-		}
-
-		return '';
+		return ( isset( $this->options[ $name ] ) ) ? $this->options[ $name ] : '';
 	}
 }
 

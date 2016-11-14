@@ -38,11 +38,11 @@ final class WebSpellChecker {
 			'spell-checker-settings'
 		);
 
-		if ( 'on' == $this->options['text_editor'] || 'on' == $this->options['excerpt_field'] ) {
+		if ( 'on' == $this->get_option('excerpt_field') ) {
 			add_action( 'admin_enqueue_scripts', array( $this, 'register_textarea_scayt' ) );
 		}
 
-		if ( 'on' == $this->options['visual_editor'] ) {
+		if ( 'on' == $this->get_option('visual_editor') ) {
 			$this->init_tinymce_scayt();
 		}
 
@@ -95,6 +95,14 @@ final class WebSpellChecker {
 		);
 
 		return array_merge( $init, $scayt_settings );
+	}
+
+	public function get_option( $name ) {
+		if ( isset( $this->options[ $name ] ) ) {
+			return $this->options[ $name ];
+		}
+
+		return '';
 	}
 }
 

@@ -105,6 +105,7 @@
 
 		var createScayt = function(editor) {
 			loadScaytLibrary(editor, function(_editor) {
+                            
 				var _scaytInstanceOptions = {
 					debug 				: _editor.getParam('scayt_debug', false),
 					lang 				: _editor.getParam('scayt_sLang'),

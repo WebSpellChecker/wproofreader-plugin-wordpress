@@ -56,7 +56,8 @@ if ( ! class_exists( 'WeDevs_Settings_API_Test' ) ):
 			return $sections;
 		}
 
-		/**
+
+                /**
 		 * Returns all the settings fields
 		 *
 		 * @return array settings fields
@@ -86,7 +87,31 @@ if ( ! class_exists( 'WeDevs_Settings_API_Test' ) ):
 						'name'  => 'title_field',
 						'label' => __( 'Enable on title field', 'webspellchecker' ),
 						'type'  => 'checkbox'
-					)
+					),
+					array(
+						'name'  => 'slang',
+						'label' => __( 'Default language', 'webspellchecker' ),
+						'type'  => 'select',
+                                                'options' => array(
+                                                    'en_US' => 'English',
+                                                    'en_GB' => 'British English',
+                                                    'en_CA' => 'Canadian English',
+                                                    'fr_FR' => 'French',
+                                                    'fr_CA' => 'Canadian French',
+                                                    'de_DE' => 'German',
+                                                    'it_IT' => 'Italian',
+                                                    'pt_PT' => 'Portuguese',
+                                                    'pt_BR' => 'Brazilian Portuguese',
+                                                    'da_DK' => 'Danish',
+                                                    'nl_NL' => 'Dutch',
+                                                    'fi_FI' => 'Finnish',
+                                                    'el_GR' => 'Greek',
+                                                    'nb_NO' => 'Norwegian Bokmal',
+                                                    'es_ES' => 'Spanish',
+                                                    'sv_SE' => 'Swedish',
+                                                ),
+                                                'default' => 'en_US'
+                                        )
 				)
 			);
 

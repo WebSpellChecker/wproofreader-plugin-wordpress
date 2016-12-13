@@ -84,13 +84,13 @@ final class WebSpellChecker {
 			'plugins'                     => $init['plugins'] . ',' . 'scayt,contextmenu',
 			'toolbar4'                    => "scayt",
 			'scayt_autoStartup'           => true,
-			'scayt_customerId'            => $this->get_option( $name, self::TRIAL_CUSTOMER_ID ),
+			'scayt_customerId'            => $this->get_customer_id(),
 			'scayt_moreSuggestions'       => 'on',
 			'scayt_contextCommands'       => "add,ignore",
 			'scayt_contextMenuItemsOrder' => "control,moresuggest,suggest",
 			'scayt_maxSuggestions'        => 6,
 			'scayt_minWordLength'         => 4,
-			'scayt_slang'                 => "en_US",
+			'scayt_slang'                 => $this->get_option('slang'),
 			'scayt_uiTabs'                => "1,0,1",
 			'scayt_customDictionaryIds'   => "1,3001",
 			'scayt_userDictionaryName'    => "test_dic",
@@ -102,6 +102,19 @@ final class WebSpellChecker {
 		return array_merge( $init, $scayt_settings );
 	}
 
+	/**
+         * Get customer ID or trial ID if not set
+         * 
+         * @return string customer ID
+         */
+        public function get_customer_id() {
+            $customer_id = $this->get_option( 'customer_id', self::TRIAL_CUSTOMER_ID );
+            if( empty($customer_id) ) {
+                return self::TRIAL_CUSTOMER_ID;
+            }
+	    return $customer_id;
+	}
+        
 	public function get_option( $name, $default = '' ) {
 		return ( isset( $this->options[ $name ] ) ) ? $this->options[ $name ] : $default;
 	}

@@ -57,7 +57,7 @@
                             suggestionsCount: 3,
                             moreSuggestionsCount: 4,
                             container: this.element,
-                            spellcheckLang: "en_US",
+                            spellcheckLang: webSpellChecker.options.slang,
                             onLoad: function () {
                                 this.setDisabled(true);
                             }

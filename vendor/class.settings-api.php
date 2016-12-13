@@ -276,7 +276,7 @@ class WeDevs_Settings_API {
 
         echo $html;
     }
-
+ 
     /**
      * Displays a selectbox for a settings field
      *

@@ -4,6 +4,10 @@
         {
             option: webSpellChecker.options.excerpt_field,
             element: document.getElementById('excerpt')
+        },
+        {
+            option: webSpellChecker.options.title_field,
+            element: document.getElementById('title')
         }
     ];
 

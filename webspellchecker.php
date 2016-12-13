@@ -13,6 +13,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 final class WebSpellChecker {
 
+        const TRIAL_CUSTOMER_ID = '1:nduHS3-xuxDG1-jCbTv4-mn7Il4-kRrAg3-nT2s44-3bH6Q3-LlSLf-ALWjs3-xBM9g2-EEfe53-Yv9';
+    
 	private static $instance = null;
 
 	private $settings;
@@ -33,20 +35,23 @@ final class WebSpellChecker {
 		$this->options = get_option( WSC_Settings::OPTION_NAME );
 
 		$this->settings = new WSC_Settings(
-			__( 'Spell Shecker Settings', 'webspellchecker' ),
-			__( 'Spell Shecker', 'webspellchecker' ),
+			__( 'Spell Check As You Type (SCAYT) Settings', 'webspellchecker' ),
+			__( 'Spell Check As You Type (SCAYT)', 'webspellchecker' ),
 			'spell-checker-settings'
 		);
 
 		if ( 'on' == $this->get_option('excerpt_field') ) {
 			add_action( 'admin_enqueue_scripts', array( $this, 'register_textarea_scayt' ) );
 		}
+                
+		if ( 'on' == $this->get_option('title_field') ) {
+			add_action( 'admin_enqueue_scripts', array( $this, 'register_textarea_scayt' ) );
+		}
 
 		if ( 'on' == $this->get_option('visual_editor') ) {
 			$this->init_tinymce_scayt();
 		}
-
-		do_action( 'wsc_loaded' );
+                do_action( 'wsc_loaded' );
 	}
 
 	public function includes() {
@@ -55,7 +60,7 @@ final class WebSpellChecker {
 	}
 
 	public function register_textarea_scayt() {
-		wp_enqueue_script( 'webspellchecker_hosted', 'http://svc.webspellchecker.net/spellcheck31/lf/scayt3/scayt/scayt.js' );
+                wp_enqueue_script( 'webspellchecker_hosted', 'http://svc.webspellchecker.net/spellcheck31/lf/scayt3/scayt/scayt.js' );
 		wp_localize_script( 'webspellchecker_hosted', 'webSpellChecker',
 			array(
 				'options' => $this->options
@@ -79,7 +84,7 @@ final class WebSpellChecker {
 			'plugins'                     => $init['plugins'] . ',' . 'scayt,contextmenu',
 			'toolbar4'                    => "scayt",
 			'scayt_autoStartup'           => true,
-			'scayt_customerId'            => WSC_Settings::TRIAL_CUSTOMER_ID,
+			'scayt_customerId'            => $this->get_option( $name, self::TRIAL_CUSTOMER_ID ),
 			'scayt_moreSuggestions'       => 'on',
 			'scayt_contextCommands'       => "add,ignore",
 			'scayt_contextMenuItemsOrder' => "control,moresuggest,suggest",
@@ -97,8 +102,8 @@ final class WebSpellChecker {
 		return array_merge( $init, $scayt_settings );
 	}
 
-	public function get_option( $name ) {
-		return ( isset( $this->options[ $name ] ) ) ? $this->options[ $name ] : '';
+	public function get_option( $name, $default = '' ) {
+		return ( isset( $this->options[ $name ] ) ) ? $this->options[ $name ] : $default;
 	}
 }
 

@@ -7,8 +7,7 @@
 if ( ! class_exists( 'WeDevs_Settings_API_Test' ) ):
 	class WSC_Settings {
 
-		const OPTION_NAME = 'wsc';
-		const TRIAL_CUSTOMER_ID = '1:nduHS3-xuxDG1-jCbTv4-mn7Il4-kRrAg3-nT2s44-3bH6Q3-LlSLf-ALWjs3-xBM9g2-EEfe53-Yv9';
+		const OPTION_NAME = 'wsc';		
 
 		/**
 		 * @var WeDevs_Settings_API
@@ -70,7 +69,7 @@ if ( ! class_exists( 'WeDevs_Settings_API_Test' ) ):
 						'label'             => __( 'Customer ID', 'webspellchecker' ),
 						'desc'              => __( 'For 30-day free trial', 'webspellchecker' ),
 						'type'              => 'text',
-						'default'           => self::TRIAL_CUSTOMER_ID,
+						'default'           => '',
 						'sanitize_callback' => 'sanitize_text_field'
 					),
 					array(
@@ -83,6 +82,11 @@ if ( ! class_exists( 'WeDevs_Settings_API_Test' ) ):
 						'label' => __( 'Enable on excerpt field', 'webspellchecker' ),
 						'type'  => 'checkbox'
 					),
+					array(
+						'name'  => 'title_field',
+						'label' => __( 'Enable on title field', 'webspellchecker' ),
+						'type'  => 'checkbox'
+					)
 				)
 			);
 

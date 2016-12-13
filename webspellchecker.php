@@ -35,8 +35,8 @@ final class WebSpellChecker {
 		$this->options = get_option( WSC_Settings::OPTION_NAME );
 
 		$this->settings = new WSC_Settings(
-			__( 'Spell Check As You Type (SCAYT) Settings', 'webspellchecker' ),
-			__( 'Spell Check As You Type (SCAYT)', 'webspellchecker' ),
+			__( 'WebSpellChecker', 'webspellchecker' ),
+			__( 'WebSpellChecker', 'webspellchecker' ),
 			'spell-checker-settings'
 		);
 

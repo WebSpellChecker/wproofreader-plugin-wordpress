@@ -68,7 +68,7 @@ if ( ! class_exists( 'WeDevs_Settings_API_Test' ) ):
 					array(
 						'name'              => 'customer_id',
 						'label'             => __( 'Customer ID', 'webspellchecker' ),
-						'desc'              => __( 'For 30-day free trial', 'webspellchecker' ),
+						'desc'              => __( 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s', 'webspellchecker' ),
 						'type'              => 'text',
 						'default'           => '',
 						'sanitize_callback' => 'sanitize_text_field'

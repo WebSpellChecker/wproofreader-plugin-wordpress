@@ -1,10 +1,13 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly.
+}
 
 /**
  * WordPress settings API class
  *
  */
-if ( ! class_exists( 'WeDevs_Settings_API_Test' ) ):
+if ( ! class_exists( 'WeDevs_Settings_API_Test' ) ) {
 	class WSC_Settings {
 
 		const OPTION_NAME = 'wsc';		
@@ -29,7 +32,6 @@ if ( ! class_exists( 'WeDevs_Settings_API_Test' ) ):
 		}
 
 		function admin_init() {
-
 			//set the settings
 			$this->settings_api->set_sections( $this->get_settings_sections() );
 			$this->settings_api->set_fields( $this->get_settings_fields() );
@@ -56,12 +58,11 @@ if ( ! class_exists( 'WeDevs_Settings_API_Test' ) ):
 			return $sections;
 		}
 
-
-                /**
-		 * Returns all the settings fields
-		 *
-		 * @return array settings fields
-		 */
+		/**
+		* Returns all the settings fields
+		*
+		* @return array settings fields
+		*/
 		function get_settings_fields() {
 			$settings_fields = array(
 				'wsc' => array(
@@ -83,35 +84,35 @@ if ( ! class_exists( 'WeDevs_Settings_API_Test' ) ):
 						'label' => __( 'Enable on excerpt field', 'webspellchecker' ),
 						'type'  => 'checkbox'
 					),
-					array(
+					/*array(
 						'name'  => 'title_field',
 						'label' => __( 'Enable on title field', 'webspellchecker' ),
 						'type'  => 'checkbox'
-					),
+					),*/
 					array(
-						'name'  => 'slang',
-						'label' => __( 'Default language', 'webspellchecker' ),
-						'type'  => 'select',
-                                                'options' => array(
-                                                    'en_US' => 'English',
-                                                    'en_GB' => 'British English',
-                                                    'en_CA' => 'Canadian English',
-                                                    'fr_FR' => 'French',
-                                                    'fr_CA' => 'Canadian French',
-                                                    'de_DE' => 'German',
-                                                    'it_IT' => 'Italian',
-                                                    'pt_PT' => 'Portuguese',
-                                                    'pt_BR' => 'Brazilian Portuguese',
-                                                    'da_DK' => 'Danish',
-                                                    'nl_NL' => 'Dutch',
-                                                    'fi_FI' => 'Finnish',
-                                                    'el_GR' => 'Greek',
-                                                    'nb_NO' => 'Norwegian Bokmal',
-                                                    'es_ES' => 'Spanish',
-                                                    'sv_SE' => 'Swedish',
-                                                ),
-                                                'default' => 'en_US'
-                                        )
+						'name'    => 'slang',
+						'label'   => __( 'Default language', 'webspellchecker' ),
+						'type'    => 'select',
+						'options' => array(
+							'en_US' => 'English',
+							'en_GB' => 'British English',
+							'en_CA' => 'Canadian English',
+							'fr_FR' => 'French',
+							'fr_CA' => 'Canadian French',
+							'de_DE' => 'German',
+							'it_IT' => 'Italian',
+							'pt_PT' => 'Portuguese',
+							'pt_BR' => 'Brazilian Portuguese',
+							'da_DK' => 'Danish',
+							'nl_NL' => 'Dutch',
+							'fi_FI' => 'Finnish',
+							'el_GR' => 'Greek',
+							'nb_NO' => 'Norwegian Bokmal',
+							'es_ES' => 'Spanish',
+							'sv_SE' => 'Swedish',
+						),
+						'default' => 'en_US'
+					),
 				)
 			);
 
@@ -123,7 +124,6 @@ if ( ! class_exists( 'WeDevs_Settings_API_Test' ) ):
 			echo "<h1>$this->page_title</h1>";
 			$this->settings_api->show_navigation();
 			$this->settings_api->show_forms();
-
 			echo '</div>';
 		}
 
@@ -143,5 +143,7 @@ if ( ! class_exists( 'WeDevs_Settings_API_Test' ) ):
 
 			return $pages_options;
 		}
+
 	}
-endif;
+
+}

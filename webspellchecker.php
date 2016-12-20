@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: WebSpellChecker
- * Description: WebSpellChecker extension for Wordpress
+ * Description: Make sure that your texts are accurate and mistakes free. Check your Spelling with WebSpellChecker plugin.
  * Version:     1.0
  * Author:      TeamDev Ltd
  * Author URI:  https://www.teamdev.com/
@@ -13,8 +13,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 final class WebSpellChecker {
 
-        const TRIAL_CUSTOMER_ID = '1:nduHS3-xuxDG1-jCbTv4-mn7Il4-kRrAg3-nT2s44-3bH6Q3-LlSLf-ALWjs3-xBM9g2-EEfe53-Yv9';
-    
+	const TRIAL_CUSTOMER_ID = '1:nduHS3-xuxDG1-jCbTv4-mn7Il4-kRrAg3-nT2s44-3bH6Q3-LlSLf-ALWjs3-xBM9g2-EEfe53-Yv9';
+
 	private static $instance = null;
 
 	private $settings;
@@ -33,6 +33,7 @@ final class WebSpellChecker {
 		$this->includes();
 
 		$this->options = get_option( WSC_Settings::OPTION_NAME );
+		$this->options['customer_id'] = $this->get_customer_id();
 
 		$this->settings = new WSC_Settings(
 			__( 'WebSpellChecker', 'webspellchecker' ),
@@ -40,18 +41,21 @@ final class WebSpellChecker {
 			'spell-checker-settings'
 		);
 
-		if ( 'on' == $this->get_option('excerpt_field') ) {
-			add_action( 'admin_enqueue_scripts', array( $this, 'register_textarea_scayt' ) );
-		}
-                
-		if ( 'on' == $this->get_option('title_field') ) {
+		if ( 'on' == $this->get_option( 'excerpt_field' ) ) {
 			add_action( 'admin_enqueue_scripts', array( $this, 'register_textarea_scayt' ) );
 		}
 
-		if ( 'on' == $this->get_option('visual_editor') ) {
+		/*
+		if ( 'on' == $this->get_option( 'title_field' ) ) {
+			add_action( 'admin_enqueue_scripts', array( $this, 'register_textarea_scayt' ) );
+		}
+		*/
+
+		if ( 'on' == $this->get_option( 'visual_editor' ) ) {
 			$this->init_tinymce_scayt();
 		}
-                do_action( 'wsc_loaded' );
+
+		do_action( 'wsc_loaded' );
 	}
 
 	public function includes() {
@@ -60,7 +64,13 @@ final class WebSpellChecker {
 	}
 
 	public function register_textarea_scayt() {
-                wp_enqueue_script( 'webspellchecker_hosted', 'http://svc.webspellchecker.net/spellcheck31/lf/scayt3/scayt/scayt.js' );
+		if ( is_ssl() ) {
+			$_port = "https";
+		} else {
+			$_port = "https";
+		}
+
+		wp_enqueue_script( 'webspellchecker_hosted', $_port . '://svc.webspellchecker.net/spellcheck31/lf/scayt3/scayt/scayt.js' );
 		wp_localize_script( 'webspellchecker_hosted', 'webSpellChecker',
 			array(
 				'options' => $this->options
@@ -74,9 +84,9 @@ final class WebSpellChecker {
 	}
 
 	public function register_tinymce_plugins() {
-		printf( '<script type="text/javascript" src="%s"></script>', plugin_dir_url( __FILE__ ) . '/assets/tinymce/scayt/plugin.js' );
-		printf( '<script type="text/javascript" src="%s"></script>', plugin_dir_url( __FILE__ ) . '/assets/tinymce/contextmenu/plugin.js' );
-		printf( '<script type="text/javascript" src="%s"></script>', plugin_dir_url( __FILE__ ) . '/assets/scayt_textarea.js' );
+		printf( '<script type="text/javascript" src="%s"></script>', plugin_dir_url( __FILE__ ) . 'assets/tinymce/scayt/plugin.js' );
+		printf( '<script type="text/javascript" src="%s"></script>', plugin_dir_url( __FILE__ ) . 'assets/tinymce/contextmenu/plugin.js' );
+		printf( '<script type="text/javascript" src="%s"></script>', plugin_dir_url( __FILE__ ) . 'assets/scayt_textarea.js' );
 	}
 
 	public function add_scayt_init_settings( $init ) {
@@ -103,21 +113,23 @@ final class WebSpellChecker {
 	}
 
 	/**
-         * Get customer ID or trial ID if not set
-         * 
-         * @return string customer ID
-         */
-        public function get_customer_id() {
-            $customer_id = $this->get_option( 'customer_id', self::TRIAL_CUSTOMER_ID );
-            if( empty($customer_id) ) {
-                return self::TRIAL_CUSTOMER_ID;
-            }
-	    return $customer_id;
+	* Get customer ID or trial ID if not set
+	* 
+	* @return string customer ID
+	*/
+	public function get_customer_id() {
+		$customer_id = $this->get_option( 'customer_id', self::TRIAL_CUSTOMER_ID );
+		if( empty( $customer_id ) ) {
+		    return self::TRIAL_CUSTOMER_ID;
+		}
+
+		return $customer_id;
 	}
-        
+
 	public function get_option( $name, $default = '' ) {
 		return ( isset( $this->options[ $name ] ) ) ? $this->options[ $name ] : $default;
 	}
+
 }
 
 function WSC() {

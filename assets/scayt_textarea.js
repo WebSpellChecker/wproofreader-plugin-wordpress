@@ -4,21 +4,23 @@
         {
             option: webSpellChecker.options.excerpt_field,
             element: document.getElementById('excerpt')
-        },
+        }/*,
         {
             option: webSpellChecker.options.title_field,
             element: document.getElementById('title')
-        }
+        }*/
     ];
 
     function initSCAYT(availableEditors) {
         var elements = [];
+        var protocol = document.location.protocol;
+        var serviceProtocol = protocol.search(/https?:/) !== -1 ? protocol : 'http:';
         $(availableEditors).each(function () {
             if ('on' == this.option && this.element) {
                 elements.push(
                     new SCAYT.SCAYT(
                         {
-                            serviceProtocol: "http",
+                            serviceProtocol: serviceProtocol,
                             serviceHost: "svc.webspellchecker.net",
                             servicePort: "80",
                             servicePath: "spellcheck31/script/ssrv.cgi",
@@ -70,5 +72,4 @@
     }
 
     SCAYTElements = initSCAYT(availableEditors);
-
 }(jQuery));

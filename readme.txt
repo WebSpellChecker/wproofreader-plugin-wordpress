@@ -20,14 +20,14 @@ WebSpellChecker plugin uses hosted services for spelling check called which are 
 == Installation ==
 = From your WordPress dashboard =
 
-1. Visit \'Plugins > Add New\'.
-2. Search for \'WebSpellChecker\'.
+1. Visit 'Plugins > Add New'.
+2. Search for 'WebSpellChecker'.
 3. Activate WebSpellChecker from your Plugins page.
 
 = From WordPress.org =
 
 1. Download WebSpellChecker plugin.
-2. Upload the \'webspellchecker\' directory to your \'/wp-content/plugins/\' directory, using your favorite method (ftp, sftp, scp, etc...)
+2. Upload the 'webspellchecker' directory to your '/wp-content/plugins/' directory, using your favorite method (ftp, sftp, scp, etc...)
 3. Activate WebSpellChecker from your Plugins page.
 
 == Frequently Asked Questions ==

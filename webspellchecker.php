@@ -136,4 +136,6 @@ function WSC() {
 	return WebSpellChecker::instance();
 }
 
-WSC();
+if( is_admin() ) {
+	WSC();
+}

@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 final class WebSpellChecker {
 
-	const TRIAL_CUSTOMER_ID = '1:nduHS3-xuxDG1-jCbTv4-mn7Il4-kRrAg3-nT2s44-3bH6Q3-LlSLf-ALWjs3-xBM9g2-EEfe53-Yv9';
+	const TRIAL_CUSTOMER_ID = '1:9FQtP2-Vxqyz-i6Vlu3-u7Tj93-szxKY-URZbD3-1r2284-QGU7r3-4LWtp2-b3T1Z-vBGUS-1Kc';
 
 	private static $instance = null;
 

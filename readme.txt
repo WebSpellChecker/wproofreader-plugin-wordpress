@@ -1,5 +1,5 @@
 === WebSpellChecker ===
-Contributors: teamdev-ltd
+Contributors: teamdev-ltd, webspellchecker
 Tags: spell checker, spellcheck, spelling check, spelling check as you type, spelling mistakes, spelling errors, WP spellchecker, WordPress SpellChecker, WordPress SpellCheck, correct spellings, improve spelling, multi-language spellchecker, SpellCheck plugin
 Donate link: http://www.webspellchecker.net/
 Requires at least: 4.4

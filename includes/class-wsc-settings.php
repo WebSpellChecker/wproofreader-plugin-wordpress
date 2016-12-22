@@ -69,7 +69,7 @@ if ( ! class_exists( 'WeDevs_Settings_API_Test' ) ) {
 					array(
 						'name'              => 'customer_id',
 						'label'             => __( 'Customer ID', 'webspellchecker' ),
-						'desc'              => __( 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s', 'webspellchecker' ),
+						'desc'              => __( 'Upgrade to WebSpellChecker Pro to get rid of banner ad and spell checking across list of your websites with no usage limitations. Subscribe for paid version of the WebSpellChecker service on <a href="https://www.webspellchecker.net/signup/hosted-signup.html#scayt-paid" target="_blank">here</a>.', 'webspellchecker' ),
 						'type'              => 'text',
 						'default'           => '',
 						'sanitize_callback' => 'sanitize_text_field'

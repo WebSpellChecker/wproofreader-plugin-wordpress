@@ -8,7 +8,7 @@ Stable tag: trunk
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
-Make sure that your texts are accurate and mistakes free. Check your Spelling with WebSpellChecker  plugin.
+Make sure that your texts are accurate and mistakes free. Check your Spelling with WebSpellChecker plugin.
 
 == Description ==
 WebSpellChecker plugin for WordPress allows to see and correct your spelling mistakes while you typing. No more manual checking of your texts for spelling mistakes with the multi-language spell checking mechanism integrated into your website. 
@@ -75,9 +75,8 @@ At the moment WebSpellChecker plugin is aimed at spelling check only.
 Support service is provided by WebSpellChecker LLC technical team and available for Premium (Pro) users. Contact us at support@webspellchecker.net.
 
 == Screenshots ==
-1. Plugin Settings
-2. Spelling Check on Visual Editor
-3. Spelling Check on Excerpt Field
+1. Plugin Settings Page.
+2. Spelling Check in Action.
 
 == Changelog ==
 = 1.0 = 

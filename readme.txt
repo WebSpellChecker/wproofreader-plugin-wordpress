@@ -11,11 +11,11 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 Make sure that your texts are accurate and mistakes free. Check your Spelling with WebSpellChecker plugin.
 
 == Description ==
-WebSpellChecker plugin for WordPress allows to see and correct your spelling mistakes while you typing. No more manual checking of your texts for spelling mistakes with the multi-language spell checking mechanism integrated into your website. 
+WebSpellChecker plugin for WordPress allows to see and correct your spelling mistakes while you are typing. No need for manual checking of your texts for spelling mistakes: the multi-language spell checking mechanism integrated into your website will do it for you.
 
-The free version of WebSpellChecker plugin is available with a banner add and limited to 5,000 sessions per month. With the Premium (Pro) version you can spelling check across list of your websites with no usage limitation.
+The free version of WebSpellChecker plugin is available with a banner ad and it is limited to 5,000 sessions per month. With the Pro version you can check spelling across a list of your websites with no usage limitation.
 
-WebSpellChecker plugin uses hosted services for spelling check called which are provided by WebSpellChecker LLC company. In order to migrate to Premium (Pro) version of WebSpellChecker plugin, you need to subscribe to Hosted Paid WebSpellChecker services on WebSpellChecker.net website.
+WebSpellChecker plugin uses hosted spelling checking services provided by WebSpellChecker LLC company. In order to migrate to Pro version of WebSpellChecker plugin, you need to subscribe to the Hosted Services on WebSpellChecker.net website.
 
 == Installation ==
 = From your WordPress dashboard =
@@ -33,7 +33,7 @@ WebSpellChecker plugin uses hosted services for spelling check called which are 
 == Frequently Asked Questions ==
 = What is Customer ID? =
 
-Customer ID is a special key that is required for migration Premium (Pro) version of WebSpellChecker plugin. This key can be obtained after paid subscription for Hosted WebSpellChecker services on webspellchecker.net website. Customer ID of Premium (Pro) version can be used on multiply number of your websites.
+Customer ID is a special key that is required for migration to Pro version of WebSpellChecker plugin. This key can be obtained with a subscription for the Hosted Services on webspellchecker.net website. Customer ID of Pro version can be used on multiple websites.
 
 = Can WebSpellChecker plugin check the entire website? =
 
@@ -41,7 +41,7 @@ By default WebSpellChecker plugin can be enabled on Visual Editor and excerpt fi
 
 = What other languages are available for WebSpellChecker plugin? =
 
-By default SCAYT supports 16 languages: 
+By default our plugin supports 16 languages:
 
 * Brazilian Portuguese
 * British English
@@ -60,11 +60,11 @@ By default SCAYT supports 16 languages:
 * Spanish
 * Swedish
 
-Also, with the Premium (Pro) version, the default list of languages can be extended with more than 140 additional languages.
+Also, with the Pro version, the default list of languages can be extended with more than 140 additional languages.
 
 = How can I create a personal dictionary? =
 
-WebSpellChecker plugin has a special functionality called User Dictionary. It allows creating personal dictionaries with custom words (complex words, acronyms, proper names etc.) and use it across you website. All words added to a personal dictionary will not be considered as misspellings. In order to create a new personal dictionary go to Options –> User Dictionary –> Enter a personal dictionary name –> Click Create. All new words will be added to a newly created dictionary.
+WebSpellChecker plugin has a special functionality called User Dictionary. It allows creating personal dictionaries with custom words (complex words, acronyms, proper names etc.) and using them across you website. All words added to a personal dictionary will not be considered misspellings. In order to create a new personal dictionary go to Options –> User Dictionary –> Enter a personal dictionary name –> Click Create.
 
 = Can I check Grammar with this plugin as well? =
 
@@ -72,7 +72,7 @@ At the moment WebSpellChecker plugin is aimed at spelling check only.
 
 = Is support provided with this plugin? =
 
-Support service is provided by WebSpellChecker LLC technical team and available for Premium (Pro) users. Contact us at support@webspellchecker.net.
+Support service is provided by WebSpellChecker LLC technical team and is available for Pro users. Contact us at support@webspellchecker.net.
 
 == Screenshots ==
 1. Plugin Settings Page.

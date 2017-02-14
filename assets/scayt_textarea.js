@@ -1,4 +1,5 @@
 (function($){
+    
     var SCAYTElements = [];
     var availableEditors = [
         {
@@ -70,5 +71,36 @@
     }
 
     SCAYTElements = initSCAYT(availableEditors);
+    
+    
+    // ACF
+    if( webSpellChecker.options.acf_fields == 'on' ) {
+        var acfFields = $('.wsc_field');
+        acfFields.each( function( inx, el ){
+            var elementId = $(el).data('id');
+            availableEditors.push( {
+                option: 'on',
+                element: document.getElementById( elementId )
+            } );
+        });
+    }
+    
+    // Yoast
+    setTimeout(function(){ after_page_load() }, 1500);
+    function after_page_load(){
+        availableEditors.push(
+            {
+                option: webSpellChecker.options.yoast_title_field,
+                element: document.getElementById('snippet-editor-title')
+            },
+            {
+                option: webSpellChecker.options.yoast_description_field,
+                element: document.getElementById('snippet-editor-meta-description')
+            }
+        );
+
+        SCAYTElements = initSCAYT(availableEditors);
+    }
+    
 
 }(jQuery));

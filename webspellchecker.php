@@ -17,6 +17,8 @@ final class WebSpellChecker {
     
 	private static $instance = null;
 
+	private $js_added = false;
+	
 	private $settings;
 
 	protected $options;
@@ -39,19 +41,28 @@ final class WebSpellChecker {
 			__( 'WebSpellChecker', 'webspellchecker' ),
 			'spell-checker-settings'
 		);
+		
+		// text and textarea fields
+		foreach ($this->options as $option => $on ) {
+			if( $option !== 'visual_editor' && $on === 'on' ){
+				add_action( 'admin_enqueue_scripts', array( $this, 'register_textarea_scayt' ) );
+				$this->init_scayt_js();
+				break;
+			}
+		}	
 
-		if ( 'on' == $this->get_option('excerpt_field') ) {
-			add_action( 'admin_enqueue_scripts', array( $this, 'register_textarea_scayt' ) );
-		}
-                
-		if ( 'on' == $this->get_option('title_field') ) {
-			add_action( 'admin_enqueue_scripts', array( $this, 'register_textarea_scayt' ) );
-		}
-
+		// WYSIWYG
 		if ( 'on' == $this->get_option('visual_editor') ) {
+			add_action( 'admin_enqueue_scripts', array( $this, 'register_textarea_scayt' ) );
 			$this->init_tinymce_scayt();
 		}
-                do_action( 'wsc_loaded' );
+		
+		// ACF
+		if ( 'on' == $this->get_option('acf_fields') ) {
+			add_action( 'acf/create_field', array( $this, 'create_field_for_js' ) );
+		}
+		
+		do_action( 'wsc_loaded' );
 	}
 
 	public function includes() {
@@ -60,14 +71,18 @@ final class WebSpellChecker {
 	}
 
 	public function register_textarea_scayt() {
-                wp_enqueue_script( 'webspellchecker_hosted', 'http://svc.webspellchecker.net/spellcheck31/lf/scayt3/scayt/scayt.js' );
+		wp_enqueue_script( 'webspellchecker_hosted', 'http://svc.webspellchecker.net/spellcheck31/lf/scayt3/scayt/scayt.js' );
 		wp_localize_script( 'webspellchecker_hosted', 'webSpellChecker',
 			array(
-				'options' => $this->options
+				'options' => apply_filters( 'wsc_options_in_js', $this->options )
 			)
 		);
 	}
 
+	public function init_scayt_js() {
+		add_action( 'after_wp_tiny_mce', array( $this, 'add_scayt_js' ) );
+	}
+	
 	public function init_tinymce_scayt() {
 		add_action( 'after_wp_tiny_mce', array( $this, 'register_tinymce_plugins' ) );
 		add_filter( 'tiny_mce_before_init', array( $this, 'add_scayt_init_settings' ) );
@@ -76,7 +91,14 @@ final class WebSpellChecker {
 	public function register_tinymce_plugins() {
 		printf( '<script type="text/javascript" src="%s"></script>', plugin_dir_url( __FILE__ ) . '/assets/tinymce/scayt/plugin.js' );
 		printf( '<script type="text/javascript" src="%s"></script>', plugin_dir_url( __FILE__ ) . '/assets/tinymce/contextmenu/plugin.js' );
-		printf( '<script type="text/javascript" src="%s"></script>', plugin_dir_url( __FILE__ ) . '/assets/scayt_textarea.js' );
+		$this->add_scayt_js();
+	}
+	
+	public function add_scayt_js() {
+		if( !$this->js_added ){
+			printf( '<script type="text/javascript" src="%s"></script>', plugin_dir_url( __FILE__ ) . '/assets/scayt_textarea.js' );
+		}
+		$this->js_added = true;
 	}
 
 	public function add_scayt_init_settings( $init ) {
@@ -118,6 +140,17 @@ final class WebSpellChecker {
 	public function get_option( $name, $default = '' ) {
 		return ( isset( $this->options[ $name ] ) ) ? $this->options[ $name ] : $default;
 	}
+	
+	/**
+	 * Create element with data-id equal acf field id
+	 * @param array $options
+	 */
+	public function create_field_for_js( $options ) {
+		if ( $options['type'] == 'text'  || $options['type'] == 'textarea' ) {
+			echo '<div class="wsc_field" data-id="'.$options['id'].'"></div>';
+		}
+	}
+	
 }
 
 function WSC() {

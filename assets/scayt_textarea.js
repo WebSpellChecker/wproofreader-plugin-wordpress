@@ -14,12 +14,14 @@
 
     function initSCAYT(availableEditors) {
         var elements = [];
+        var protocol = document.location.protocol;
+        var serviceProtocol = protocol.search(/https?:/) !== -1 ? protocol : 'http:';
         $(availableEditors).each(function () {
             if ('on' == this.option && this.element) {
                 elements.push(
                     new SCAYT.SCAYT(
                         {
-                            serviceProtocol: "http",
+                            serviceProtocol: serviceProtocol,
                             serviceHost: "svc.webspellchecker.net",
                             servicePort: "80",
                             servicePath: "spellcheck31/script/ssrv.cgi",
@@ -72,7 +74,6 @@
 
     SCAYTElements = initSCAYT(availableEditors);
     
-    
     // ACF
     if( webSpellChecker.options.acf_fields == 'on' ) {
         var acfFields = $('.wsc_field');
@@ -101,6 +102,5 @@
 
         SCAYTElements = initSCAYT(availableEditors);
     }
-    
 
 }(jQuery));

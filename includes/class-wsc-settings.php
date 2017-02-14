@@ -1,10 +1,13 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly.
+}
 
 /**
  * WordPress settings API class
  *
  */
-if ( ! class_exists( 'WeDevs_Settings_API_Test' ) ):
+if ( ! class_exists( 'WeDevs_Settings_API_Test' ) ) {
 	class WSC_Settings {
 
 		const OPTION_NAME = 'wsc';		
@@ -32,7 +35,6 @@ if ( ! class_exists( 'WeDevs_Settings_API_Test' ) ):
 		}
 		
 		function admin_init() {
-
 			//set the settings
 			$this->settings_api->set_sections( $this->get_settings_sections() );
 			$this->settings_api->set_fields( $this->get_settings_fields() );
@@ -59,19 +61,18 @@ if ( ! class_exists( 'WeDevs_Settings_API_Test' ) ):
 			return $sections;
 		}
 
-
-                /**
-		 * Returns all the settings fields
-		 *
-		 * @return array settings fields
-		 */
+		/**
+		* Returns all the settings fields
+		*
+		* @return array settings fields
+		*/
 		function get_settings_fields() {
 			$settings_fields = array(
 				'wsc' => array(
 					array(
 						'name'              => 'customer_id',
 						'label'             => __( 'Customer ID', 'webspellchecker' ),
-						'desc'              => __( 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s', 'webspellchecker' ),
+						'desc'              => __( 'Upgrade to WebSpellChecker Pro to get rid of banner ad and spell checking across list of your websites with no usage limitations. Subscribe for paid version of the WebSpellChecker service on <a href="https://www.webspellchecker.net/signup/hosted-signup.html#scayt-paid" target="_blank">here</a>.', 'webspellchecker' ),
 						'type'              => 'text',
 						'default'           => '',
 						'sanitize_callback' => 'sanitize_text_field'
@@ -126,7 +127,6 @@ if ( ! class_exists( 'WeDevs_Settings_API_Test' ) ):
 			echo "<h1>$this->page_title</h1>";
 			$this->settings_api->show_navigation();
 			$this->settings_api->show_forms();
-
 			echo '</div>';
 		}
 
@@ -146,6 +146,7 @@ if ( ! class_exists( 'WeDevs_Settings_API_Test' ) ):
 
 			return $pages_options;
 		}
+
 		
 		// todo: create class wsc_acf
 		public function acf_support() {
@@ -183,6 +184,7 @@ if ( ! class_exists( 'WeDevs_Settings_API_Test' ) ):
 			);
 			return $fields;
 		}
-		
+
 	}
-endif;
+
+}

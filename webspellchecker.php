@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: WebSpellChecker
- * Description: WebSpellChecker extension for Wordpress
+ * Description: Make sure that your texts are accurate and mistakes free. Check your Spelling with WebSpellChecker plugin.
  * Version:     1.0
  * Author:      TeamDev Ltd
  * Author URI:  https://www.teamdev.com/
@@ -13,8 +13,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 final class WebSpellChecker {
 
-        const TRIAL_CUSTOMER_ID = '1:nduHS3-xuxDG1-jCbTv4-mn7Il4-kRrAg3-nT2s44-3bH6Q3-LlSLf-ALWjs3-xBM9g2-EEfe53-Yv9';
-    
+	const TRIAL_CUSTOMER_ID = '1:9FQtP2-Vxqyz-i6Vlu3-u7Tj93-szxKY-URZbD3-1r2284-QGU7r3-4LWtp2-b3T1Z-vBGUS-1Kc';
+
 	private static $instance = null;
 
 	private $js_added = false;
@@ -27,7 +27,6 @@ final class WebSpellChecker {
 		if ( null == self::$instance ) {
 			self::$instance = new self;
 		}
-
 		return self::$instance;
 	}
 
@@ -35,6 +34,7 @@ final class WebSpellChecker {
 		$this->includes();
 
 		$this->options = get_option( WSC_Settings::OPTION_NAME );
+		$this->options['customer_id'] = $this->get_customer_id();
 
 		$this->settings = new WSC_Settings(
 			__( 'WebSpellChecker', 'webspellchecker' ),
@@ -71,7 +71,16 @@ final class WebSpellChecker {
 	}
 
 	public function register_textarea_scayt() {
+
 		wp_enqueue_script( 'webspellchecker_hosted', 'http://svc.webspellchecker.net/spellcheck31/lf/scayt3/scayt/scayt.js' );
+
+		if ( is_ssl() ) {
+			$_port = "https";
+		} else {
+			$_port = "https";
+		}
+
+		wp_enqueue_script( 'webspellchecker_hosted', $_port . '://svc.webspellchecker.net/spellcheck31/lf/scayt3/scayt/scayt.js' );
 		wp_localize_script( 'webspellchecker_hosted', 'webSpellChecker',
 			array(
 				'options' => apply_filters( 'wsc_options_in_js', $this->options )
@@ -125,21 +134,23 @@ final class WebSpellChecker {
 	}
 
 	/**
-         * Get customer ID or trial ID if not set
-         * 
-         * @return string customer ID
-         */
-        public function get_customer_id() {
-            $customer_id = $this->get_option( 'customer_id', self::TRIAL_CUSTOMER_ID );
-            if( empty($customer_id) ) {
-                return self::TRIAL_CUSTOMER_ID;
-            }
-	    return $customer_id;
+	* Get customer ID or trial ID if not set
+	* 
+	* @return string customer ID
+	*/
+	public function get_customer_id() {
+		$customer_id = $this->get_option( 'customer_id', self::TRIAL_CUSTOMER_ID );
+		if( empty( $customer_id ) ) {
+		    return self::TRIAL_CUSTOMER_ID;
+		}
+
+		return $customer_id;
 	}
-        
+
 	public function get_option( $name, $default = '' ) {
 		return ( isset( $this->options[ $name ] ) ) ? $this->options[ $name ] : $default;
 	}
+
 	
 	/**
 	 * Create element with data-id equal acf field id
@@ -150,11 +161,13 @@ final class WebSpellChecker {
 			echo '<div class="wsc_field" data-id="'.$options['id'].'"></div>';
 		}
 	}
-	
+
 }
 
 function WSC() {
 	return WebSpellChecker::instance();
 }
 
-WSC();
+if( is_admin() ) {
+	WSC();
+}

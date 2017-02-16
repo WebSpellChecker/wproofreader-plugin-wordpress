@@ -166,7 +166,9 @@ if ( ! class_exists( 'WeDevs_Settings_API_Test' ) ) {
 		
 		// todo: create class wsc_yoast
 		public function yoast_support() {
-			if( in_array('wordpress-seo/wp-seo.php', get_option('active_plugins')) ) {
+			if( is_plugin_active( 'wordpress-seo/wp-seo.php' ) 
+				OR is_plugin_active( 'wordpress-seo-premium/wp-seo-premium.php' ) ) 
+			{
 				add_filter('wsc_admin_fields', array( $this, 'yoast_settings_fields') );
 			}
 		}

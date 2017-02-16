@@ -158,7 +158,7 @@ if ( ! class_exists( 'WeDevs_Settings_API_Test' ) ) {
 		public function acf_settings_fields( $fields ) {
 			$fields['wsc'][] = array(
 				'name'  => 'acf_fields',
-				'label' => __( 'Enable on ACF text and texarea', 'webspellchecker' ),
+				'label' => __( 'Enable on ACF fields', 'webspellchecker' ),
 				'type'  => 'checkbox'
 			);
 			return $fields;
@@ -174,12 +174,12 @@ if ( ! class_exists( 'WeDevs_Settings_API_Test' ) ) {
 		public function yoast_settings_fields( $fields ) {
 			$fields['wsc'][] = array(
 				'name'  => 'yoast_title_field',
-				'label' => __( 'Enable on yoast SEO title', 'webspellchecker' ),
+				'label' => __( 'Enable on Yoast SEO title field', 'webspellchecker' ),
 				'type'  => 'checkbox'
 			);
 			$fields['wsc'][] = array(
 				'name'  => 'yoast_description_field',
-				'label' => __( 'Enable on yoast SEO description', 'webspellchecker' ),
+				'label' => __( 'Enable on Yoast SEO description field', 'webspellchecker' ),
 				'type'  => 'checkbox'
 			);
 			return $fields;

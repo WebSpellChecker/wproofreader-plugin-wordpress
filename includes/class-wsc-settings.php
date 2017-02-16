@@ -27,14 +27,15 @@ if ( ! class_exists( 'WeDevs_Settings_API_Test' ) ) {
 			$this->menu_slug    = $menu_slug;
 			$this->page_title   = $page_title;
 			
-			$this->yoast_support();
-			$this->acf_support();
-			
 			add_action( 'admin_init', array( $this, 'admin_init' ) );
 			add_action( 'admin_menu', array( $this, 'admin_menu' ) );
 		}
 		
 		function admin_init() {
+			// plugins support
+			$this->yoast_support();
+			$this->acf_support();
+			
 			//set the settings
 			$this->settings_api->set_sections( $this->get_settings_sections() );
 			$this->settings_api->set_fields( $this->get_settings_fields() );

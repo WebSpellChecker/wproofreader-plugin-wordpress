@@ -150,7 +150,7 @@ if ( ! class_exists( 'WeDevs_Settings_API_Test' ) ) {
 		
 		// todo: create class wsc_acf
 		public function acf_support() {
-			if( in_array('advanced-custom-fields/acf.php', get_option('active_plugins')) ) {
+			if( class_exists( 'acf' ) ) {
 				add_filter('wsc_admin_fields', array( $this, 'acf_settings_fields') );
 			}
 		}

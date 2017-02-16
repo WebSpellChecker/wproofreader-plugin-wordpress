@@ -157,7 +157,7 @@ final class WebSpellChecker {
 	 * @param array $options
 	 */
 	public function create_field_for_js( $options ) {
-		if ( $options['type'] == 'text'  || $options['type'] == 'textarea' ) {
+		if ( isset($options['id']) && ( $options['type'] == 'text'  || $options['type'] == 'textarea' ) ) {
 			echo '<div class="wsc_field" data-id="'.$options['id'].'"></div>';
 		}
 	}

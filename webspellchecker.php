@@ -72,13 +72,7 @@ final class WebSpellChecker {
 
 	public function register_textarea_scayt() {
 
-		wp_enqueue_script( 'webspellchecker_hosted', 'http://svc.webspellchecker.net/spellcheck31/lf/scayt3/scayt/scayt.js' );
-
-		if ( is_ssl() ) {
-			$_port = "https";
-		} else {
-			$_port = "https";
-		}
+		$_port = is_ssl() ? 'https' : 'http';
 
 		wp_enqueue_script( 'webspellchecker_hosted', $_port . '://svc.webspellchecker.net/spellcheck31/lf/scayt3/scayt/scayt.js' );
 		wp_localize_script( 'webspellchecker_hosted', 'webSpellChecker',

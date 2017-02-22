@@ -4,39 +4,78 @@
     var availableEditors = [
         {
             option: webSpellChecker.options.excerpt_field,
-            element: document.getElementById('excerpt')
+            element: document.getElementById('excerpt'),
+            styles: {
+                display: 'block',
+                margin: '12px 0 0',
+                height: '4em',
+                overflow: 'auto',
+                padding: '2px 6px',
+                linHeight: '1.4',
+                resize: 'vertical',
+                fontSize: '14px',
+                fontFamily: 'inherit',
+                borderRadius: '0',
+                border: '1px solid #ddd',
+                boxShadow: 'inset 0 1px 2px rgba( 0, 0, 0, 0.07 )',
+                backgroundColor: '#fff',
+                color: '#32373c',
+                outline: 'none',
+                transition: '0.05s border-color ease-in-out'
+            }
         },
         {
             option: webSpellChecker.options.title_field,
-            element: document.getElementById('title')
+            element: document.getElementById('title'),
+            styles: {
+                padding:'3px 8px',
+                fontSize:'1.7em',
+                fontFamily: 'inherit',
+                color: '#32373c',
+                outline:'none',
+                margin:'0 0 3px',
+                backgroundColor:'#fff',
+                border: '1px solid #ddd'
+            }
         }
     ];
 
+    // ACF
+    if (webSpellChecker.options.acf_fields == 'on') {
+        var acfFields = $('.wsc_field');
+        acfFields.each(function (inx, el) {
+            var elementId = $(el).data('id');
+            availableEditors.push({
+                option: 'on',
+                element: document.getElementById(elementId)
+            });
+        });
+    }
+
+    // Yoast
+    availableEditors.push(
+        {
+            option: webSpellChecker.options.yoast_title_field,
+            element: document.getElementById('snippet-editor-title')
+        },
+        {
+            option: webSpellChecker.options.yoast_description_field,
+            element: document.getElementById('snippet-editor-meta-description')
+        }
+    );
+
     function initSCAYT(availableEditors) {
         var elements = [];
-        var protocol = document.location.protocol;
-        var serviceProtocol = protocol.search(/https?:/) !== -1 ? protocol : 'http:';
+        var el = {};
         $(availableEditors).each(function () {
             if ('on' == this.option && this.element) {
                 elements.push(
-                    new SCAYT.SCAYT(
+                    el = new SCAYT.SCAYT(
                         {
-                            serviceProtocol: serviceProtocol,
+                            serviceProtocol: document.location.protocol.slice(0, -1),
                             serviceHost: "svc.webspellchecker.net",
                             servicePort: "80",
                             servicePath: "spellcheck31/script/ssrv.cgi",
-                            additionalMenuItems: {
-                                "customItem1": {
-                                    itemTitle: "Custom item in clipboard section",
-                                    order: 0,
-                                    group: "clipboard",
-                                    extraClass: "some-class-1",
-                                    onClick: function () {
-                                        alert("Thank you! Context menu will be closed");
-                                        return false;
-                                    }
-                                }
-                            },
                             shortcutsList: [
                                 {
                                     shortcut: SCAYT.CTRL + 66,
@@ -46,7 +85,6 @@
                                 }
                             ],
                             undoDataSize: 10,
-                            theme: "classic",
                             minWordLength: 4,
                             localization: "en",
                             elementsToIgnore: "style|script",
@@ -60,47 +98,18 @@
                             suggestionsCount: 3,
                             moreSuggestionsCount: 4,
                             container: this.element,
-                            spellcheckLang: webSpellChecker.options.slang,
-                            onLoad: function () {
-                                this.setDisabled(true);
-                            }
+                            spellcheckLang: webSpellChecker.options.slang
                         }
                     )
                 );
+                el.setCssStyles(this.styles);
             }
         });
         return elements;
     }
 
-    SCAYTElements = initSCAYT(availableEditors);
-    
-    // ACF
-    if( webSpellChecker.options.acf_fields == 'on' ) {
-        var acfFields = $('.wsc_field');
-        acfFields.each( function( inx, el ){
-            var elementId = $(el).data('id');
-            availableEditors.push( {
-                option: 'on',
-                element: document.getElementById( elementId )
-            } );
-        });
-    }
-    
-    // Yoast
-    setTimeout(function(){ after_page_load() }, 1500);
-    function after_page_load(){
-        availableEditors.push(
-            {
-                option: webSpellChecker.options.yoast_title_field,
-                element: document.getElementById('snippet-editor-title')
-            },
-            {
-                option: webSpellChecker.options.yoast_description_field,
-                element: document.getElementById('snippet-editor-meta-description')
-            }
-        );
-
-        SCAYTElements = initSCAYT(availableEditors);
-    }
+    setTimeout(function () {
+        initSCAYT(availableEditors);
+    }, 1500);
 
 }(jQuery));

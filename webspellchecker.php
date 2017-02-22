@@ -18,7 +18,7 @@ final class WebSpellChecker {
 	private static $instance = null;
 
 	private $js_added = false;
-	
+
 	private $settings;
 
 	protected $options;
@@ -27,13 +27,14 @@ final class WebSpellChecker {
 		if ( null == self::$instance ) {
 			self::$instance = new self;
 		}
+
 		return self::$instance;
 	}
 
 	public function __construct() {
 		$this->includes();
 
-		$this->options = get_option( WSC_Settings::OPTION_NAME );
+		$this->options                = get_option( WSC_Settings::OPTION_NAME );
 		$this->options['customer_id'] = $this->get_customer_id();
 
 		$this->settings = new WSC_Settings(
@@ -41,27 +42,27 @@ final class WebSpellChecker {
 			__( 'WebSpellChecker', 'webspellchecker' ),
 			'spell-checker-settings'
 		);
-		
+
 		// text and textarea fields
-		foreach ($this->options as $option => $on ) {
-			if( $option !== 'visual_editor' && $on === 'on' ){
+		foreach ( $this->options as $option => $on ) {
+			if ( $option !== 'visual_editor' && $on === 'on' ) {
 				add_action( 'admin_enqueue_scripts', array( $this, 'register_textarea_scayt' ) );
 				$this->init_scayt_js();
 				break;
 			}
-		}	
+		}
 
 		// WYSIWYG
-		if ( 'on' == $this->get_option('visual_editor') ) {
+		if ( 'on' == $this->get_option( 'visual_editor' ) ) {
 			add_action( 'admin_enqueue_scripts', array( $this, 'register_textarea_scayt' ) );
 			$this->init_tinymce_scayt();
 		}
-		
+
 		// ACF
-		if ( 'on' == $this->get_option('acf_fields') ) {
+		if ( 'on' == $this->get_option( 'acf_fields' ) ) {
 			add_action( 'acf/create_field', array( $this, 'create_field_for_js' ) );
 		}
-		
+
 		do_action( 'wsc_loaded' );
 	}
 
@@ -75,6 +76,7 @@ final class WebSpellChecker {
 		$_port = is_ssl() ? 'https' : 'http';
 
 		wp_enqueue_script( 'webspellchecker_hosted', $_port . '://svc.webspellchecker.net/spellcheck31/lf/scayt3/scayt/scayt.js' );
+		wp_enqueue_style( 'webspellchecker_style', plugin_dir_url( __FILE__ ) . '/assets/css/style.css' );
 		wp_localize_script( 'webspellchecker_hosted', 'webSpellChecker',
 			array(
 				'options' => apply_filters( 'wsc_options_in_js', $this->options )
@@ -85,7 +87,7 @@ final class WebSpellChecker {
 	public function init_scayt_js() {
 		add_action( 'after_wp_tiny_mce', array( $this, 'add_scayt_js' ) );
 	}
-	
+
 	public function init_tinymce_scayt() {
 		add_action( 'after_wp_tiny_mce', array( $this, 'register_tinymce_plugins' ) );
 		add_filter( 'tiny_mce_before_init', array( $this, 'add_scayt_init_settings' ) );
@@ -96,9 +98,9 @@ final class WebSpellChecker {
 		printf( '<script type="text/javascript" src="%s"></script>', plugin_dir_url( __FILE__ ) . '/assets/tinymce/contextmenu/plugin.js' );
 		$this->add_scayt_js();
 	}
-	
+
 	public function add_scayt_js() {
-		if( !$this->js_added ){
+		if ( ! $this->js_added ) {
 			printf( '<script type="text/javascript" src="%s"></script>', plugin_dir_url( __FILE__ ) . '/assets/scayt_textarea.js' );
 		}
 		$this->js_added = true;
@@ -115,7 +117,7 @@ final class WebSpellChecker {
 			'scayt_contextMenuItemsOrder' => "control,moresuggest,suggest",
 			'scayt_maxSuggestions'        => 6,
 			'scayt_minWordLength'         => 4,
-			'scayt_slang'                 => $this->get_option('slang'),
+			'scayt_slang'                 => $this->get_option( 'slang' ),
 			'scayt_uiTabs'                => "1,0,1",
 			'scayt_customDictionaryIds'   => "1,3001",
 			'scayt_userDictionaryName'    => "test_dic",
@@ -128,14 +130,14 @@ final class WebSpellChecker {
 	}
 
 	/**
-	* Get customer ID or trial ID if not set
-	* 
-	* @return string customer ID
-	*/
+	 * Get customer ID or trial ID if not set
+	 *
+	 * @return string customer ID
+	 */
 	public function get_customer_id() {
 		$customer_id = $this->get_option( 'customer_id', self::TRIAL_CUSTOMER_ID );
-		if( empty( $customer_id ) ) {
-		    return self::TRIAL_CUSTOMER_ID;
+		if ( empty( $customer_id ) ) {
+			return self::TRIAL_CUSTOMER_ID;
 		}
 
 		return $customer_id;
@@ -145,14 +147,15 @@ final class WebSpellChecker {
 		return ( isset( $this->options[ $name ] ) ) ? $this->options[ $name ] : $default;
 	}
 
-	
+
 	/**
 	 * Create element with data-id equal acf field id
+	 *
 	 * @param array $options
 	 */
 	public function create_field_for_js( $options ) {
-		if ( isset($options['id']) && ( $options['type'] == 'text'  || $options['type'] == 'textarea' ) ) {
-			echo '<div class="wsc_field" data-id="'.$options['id'].'"></div>';
+		if ( isset( $options['id'] ) && ( $options['type'] == 'text' || $options['type'] == 'textarea' ) ) {
+			echo '<div class="wsc_field" data-id="' . $options['id'] . '"></div>';
 		}
 	}
 
@@ -162,6 +165,6 @@ function WSC() {
 	return WebSpellChecker::instance();
 }
 
-if( is_admin() ) {
+if ( is_admin() ) {
 	WSC();
 }

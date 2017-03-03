@@ -43,7 +43,7 @@ final class WebSpellChecker {
 			'spell-checker-settings'
 		);
 
-		// text and textarea fields
+		// Text and textarea fields
 		foreach ( $this->options as $option => $on ) {
 			if ( $option !== 'visual_editor' && $on === 'on' ) {
 				add_action( 'admin_enqueue_scripts', array( $this, 'register_textarea_scayt' ) );
@@ -63,12 +63,23 @@ final class WebSpellChecker {
 			add_action( 'acf/create_field', array( $this, 'create_field_for_js' ) );
 		}
 
+		// Settings links
+		add_filter( 'plugin_action_links_' . plugin_basename(__FILE__), array( $this, 'add_action_links' ) );
+
 		do_action( 'wsc_loaded' );
 	}
 
 	public function includes() {
 		require_once dirname( __FILE__ ) . '/vendor/class.settings-api.php';
 		require_once dirname( __FILE__ ) . '/includes/class-wsc-settings.php';
+	}
+
+	function add_action_links ( $links ) {
+		$mylinks = array(
+			'<a href="' . admin_url( 'options-general.php?page=spell-checker-settings' ) . '">' . __( 'Settings', 'webspellchecker' ) . '</a>',
+		);
+
+		return array_merge( $links, $mylinks );
 	}
 
 	public function register_textarea_scayt() {

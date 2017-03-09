@@ -52,19 +52,8 @@
         });
     }
 
-    // Yoast
-    availableEditors.push(
-        {
-            option: webSpellChecker.options.yoast_title_field,
-            element: document.getElementById('snippet-editor-title')
-        },
-        {
-            option: webSpellChecker.options.yoast_description_field,
-            element: document.getElementById('snippet-editor-meta-description')
-        }
-    );
-
     function initSCAYT(availableEditors) {
+        console.log(availableEditors);
         var elements = [];
         var el = {};
         $(availableEditors).each(function () {
@@ -109,6 +98,18 @@
     }
 
     setTimeout(function () {
+        // Yoast
+        availableEditors.push(
+            {
+                option: webSpellChecker.options.yoast_title_field,
+                element: document.getElementById('snippet-editor-title')
+            },
+            {
+                option: webSpellChecker.options.yoast_description_field,
+                element: document.getElementById('snippet-editor-meta-description')
+            }
+        );
+        
         initSCAYT(availableEditors);
     }, 1500);
 

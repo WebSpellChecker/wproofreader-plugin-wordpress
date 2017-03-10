@@ -79,5 +79,8 @@ Support service is provided by WebSpellChecker LLC technical team and is availab
 2. Spelling Check in Action.
 
 == Changelog ==
+= 1.1 = 
+Bugfixes and improvements. Added support for title, Yoast SEO and ACF text fields.
+
 = 1.0 = 
 Initial release

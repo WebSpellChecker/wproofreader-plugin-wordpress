@@ -53,7 +53,6 @@
     }
 
     function initSCAYT(availableEditors) {
-        console.log(availableEditors);
         var elements = [];
         var el = {};
         $(availableEditors).each(function () {

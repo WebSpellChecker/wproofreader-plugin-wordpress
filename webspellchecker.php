@@ -2,7 +2,7 @@
 /**
  * Plugin Name: WebSpellChecker
  * Description: Make sure that your texts are accurate and mistakes free. Check your Spelling with WebSpellChecker plugin.
- * Version:     1.0
+ * Version:     1.1
  * Author:      TeamDev Ltd
  * Author URI:  https://www.teamdev.com/
  */

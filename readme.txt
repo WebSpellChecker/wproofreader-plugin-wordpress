@@ -37,7 +37,15 @@ Customer ID is a special key that is required for migration to Pro version of We
 
 = Can WebSpellChecker plugin check the entire website? =
 
-By default WebSpellChecker plugin can be enabled on Visual Editor and excerpt fields.
+By default WebSpellChecker plugin can be enabled on Visual Editor, title and excerpt fields, Yoast SEO and ACF text fields.
+
+= How can I get rid of banner ad? =
+
+In order to get rid of the banner ad and lift the usage limitations, you need to upgrade to the Pro version. Thus, you need to subscribe to the paid  Hosted Services on webspellchecker.net website. On the subscription, you will receive a special key that needs to be entered in “Customer ID” field of the WebSpellChecker plugin settings.
+
+= What is the difference between Free and Pro versions? =
+
+The free version of WebSpellChecker plugin is available with a banner ad and it is limited to 5,000 sessions per month from one domain. With the Pro version you can check spelling across a list of your websites with no usage limitation.
 
 = What other languages are available for WebSpellChecker plugin? =
 
@@ -80,7 +88,12 @@ Support service is provided by WebSpellChecker LLC technical team and is availab
 
 == Changelog ==
 = 1.1 = 
-Bugfixes and improvements. Added support for title, Yoast SEO and ACF text fields.
+New version of the WebSpellChecker plugin introduces the following updates:
+
+* Support of the Yoast SEO and ACF text fields
+* Spell Checking in the “Title” field
+* Fixes for minor issues
+
 
 = 1.0 = 
-Initial release
+Initial Release of the WebSpellChecker plugin. The multi-language spell checking functionality is available for Visual Editor and excerpt all fields.

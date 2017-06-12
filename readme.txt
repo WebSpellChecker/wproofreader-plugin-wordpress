@@ -1,7 +1,8 @@
 === WebSpellChecker ===
 Contributors: teamdev-ltd, webspellchecker
-Tags: spell checker, spellcheck, spelling check, spelling check as you type, spelling mistakes, spelling errors, WP spellchecker, WordPress SpellChecker, WordPress SpellCheck, correct spellings, improve spelling, multi-language spellchecker, SpellCheck plugin
-Donate link: http://www.webspellchecker.net/
+Tags: spell checker, spellcheck, spelling check, spelling check as you type, spelling mistakes, spelling errors, WP spellchecker, WordPress SpellChecker, WordPress SpellCheck, correct spellings, improve spelling, multi-language spellchecker, SpellCheck plugin, fix spelling, spell check, spellchecker, spelling report, website spelling, WordPress spell check, WordPress spell checker, WordPress spelling, WP Spell Check, wp spellcheck, spelling, spelling checker
+
+Donate link: https://www.webspellchecker.net/
 Requires at least: 4.4
 Tested up to: 4.7
 Stable tag: trunk
@@ -11,11 +12,11 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 Make sure that your texts are accurate and mistakes free. Check your Spelling with WebSpellChecker plugin.
 
 == Description ==
-WebSpellChecker plugin for WordPress allows to see and correct your spelling mistakes while you are typing. No need for manual checking of your texts for spelling mistakes: the multi-language spell checking mechanism integrated into your website will do it for you.
+WebSpellChecker plugin for WordPress allows you to see and correct your spelling mistakes while you are typing. No need for manual checking of your texts for spelling mistakes: the multi-language spell checking mechanism integrated into your website will do it for you.
 
-The free version of WebSpellChecker plugin is available with a banner ad and it is limited to 5,000 sessions per month. With the Pro version you can check spelling across a list of your websites with no usage limitation.
+The free version of WebSpellChecker plugin is available with a banner ad and it is limited to 50K spell checking requests per year. With the Pro version you can check spelling with more languages across a list of your websites with extended usage limitations and additional features.
 
-WebSpellChecker plugin uses hosted spelling checking services provided by WebSpellChecker LLC company. In order to migrate to Pro version of WebSpellChecker plugin, you need to subscribe to the Hosted Services on WebSpellChecker.net website.
+WebSpellChecker plugin uses cloud spelling checking services provided by WebSpellChecker LLC company. In order to migrate to the Pro version of WebSpellChecker plugin, you need to subscribe to the Cloud Services on the WebSpellChecker.net website.
 
 == Installation ==
 = From your WordPress dashboard =
@@ -33,7 +34,7 @@ WebSpellChecker plugin uses hosted spelling checking services provided by WebSpe
 == Frequently Asked Questions ==
 = What is Customer ID? =
 
-Customer ID is a special key that is required for migration to Pro version of WebSpellChecker plugin. This key can be obtained with a subscription for the Hosted Services on webspellchecker.net website. Customer ID of Pro version can be used on multiple websites.
+Customer ID is a special activation key that is required for migration to the Pro version of WebSpellChecker plugin. This key can be obtained with a subscription for the Cloud Services on webspellchecker.net website. Customer ID of Pro version can be used on multiple websites (up to 5).
 
 = Can WebSpellChecker plugin check the entire website? =
 
@@ -41,32 +42,53 @@ By default WebSpellChecker plugin can be enabled on Visual Editor, title and exc
 
 = How can I get rid of banner ad? =
 
-In order to get rid of the banner ad and lift the usage limitations, you need to upgrade to the Pro version. Thus, you need to subscribe to the paid  Hosted Services on webspellchecker.net website. On the subscription, you will receive a special key that needs to be entered in “Customer ID” field of the WebSpellChecker plugin settings.
+In order to get rid of the banner ad and lift the usage limitations, you need to upgrade to the Pro version. Thus, you need to subscribe to the paid  Cloud Services on webspellchecker.net website. On the subscription, you will receive a special activation key that needs to be entered in “Customer ID” field of the WebSpellChecker plugin settings.
 
 = What is the difference between Free and Pro versions? =
 
-The free version of WebSpellChecker plugin is available with a banner ad and it is limited to 5,000 sessions per month from one domain. With the Pro version you can check spelling across a list of your websites with no usage limitation.
+The free version of WebSpellChecker plugin is available with a banner ad and limited to 50K requests per year from one domain (website). With the Pro version you can check spelling with more languages across a list of your websites with extended usage limitations and additional features.
+
+The Pro version, unlike the free version of WebSpellChecker plugin, includes the following benefits:
+
+*No banner ads
+*Extended usage limitations – up to 200K requests per year
+*Can be utilized within 5 domains (websites)
+*16 default languages for spell checking
+*Custom dictionary for your specific terms 
+*Automatic upgrades and support during the year
+*Usage statistics monitoring and subscription management
+
 
 = What other languages are available for WebSpellChecker plugin? =
 
-By default our plugin supports 16 languages:
+By default the free version of our plugin is provided with 6 languages:
 
-* Brazilian Portuguese
-* British English
-* Canadian English
-* Canadian French
-* Danish
-* Dutch
-* English
-* Finnish
-* French
-* German
-* Greek
-* Italian
-* Norwegian Bokmal
-* Portuguese
-* Spanish
-* Swedish
+*American English
+*British English
+*French
+*German
+*Italian
+*Spanish
+
+The Pro version has an extended list of the default languages and supports the following 16 languages:
+
+*American English
+*British English
+*Brazilian Portuguese
+*Canadian English
+*Canadian French
+*Danish
+*Dutch
+*English
+*Finnish
+*French
+*German
+*Greek
+*Italian
+*Norwegian Bokmal
+*Portuguese
+*Spanish
+*Swedish
 
 Also, with the Pro version, the default list of languages can be extended with more than 140 additional languages.
 
@@ -77,6 +99,10 @@ WebSpellChecker plugin has a special functionality called User Dictionary. It al
 = Can I check Grammar with this plugin as well? =
 
 At the moment WebSpellChecker plugin is aimed at spelling check only.
+
+= What is Custom Dictionary and how I can use it? =
+
+The Custom Dictionary functionality is available in the Pro version only and is aimed at extending a list of words in the default dictionaries with your custom words and terms. It helps to improve the quality of spelling check services. Using a personal account on the webspellchecker.ner website. You may create a custom wordlist which includes specific terms, abbreviations, etc. These words won’t be considered as misspellings.
 
 = Is support provided with this plugin? =
 

@@ -73,7 +73,7 @@ if ( ! class_exists( 'WeDevs_Settings_API_Test' ) ) {
 					array(
 						'name'              => 'customer_id',
 						'label'             => __( 'Customer ID', 'webspellchecker' ),
-						'desc'              => __( 'Upgrade to WebSpellChecker Pro to get rid of banner ad and spell checking across list of your websites with no usage limitations. Subscribe for paid version of the WebSpellChecker service on <a href="https://www.webspellchecker.net/signup/hosted-signup.html#scayt-paid" target="_blank">here</a>.', 'webspellchecker' ),
+						'desc'              => __( 'Upgrade to WebSpellChecker Pro for <strong>only $49 per year</strong> to get rid of the banner ad and check spelling across a list of your websites with extra benefits.<br>Contact us at <a href="mailto:info@webspellchecker.net">info@webspellchecker.net</a> to find out how to proceed with the upgrade.', 'webspellchecker' ),
 						'type'              => 'text',
 						'default'           => '',
 						'sanitize_callback' => 'sanitize_text_field'

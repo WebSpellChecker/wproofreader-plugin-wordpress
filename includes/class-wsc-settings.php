@@ -9,14 +9,12 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 if ( ! class_exists( 'WeDevs_Settings_API_Test' ) ) {
 	class WSC_Settings {
-
-		const OPTION_NAME = 'wsc';		
+		const OPTION_NAME = 'wsc_proofreader';
 
 		/**
 		 * @var WeDevs_Settings_API
 		 */
 		private $settings_api;
-
 		private $page_title;
 		private $menu_title;
 		private $menu_slug;
@@ -26,22 +24,40 @@ if ( ! class_exists( 'WeDevs_Settings_API_Test' ) ) {
 			$this->menu_title   = $menu_title;
 			$this->menu_slug    = $menu_slug;
 			$this->page_title   = $page_title;
-			
 			add_action( 'admin_init', array( $this, 'admin_init' ) );
 			add_action( 'admin_menu', array( $this, 'admin_menu' ) );
 		}
-		
+
 		function admin_init() {
-			// plugins support
-			$this->yoast_support();
-			$this->acf_support();
-			
+			//enable if woocommerce active
+			include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+			if ( class_exists( 'WooCommerce' ) && is_plugin_active( 'woocommerce/woocommerce.php' ) || class_exists( 'WP_eCommerce' ) ) {
+				add_filter( 'wsc_admin_fields', array( $this, 'enable_woocommerce' ), 1 );
+			}
+
 			//set the settings
 			$this->settings_api->set_sections( $this->get_settings_sections() );
 			$this->settings_api->set_fields( $this->get_settings_fields() );
 
 			//initialize settings
 			$this->settings_api->admin_init();
+//			$this->set_default_settings();
+		}
+
+		function enable_woocommerce( $settings_fields ) {
+			$enable_on_products = array(
+				'name'    => 'enable_on_products',
+				'label'   => __( 'Check Products', 'webspellchecker' ),
+				'type'    => 'checkbox',
+				'default' => 'on'
+			);
+			array_push( $settings_fields['wsc_proofreader'], $enable_on_products );
+
+			return $settings_fields;
+		}
+
+		public function set_default_settings( $settings ) {
+			$this->settings_api->set_fields( $settings );
 		}
 
 		function admin_menu() {
@@ -63,26 +79,26 @@ if ( ! class_exists( 'WeDevs_Settings_API_Test' ) ) {
 		}
 
 		/**
-		* Returns all the settings fields
-		*
-		* @return array settings fields
-		*/
+		 * Returns all the settings fields
+		 *
+		 * @return array settings fields
+		 */
 		function get_settings_fields() {
 			$settings_fields = array(
-				'wsc' => array(
+				'wsc_proofreader' => array(
 					array(
 						'name'              => 'customer_id',
-						'label'             => __( 'Customer ID', 'webspellchecker' ),
-						'desc'              => __( 'Upgrade to WebSpellChecker Pro for <strong>only $49 per year</strong> to get rid of the banner ad and check spelling across a list of your websites with extra benefits.<br>Contact us at <a href="mailto:info@webspellchecker.net">info@webspellchecker.net</a> to find out how to proceed with the upgrade.', 'webspellchecker' ),
+						'label'             => __( 'License Key', 'webspellchecker' ),
+						'desc'              => __( 'Upgrade to WProofreader Pro for <strong>$49 per year</strong> to check spelling and grammar across a list of your websites. <br>Contact us at <a href="mailto:info@webspellchecker.net">info@webspellchecker.net</a> to find out how to proceed with the upgrade.', 'webspellchecker' ),
 						'type'              => 'text',
 						'default'           => '',
 						'sanitize_callback' => 'sanitize_text_field'
 					),
 					array(
-						'name'  => 'slang',
-						'label' => __( 'Default language', 'webspellchecker' ),
-						'type'  => 'select',
-						'options' => array(
+						'name'    => 'slang',
+						'label'   => __( 'Default Language', 'webspellchecker' ),
+						'type'    => 'select',
+						'options' => ! empty( $this->get_lang_list() ) ? $this->get_lang_list() : array(
 							'en_US' => 'English',
 							'en_GB' => 'British English',
 							'en_CA' => 'Canadian English',
@@ -93,34 +109,37 @@ if ( ! class_exists( 'WeDevs_Settings_API_Test' ) ) {
 							'pt_PT' => 'Portuguese',
 							'pt_BR' => 'Brazilian Portuguese',
 							'da_DK' => 'Danish',
-							'nl_NL' => 'Dutch',
-							'fi_FI' => 'Finnish',
-							'el_GR' => 'Greek',
-							'nb_NO' => 'Norwegian Bokmal',
-							'es_ES' => 'Spanish',
-							'sv_SE' => 'Swedish',
 						),
 						'default' => 'en_US'
 					),
 					array(
-						'name'  => 'visual_editor',
-						'label' => __( 'Enable on visual editor', 'webspellchecker' ),
-						'type'  => 'checkbox'
+						'name'    => 'enable_on_posts',
+						'label'   => __( 'Check Posts', 'webspellchecker' ),
+						'type'    => 'checkbox',
+						'default' => 'on'
 					),
 					array(
-						'name'  => 'excerpt_field',
-						'label' => __( 'Enable on excerpt field', 'webspellchecker' ),
-						'type'  => 'checkbox'
+						'name'    => 'enable_on_pages',
+						'label'   => __( 'Check Pages', 'webspellchecker' ),
+						'type'    => 'checkbox',
+						'default' => 'on'
 					),
 					array(
-						'name'  => 'title_field',
-						'label' => __( 'Enable on title field', 'webspellchecker' ),
-						'type'  => 'checkbox'
-					)
+						'name'    => 'enable_on_categories',
+						'label'   => __( 'Check Categories', 'webspellchecker' ),
+						'type'    => 'checkbox',
+						'default' => 'on'
+					),
+					array(
+						'name'    => 'enable_on_tags',
+						'label'   => __( 'Check Tags', 'webspellchecker' ),
+						'type'    => 'checkbox',
+						'default' => 'on'
+					),
 				)
 			);
 
-			return apply_filters( 'wsc_admin_fields', $settings_fields ) ;
+			return apply_filters( 'wsc_admin_fields', $settings_fields );
 		}
 
 		function plugin_page() {
@@ -148,44 +167,10 @@ if ( ! class_exists( 'WeDevs_Settings_API_Test' ) ) {
 			return $pages_options;
 		}
 
-		
-		// todo: create class wsc_acf
-		public function acf_support() {
-			if( class_exists( 'acf' ) ) {
-				add_filter('wsc_admin_fields', array( $this, 'acf_settings_fields') );
-			}
-		}
-		
-		public function acf_settings_fields( $fields ) {
-			$fields['wsc'][] = array(
-				'name'  => 'acf_fields',
-				'label' => __( 'Enable on ACF fields', 'webspellchecker' ),
-				'type'  => 'checkbox'
-			);
-			return $fields;
-		}
-		
-		// todo: create class wsc_yoast
-		public function yoast_support() {
-			if( is_plugin_active( 'wordpress-seo/wp-seo.php' ) 
-				OR is_plugin_active( 'wordpress-seo-premium/wp-seo-premium.php' ) ) 
-			{
-				add_filter('wsc_admin_fields', array( $this, 'yoast_settings_fields') );
-			}
-		}
-		
-		public function yoast_settings_fields( $fields ) {
-			$fields['wsc'][] = array(
-				'name'  => 'yoast_title_field',
-				'label' => __( 'Enable on Yoast SEO title field', 'webspellchecker' ),
-				'type'  => 'checkbox'
-			);
-			$fields['wsc'][] = array(
-				'name'  => 'yoast_description_field',
-				'label' => __( 'Enable on Yoast SEO description field', 'webspellchecker' ),
-				'type'  => 'checkbox'
-			);
-			return $fields;
+		function get_lang_list() {
+			$get_info = get_option( 'wsc_proofreader_info' );
+
+			return $get_info['langList']['ltr'];
 		}
 
 	}

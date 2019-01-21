@@ -1,26 +1,25 @@
 <?php
 /**
- * Plugin Name: WebSpellChecker
- * Description: Make sure that your texts are accurate and mistakes free. Check your Spelling with WebSpellChecker plugin.
- * Version:     1.1
- * Author:      TeamDev Ltd
- * Author URI:  https://www.teamdev.com/
+ * Plugin Name: WProofreader
+ * Plugin URI: https://webspellchecker.com/
+ * Description: Check spelling and grammar on your site automatically with multilingual WProofreader plugin.
+ * Version:     2.0
+ * Author:      WebSpellChecker
+ * Author URI:  https://webspellchecker.com/
+ * Text Domain: webspellchecker
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
-final class WebSpellChecker {
-
-	const TRIAL_CUSTOMER_ID = '1:qj8W21-rSO4B4-mNSem1-qi1mq1-fgmuL1-Qfpgn4-wZUMl3-V3oaC-DcLr92-mPqvU2-TwpSC4-LHb';
-
+final class WProofreader {
+	const TRIAL_CUSTOMER_ID = '1:cma3h3-HTiyU3-JL08g4-SRyuS1-a9c0F3-kH6Cu-OlMHS-thcSV2-HlGmv3-YzRCN2-qrKY42-uPc';
+	const SLANG = 'en_US';
+	const PLUGIN_VERSION = "2.0";
 	private static $instance = null;
-
 	private $js_added = false;
-
 	private $settings;
-
 	protected $options;
 
 	public static function instance() {
@@ -33,40 +32,128 @@ final class WebSpellChecker {
 
 	public function __construct() {
 		$this->includes();
-
-		$this->options                = get_option( WSC_Settings::OPTION_NAME );
-		$this->options['customer_id'] = $this->get_customer_id();
-
 		$this->settings = new WSC_Settings(
-			__( 'WebSpellChecker', 'webspellchecker' ),
-			__( 'WebSpellChecker', 'webspellchecker' ),
+			__( 'WProofreader', 'webspellchecker' ),
+			__( 'WProofreader', 'webspellchecker' ),
 			'spell-checker-settings'
 		);
 
-		// Text and textarea fields
+		$this->options = get_option( WSC_Settings::OPTION_NAME );
+
+		if ( empty( $this->options ) ) {
+			//set default setting
+			$this->options['enable_on_posts']      = 'on';
+			$this->options['enable_on_pages']      = 'on';
+			$this->options['enable_on_products']   = 'off';
+			$this->options['enable_on_categories'] = 'on';
+			$this->options['enable_on_tags']       = 'on';
+			update_option( 'wsc_proofreader_version', self::PLUGIN_VERSION );
+		}
+
+		$this->options['customer_id'] = $this->get_customer_id();
+
+		add_action( 'admin_enqueue_scripts', array( $this, 'register_proofreader_scripts' ) );
+		add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), array( $this, 'add_action_links' ) );
+		add_action( 'admin_head', array( $this, 'init_proofreader' ) );
+		$this->check_version();
+
+		add_action( 'wp_ajax_get_proofreader_info_callback', array( $this, 'get_proofreader_info_callback' ) );
+
+		do_action( 'wsc_loaded' );
+	}
+
+	public function check_version() {
+		//todo add Class for upgrade plugin
+		if ( get_option( 'wsc_proofreader_version' ) !== self::PLUGIN_VERSION ) {
+			//Clear old options in versions below 2
+			delete_option( 'wsc' );
+			update_option( 'wsc_proofreader_version', self::PLUGIN_VERSION );
+		}
+	}
+
+	public function init_proofreader() {
+		$editable_post_type = $this->get_editable_post_type();
+		$screen             = get_current_screen();
+		if ( $screen->base === 'settings_page_spell-checker-settings' ) {
+			$this->api_proofreader_info();
+		}
+
 		foreach ( $this->options as $option => $on ) {
-			if ( $option !== 'visual_editor' && $on === 'on' ) {
-				add_action( 'admin_enqueue_scripts', array( $this, 'register_textarea_scayt' ) );
-				$this->init_scayt_js();
-				break;
+			if ( $option === 'enable_on_categories' && $on === 'on' ) {
+				if ( $screen->id === 'edit-category'
+				     || $screen->id === 'edit-product_cat'
+				     || $screen->id === 'edit-wpsc_product_category' ) {
+					$this->init_proofreader_js();
+				}
 			}
 		}
 
-		// WYSIWYG
-		if ( 'on' == $this->get_option( 'visual_editor' ) ) {
-			add_action( 'admin_enqueue_scripts', array( $this, 'register_textarea_scayt' ) );
-			$this->init_tinymce_scayt();
+		foreach ( $this->options as $option => $on ) {
+			if ( $option === 'enable_on_tags' && $on === 'on' ) {
+				if ( $screen->id === 'edit-product_tag'
+				     || $screen->id === 'edit-post_tag' ) {
+					$this->init_proofreader_js();
+				}
+			}
 		}
 
-		// ACF
-		if ( 'on' == $this->get_option( 'acf_fields' ) ) {
-			add_action( 'acf/create_field', array( $this, 'create_field_for_js' ) );
+		if ( false !== $editable_post_type ) {
+
+			foreach ( $this->options as $option => $on ) {
+
+				if ( $option === 'enable_on_posts' && $on === 'on' ) {
+
+					if ( 0 === strcasecmp( 'post', $editable_post_type ) ) {
+						$this->init_proofreader_js();
+					}
+
+					break;
+
+				}
+
+			}
+
+			foreach ( $this->options as $option => $on ) {
+
+				if ( $option === 'enable_on_pages' && $on === 'on' ) {
+
+					if ( 0 === strcasecmp( 'page', $editable_post_type ) ) {
+						$this->init_proofreader_js();
+					}
+
+					break;
+
+				}
+			}
+
+			foreach ( $this->options as $option => $on ) {
+
+				if ( $option === 'enable_on_products' && $on === 'on' ) {
+					if ( $screen->id === 'wpsc-product' ) {
+						$this->init_proofreader_js();
+					}
+
+					if ( $screen->id === 'edit-product_cat' ) {
+						$this->init_proofreader_js();
+					}
+					if ( $screen->id === 'edit-product_tag' ) {
+
+						$this->init_proofreader_js();
+					}
+					if ( 0 === strcasecmp( 'product', $editable_post_type ) ) {
+						$this->init_proofreader_js();
+					}
+
+					break;
+
+				}
+
+			}
+
+			return $this->js_added = true;
 		}
 
-		// Settings links
-		add_filter( 'plugin_action_links_' . plugin_basename(__FILE__), array( $this, 'add_action_links' ) );
-
-		do_action( 'wsc_loaded' );
+		return $this->js_added = false;
 	}
 
 	public function includes() {
@@ -74,7 +161,19 @@ final class WebSpellChecker {
 		require_once dirname( __FILE__ ) . '/includes/class-wsc-settings.php';
 	}
 
-	function add_action_links ( $links ) {
+	public function get_editable_post_type() {
+		$screen = get_current_screen();
+
+		if ( $screen->post_type === $screen->id ) {
+			$post_type = $screen->post_type;
+
+			return $post_type;
+		}
+
+		return false;
+	}
+
+	function add_action_links( $links ) {
 		$mylinks = array(
 			'<a href="' . admin_url( 'options-general.php?page=spell-checker-settings' ) . '">' . __( 'Settings', 'webspellchecker' ) . '</a>',
 		);
@@ -82,62 +181,28 @@ final class WebSpellChecker {
 		return array_merge( $links, $mylinks );
 	}
 
-	public function register_textarea_scayt() {
+	function register_proofreader_scripts() {
+		wp_register_script( 'wscbundle', 'https://svc.webspellchecker.net/spellcheck31/wscbundle/wscbundle.js', array(), '081120181109', false );
+		wp_register_script( 'ProofreaderConfig', plugin_dir_url( __FILE__ ) . '/assets/proofreaderConfig.js', array( 'wscbundle' ), '081120181110', true );
+		wp_register_script( 'ProofreaderInstance', plugin_dir_url( __FILE__ ) . '/assets/instance.js', array( 'wscbundle' ), '171220181251', true );
+	}
 
-		$_port = is_ssl() ? 'https' : 'http';
-
-		wp_enqueue_script( 'webspellchecker_hosted', $_port . '://svc.webspellchecker.net/spellcheck31/lf/scayt3/scayt/scayt.js' );
-		wp_enqueue_style( 'webspellchecker_style', plugin_dir_url( __FILE__ ) . '/assets/css/style.css' );
-		wp_localize_script( 'webspellchecker_hosted', 'webSpellChecker',
-			array(
-				'options' => apply_filters( 'wsc_options_in_js', $this->options )
-			)
+	function init_proofreader_js() {
+		$key_for_proofreader    = $this->get_customer_id();
+		$slang                  = $this->get_slang();
+		$settingsSections       = ( $this->get_customer_id() === self::TRIAL_CUSTOMER_ID ) ?
+			[ 'options', 'languages', 'about' ]
+			: [ 'options', 'languages', 'dictionaries', 'about' ];
+		$enableGrammar          = ( $this->get_customer_id() === self::TRIAL_CUSTOMER_ID ) ? false : true;
+		$wsc_proofreader_config = array(
+			'key_for_proofreader' => $key_for_proofreader,
+			'slang'               => $slang,
+			'settingsSections'    => $settingsSections,
+			'enableGrammar'       => $enableGrammar
 		);
-	}
-
-	public function init_scayt_js() {
-		add_action( 'after_wp_tiny_mce', array( $this, 'add_scayt_js' ) );
-	}
-
-	public function init_tinymce_scayt() {
-		add_action( 'after_wp_tiny_mce', array( $this, 'register_tinymce_plugins' ) );
-		add_filter( 'tiny_mce_before_init', array( $this, 'add_scayt_init_settings' ) );
-	}
-
-	public function register_tinymce_plugins() {
-		printf( '<script type="text/javascript" src="%s"></script>', plugin_dir_url( __FILE__ ) . '/assets/tinymce/scayt/plugin.js' );
-		printf( '<script type="text/javascript" src="%s"></script>', plugin_dir_url( __FILE__ ) . '/assets/tinymce/contextmenu/plugin.js' );
-		$this->add_scayt_js();
-	}
-
-	public function add_scayt_js() {
-		if ( ! $this->js_added ) {
-			printf( '<script type="text/javascript" src="%s"></script>', plugin_dir_url( __FILE__ ) . '/assets/scayt_textarea.js' );
-		}
-		$this->js_added = true;
-	}
-
-	public function add_scayt_init_settings( $init ) {
-		$scayt_settings = array(
-			'plugins'                     => $init['plugins'] . ',' . 'scayt,contextmenu',
-			'toolbar4'                    => "scayt",
-			'scayt_autoStartup'           => true,
-			'scayt_customerId'            => $this->get_customer_id(),
-			'scayt_moreSuggestions'       => 'on',
-			'scayt_contextCommands'       => "add,ignore",
-			'scayt_contextMenuItemsOrder' => "control,moresuggest,suggest",
-			'scayt_maxSuggestions'        => 6,
-			'scayt_minWordLength'         => 4,
-			'scayt_slang'                 => $this->get_option( 'slang' ),
-			'scayt_uiTabs'                => "1,0,1",
-			'scayt_customDictionaryIds'   => "1,3001",
-			'scayt_userDictionaryName'    => "test_dic",
-			'scayt_context_mode'          => "default",
-			'scayt_elementsToIgnore'      => "del,pre",
-			'browser_spellcheck'          => false
-		);
-
-		return array_merge( $init, $scayt_settings );
+		wp_enqueue_script( 'wscbundle' );
+		wp_enqueue_script( 'ProofreaderConfig' );
+		wp_localize_script( 'ProofreaderConfig', 'WSCProofreaderConfig', $wsc_proofreader_config );
 	}
 
 	/**
@@ -147,6 +212,7 @@ final class WebSpellChecker {
 	 */
 	public function get_customer_id() {
 		$customer_id = $this->get_option( 'customer_id', self::TRIAL_CUSTOMER_ID );
+
 		if ( empty( $customer_id ) ) {
 			return self::TRIAL_CUSTOMER_ID;
 		}
@@ -154,26 +220,58 @@ final class WebSpellChecker {
 		return $customer_id;
 	}
 
+	public function get_slang() {
+		$slang = $this->get_option( 'slang', self::SLANG );
+
+		if ( empty( $slang ) ) {
+			return self::SLANG;
+		}
+
+		return $slang;
+	}
+
 	public function get_option( $name, $default = '' ) {
 		return ( isset( $this->options[ $name ] ) ) ? $this->options[ $name ] : $default;
 	}
 
-
-	/**
-	 * Create element with data-id equal acf field id
-	 *
-	 * @param array $options
-	 */
-	public function create_field_for_js( $options ) {
-		if ( isset( $options['id'] ) && ( $options['type'] == 'text' || $options['type'] == 'textarea' ) ) {
-			echo '<div class="wsc_field" data-id="' . $options['id'] . '"></div>';
-		}
+	function api_proofreader_info() {
+		$ajax_nonce             = wp_create_nonce( "webspellchecker-proofreader" );
+		$key_for_proofreader    = $this->get_customer_id();
+		$slang                  = $this->get_slang();
+		$enableGrammar          = ( $this->get_customer_id() === self::TRIAL_CUSTOMER_ID ) ? false : true;
+		$wsc_proofreader_config = array(
+			'key_for_proofreader' => $key_for_proofreader,
+			'slang'               => $slang,
+			'ajax_nonce'          => $ajax_nonce,
+			'enableGrammar'       => $enableGrammar
+		);
+		wp_enqueue_script( 'wscbundle' );
+		wp_enqueue_script( 'ProofreaderInstance' );
+		wp_localize_script( 'ProofreaderInstance', 'ProofreaderInstance', $wsc_proofreader_config );
 	}
 
+	function get_proofreader_info_callback() {
+		$current_lang = $this->get_slang();
+		check_ajax_referer( 'webspellchecker-proofreader', 'security' );
+		$proofreader_info = $_POST['getInfoResult'];
+		update_option( 'wsc_proofreader_info', $proofreader_info );
+		ob_start();
+		?>
+        <select class="regular" name="wsc_proofreader[slang]" id="wsc_proofreader[slang]">
+			<?php foreach ( $proofreader_info['langList']['ltr'] as $key => $value ): ?>
+                <option <?php if ( $current_lang === $key ) {
+					echo 'selected';
+				} ?> value="<?php echo $key; ?>"><?php echo $value; ?></option>
+			<?php endforeach; ?>
+        </select>
+		<?php
+		wp_send_json( ob_get_clean() );
+		wp_die();
+	}
 }
 
 function WSC() {
-	return WebSpellChecker::instance();
+	return WProofreader::instance();
 }
 
 if ( is_admin() ) {

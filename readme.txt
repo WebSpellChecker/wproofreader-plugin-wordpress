@@ -211,6 +211,10 @@ Sure, please let us know how we can make the plugin more useful for you. Your id
 14. WProofreader Plugin Settings Pages.
 
 == Changelog ==
+
+= 2.1 - 2019-01-29 =
+* Fixed the issue with not working grammar checking option in the Pro version.
+
 = 2.0 - 2018-12-21 =
 The new version of the WProofreader (WebSpellChecker Proofreader) plugin introduces the following updates:
 

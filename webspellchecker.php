@@ -238,7 +238,7 @@ final class WProofreader {
 		$ajax_nonce             = wp_create_nonce( "webspellchecker-proofreader" );
 		$key_for_proofreader    = $this->get_customer_id();
 		$slang                  = $this->get_slang();
-		$enableGrammar          = ( $this->get_customer_id() === self::TRIAL_CUSTOMER_ID ) ? false : true;
+		$enableGrammar          = ( $this->get_customer_id() === self::TRIAL_CUSTOMER_ID ) ? 'false' : 'true';
 		$wsc_proofreader_config = array(
 			'key_for_proofreader' => $key_for_proofreader,
 			'slang'               => $slang,

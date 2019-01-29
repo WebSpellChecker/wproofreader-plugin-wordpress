@@ -1,5 +1,6 @@
 var AppInstance;
 var CheckEnableGrammar = (WSCProofreaderConfig.enableGrammar === 'true');
+console.log(CheckEnableGrammar);
 window.WEBSPELLCHECKER_CONFIG = {
     autoSearch: true,
     serviceProtocol: 'https',

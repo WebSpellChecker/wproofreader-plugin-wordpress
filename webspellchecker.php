@@ -193,7 +193,7 @@ final class WProofreader {
 		$settingsSections       = ( $this->get_customer_id() === self::TRIAL_CUSTOMER_ID ) ?
 			[ 'options', 'languages', 'about' ]
 			: [ 'options', 'languages', 'dictionaries', 'about' ];
-		$enableGrammar          = ( $this->get_customer_id() === self::TRIAL_CUSTOMER_ID ) ? false : true;
+		$enableGrammar          = ( $this->get_customer_id() === self::TRIAL_CUSTOMER_ID ) ? 'false' : 'true';
 		$wsc_proofreader_config = array(
 			'key_for_proofreader' => $key_for_proofreader,
 			'slang'               => $slang,

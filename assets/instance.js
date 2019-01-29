@@ -1,4 +1,5 @@
 jQuery(document).ready(function ($) {
+    var CheckEnableGrammar = (WSCProofreaderConfig.enableGrammar === 'true');
     var AppInstance;
     AppInstance = WEBSPELLCHECKER.initWebApi({
         autoSearch: true,
@@ -6,7 +7,7 @@ jQuery(document).ready(function ($) {
         serviceHost: 'svc.webspellchecker.net',
         servicePath: 'spellcheck31/script/ssrv.cgi',
         servicePort: '443',
-        enableGrammar: ProofreaderInstance.enableGrammar,
+        enableGrammar: CheckEnableGrammar,
         serviceId: ProofreaderInstance.key_for_proofreader,
         lang: ProofreaderInstance.slang,
         function(instance) {

@@ -109,7 +109,6 @@ The Pro version has an extended list of the default languages and supports the f
 *	Canadian French
 *	Danish
 *	Dutch
-*	English
 *	Finnish
 *	French
 *	German
@@ -140,7 +139,6 @@ Yes, the Pro version checks grammar in 14 languages:
 - Canadian French
 - Danish
 - Dutch
-- English
 - French
 - German
 - Greek
@@ -168,8 +166,8 @@ Please see the comparison of the functionality:
 
 - Usage limitations: Up to 10 million of words processed per year. No daily limits apply
 - Allowed number of websites: Up to 5 websites
-- Languages available  for spell checking (16 languages): American English, British English, Brazilian Portuguese, Canadian English, Canadian French, Danish, Dutch, English, Finnish, French, German, Greek, Italian, Norwegian Bokmal, Portuguese, Spanish, Swedish.
-- Languages available for grammar checking (14 languages): American English, British English, Brazilian Portuguese, Canadian English, Canadian French, Danish, Dutch, English, French, German, Greek, Italian, Portuguese, Spanish, Swedish.
+- Languages available  for spell checking (16 languages): American English, British English, Brazilian Portuguese, Canadian English, Canadian French, Danish, Dutch, Finnish, French, German, Greek, Italian, Norwegian Bokmal, Portuguese, Spanish, Swedish.
+- Languages available for grammar checking (14 languages): American English, British English, Brazilian Portuguese, Canadian English, Canadian French, Danish, Dutch, French, German, Greek, Italian, Portuguese, Spanish, Swedish.
 - Personal user dictionaries:  Stored in the cloud, available from any browser or device. The user can freely access, review and modify the list of words in the dictionary.
 - Global custom dictionaries: The subscription admin can create global dictionaries that will be available across all the connected websites
 
@@ -232,7 +230,7 @@ The new version of the WProofreader (WebSpellChecker Proofreader) plugin introdu
 New version of the WebSpellChecker plugin introduces the following updates:
 
 * Support of the Yoast SEO and ACF text fields
-* Spell Checking in the вЂњTitleвЂќ field
+* Spell Checking in the Titles field
 * Fixes for minor issues
 
 

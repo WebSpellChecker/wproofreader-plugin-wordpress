@@ -21,7 +21,7 @@ The new version of the WProofreader (WebSpellChecker Proofreader) plugin introdu
 New version of the WebSpellChecker plugin introduces the following updates:
 
 * Support of the Yoast SEO and ACF text fields
-* Spell Checking in the вЂњTitleвЂќ field
+* Spell Checking in the Title fields
 * Fixes for minor issues
 
 ## 1.0

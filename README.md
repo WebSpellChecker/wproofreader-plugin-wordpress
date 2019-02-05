@@ -2,6 +2,8 @@
 
 Check spelling and grammar on your site automatically with multilingual [WProofreader plugin for WordPress](https://wordpress.org/plugins/webspellchecker/).  
 
+![User Interface of WProofreader Plugin for WordPress](https://webspellchecker.com/app/images/wproofreader-plugin-wordpress.png)
+
 ## Description
 
 The WProofreader plugin automatically checks spelling and grammar in multiple languages on websites, built with WordPress 4.x, and the new WordPress 5.x.

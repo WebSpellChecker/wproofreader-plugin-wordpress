@@ -77,7 +77,7 @@ Automatic updates should work like a charm; as always though, ensure you backup 
 
 **What is License Key or how to obtain one?**
 
-> **License Key** is a special key that is required for migration to the Pro version of the WProofreader plugin. This key will be provided by WebSpellChecker after your purchase of a Pro license. Contact **info@webspellchecker.net** for more details.
+> **License Key** is a special key that is required for migration to the Pro version of the WProofreader plugin. This key will be provided by WebSpellChecker after your purchase of a Pro license. [Contact](https://webspellchecker.com/contact-us/) our sales team for more details.
 
 **Can WProofreader plugin check the entire website?**
 
@@ -147,4 +147,4 @@ Automatic updates should work like a charm; as always though, ensure you backup 
 
 **Can I suggest a feature?**
 
-> Sure, please let us know how we can make the plugin more useful for you. Your ideas and comments are welcomed.
+> Sure, please let us know how we can make the plugin more useful for you. Your ideas and comments are welcomed. 

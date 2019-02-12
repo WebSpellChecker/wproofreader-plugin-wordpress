@@ -1,5 +1,5 @@
 jQuery(document).ready(function ($) {
-    var CheckEnableGrammar = (WSCProofreaderConfig.enableGrammar === 'true');
+    var CheckEnableGrammar = (ProofreaderInstance.enableGrammar === 'true');
     var AppInstance;
     AppInstance = WEBSPELLCHECKER.initWebApi({
         autoSearch: true,

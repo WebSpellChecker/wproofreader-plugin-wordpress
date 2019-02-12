@@ -2,7 +2,7 @@
 
 ## 2.2 - 2019-02-12
 
-* Resolved the issue with not working plugin under PHP version 7.1. and higher. Consequently eliminated PHP warnings “Invalid argument supplied for foreach()“.
+* Resolved the [issue](https://wordpress.org/support/topic/description-says-spanish-is-supported-but-no-spanish/) with not working plugin under PHP version 7.1. and higher. Consequently eliminated PHP warnings “Invalid argument supplied for foreach()“. 
 
 ## 2.1 - 2019-01-29
 

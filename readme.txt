@@ -3,7 +3,7 @@ Contributors: webspellchecker
 Tags:  Proofreader, multi-language proofreading, spelling check, grammar check, proofreading in Gutenberg, wproofreader, spell checker, spellcheck, proofread as you type, spelling mistakes, spelling errors, spellchecker, correct spellings, improve spelling, multi-language spellchecker, grammar checker, proofread posts, proofread pages, check grammar in gutenberg, spellcheck in gutenberg
 Donate link: https://www.webspellchecker.com/
 Requires at least: 4.4
-Tested up to: 5.0.1
+Tested up to: 5.1.0
 Stable tag: trunk
 License: GPL-2.0+
 Requires PHP: 5.6

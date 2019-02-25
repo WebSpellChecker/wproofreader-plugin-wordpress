@@ -209,9 +209,14 @@ Sure, please let us know how we can make the plugin more useful for you. Your id
 14. WProofreader Plugin Settings Pages.
 
 == Changelog ==
+= 2.3 - 2019-02-25 =
+* Fixed the issue: The Gutenberg editor doesn’t react on the text changes (e.g. replace word) that were made by WProofreader.
+* Blocked saving of WProofreader span elements to database.
+* Fixed the issue: After replacing a word in IE11 or MS Edge, the word remains underlined in the Gutenberg editor.
+* Fixed the issue: After replacing a word in IE11 or MS Edge, the input event doesn’t work properly in the Gutenberg editor.
 
 = 2.2 - 2019-02-12 =
-Resolved the issue with not working plugin under PHP version 7.1. and higher. Consequently eliminated PHP warnings “Invalid argument supplied for foreach()“.
+* Resolved the issue with not working plugin under PHP version 7.1. and higher. Consequently eliminated PHP warnings “Invalid argument supplied for foreach()“.
 
 = 2.1 - 2019-01-29 =
 * Fixed the issue with not working grammar checking option in the Pro version.

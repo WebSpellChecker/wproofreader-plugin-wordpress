@@ -3,7 +3,7 @@
  * Plugin Name: WProofreader
  * Plugin URI: https://webspellchecker.com/
  * Description: Check spelling and grammar on your site automatically with multilingual WProofreader plugin.
- * Version:     2.3
+ * Version:     2.4
  * Author:      WebSpellChecker
  * Author URI:  https://webspellchecker.com/
  * Text Domain: webspellchecker
@@ -17,7 +17,7 @@ final class WProofreader {
 	const TRIAL_CUSTOMER_ID = '1:cma3h3-HTiyU3-JL08g4-SRyuS1-a9c0F3-kH6Cu-OlMHS-thcSV2-HlGmv3-YzRCN2-qrKY42-uPc';
 	const SLANG = 'en_US';
 	const BADGE_BUTTON = 'off';
-	const PLUGIN_VERSION = "2.3";
+	const PLUGIN_VERSION = "2.4";
 	private static $instance = null;
 	private $js_added = false;
 	private $settings;

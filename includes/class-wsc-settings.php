@@ -113,6 +113,12 @@ if ( ! class_exists( 'WeDevs_Settings_API_Test' ) ) {
 						'default' => 'en_US'
 					),
 					array(
+						'name'    => 'disable_badge_button',
+						'label'   => __( 'Disable WProofreader Badge', 'webspellchecker' ),
+						'type'    => 'checkbox',
+						'default' => 'off'
+					),
+					array(
 						'name'    => 'enable_on_posts',
 						'label'   => __( 'Check Posts', 'webspellchecker' ),
 						'type'    => 'checkbox',
@@ -135,7 +141,8 @@ if ( ! class_exists( 'WeDevs_Settings_API_Test' ) ) {
 						'label'   => __( 'Check Tags', 'webspellchecker' ),
 						'type'    => 'checkbox',
 						'default' => 'on'
-					),
+					)
+
 				)
 			);
 

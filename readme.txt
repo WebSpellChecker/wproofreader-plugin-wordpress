@@ -3,7 +3,7 @@ Contributors: webspellchecker
 Tags:  Proofreader, multi-language proofreading, spelling check, grammar check, proofreading in Gutenberg, wproofreader, spell checker, spellcheck, proofread as you type, spelling mistakes, spelling errors, spellchecker, correct spellings, improve spelling, multi-language spellchecker, grammar checker, proofread posts, proofread pages, check grammar in gutenberg, spellcheck in gutenberg
 Donate link: https://www.webspellchecker.com/
 Requires at least: 4.4
-Tested up to: 5.1.0
+Tested up to: 5.1.1
 Stable tag: trunk
 License: GPL-2.0+
 Requires PHP: 5.6
@@ -209,6 +209,10 @@ Sure, please let us know how we can make the plugin more useful for you. Your id
 14. WProofreader Plugin Settings Pages.
 
 == Changelog ==
+= 2.4 - 2019-04-15 =
+* Added a new option “Disable WProofreader Badge” to the plugin settings which allows disabling an orange badge button. If disabled, the orange badge won’t appear in each editable box on the page. Users will see only underlined spelling and grammar errors that were detected by WProofreader. 
+* Fixed the issue with “Uncaught TypeError” in the browser console which appeared after the update of the event system in the WProofreader core.
+
 = 2.3 - 2019-02-25 =
 * Fixed the issue: The Gutenberg editor doesn’t react on the text changes (e.g. replace word) that were made by WProofreader.
 * Blocked saving of WProofreader span elements to database.

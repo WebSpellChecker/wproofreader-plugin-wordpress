@@ -1,5 +1,22 @@
 # WProofreader Plugin for WordPress Changelog
 
+## 2.5 - 2019-07-29
+
+* Enabled spelling and grammar check in the Meta description fields of [Yoast SEO](https://wordpress.org/plugins/wordpress-seo/) plugin.
+* Enabled support of Custom Post Types using the 'wproofreader_add_cpt' filter. To do so, you need to add a special 'wproofreader_add_cpt' filter in your function.php. 
+
+Example:
+
+```
+function wproofreader_add_cpt_callback() {
+    return  array(
+            'my-custom-post-type'
+            );
+}
+add_filter( 'wproofreader_add_cpt', 'wproofreader_add_cpt_callback' );
+```
+
+
 ## 2.4 - 2019-04-15
 
 * Added a new option “Disable WProofreader Badge” to the plugin settings which allows disabling an orange badge button. If disabled, the orange badge won’t appear in each editable box on the page. Users will see only underlined spelling and grammar errors that were detected by WProofreader. 

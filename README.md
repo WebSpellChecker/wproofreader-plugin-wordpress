@@ -86,10 +86,11 @@ Automatic updates should work like a charm; as always though, ensure you backup 
 > Here is the list of content types which can be checked by the plugin: content of pages, content of posts, tag descriptions, category descriptions, WooCommerce and WP eCommerce product descriptions, any Custom Post Type, Meta description fields of Yoast SEO plugin.
 
 ** How can I enable the plugin in Custom Post Types? **
+
 > You need to add a special 'wproofreader_add_cpt' filter in your function.php. 
->Example:
-		```	
-		function wproofreader_add_cpt_callback() {
+> Example:
+
+		```	function wproofreader_add_cpt_callback() {
 			return  array(
 				'my-custom-post-type'
             );
@@ -97,6 +98,7 @@ Automatic updates should work like a charm; as always though, ensure you backup 
 
 		add_filter( 'wproofreader_add_cpt', 'wproofreader_add_cpt_callback' );
 		```
+		
 **What other languages are available for WProofreader plugin?** 
 
 > By default the free version of our plugin is provided with 6 languages: American English, British English, French, German, Italian, Spanish.

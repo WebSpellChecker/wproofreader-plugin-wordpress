@@ -90,14 +90,14 @@ Automatic updates should work like a charm; as always though, ensure you backup 
 > You need to add a special 'wproofreader_add_cpt' filter in your function.php. 
 > Example:
 
-		```	function wproofreader_add_cpt_callback() {
+			function wproofreader_add_cpt_callback() {
 			return  array(
 				'my-custom-post-type'
             );
 		}
 
 		add_filter( 'wproofreader_add_cpt', 'wproofreader_add_cpt_callback' );
-		```
+		
 		
 **What other languages are available for WProofreader plugin?** 
 

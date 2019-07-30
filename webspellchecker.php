@@ -3,7 +3,7 @@
  * Plugin Name: WProofreader
  * Plugin URI: https://webspellchecker.com/
  * Description: Check spelling and grammar on your site automatically with multilingual WProofreader plugin.
- * Version:     2.4
+ * Version:     2.5
  * Author:      WebSpellChecker
  * Author URI:  https://webspellchecker.com/
  * Text Domain: webspellchecker
@@ -17,7 +17,7 @@ final class WProofreader {
 	const TRIAL_CUSTOMER_ID = '1:cma3h3-HTiyU3-JL08g4-SRyuS1-a9c0F3-kH6Cu-OlMHS-thcSV2-HlGmv3-YzRCN2-qrKY42-uPc';
 	const SLANG = 'en_US';
 	const BADGE_BUTTON = 'off';
-	const PLUGIN_VERSION = "2.4";
+	const PLUGIN_VERSION = "2.5";
 	private static $instance = null;
 	private $js_added = false;
 	private $settings;
@@ -70,6 +70,12 @@ final class WProofreader {
 			delete_option( 'wsc' );
 			update_option( 'wsc_proofreader_version', self::PLUGIN_VERSION );
 		}
+	}
+
+
+	public function includes() {
+		require_once dirname( __FILE__ ) . '/vendor/class.settings-api.php';
+		require_once dirname( __FILE__ ) . '/includes/class-wsc-settings.php';
 	}
 
 	public function init_proofreader() {
@@ -146,15 +152,31 @@ final class WProofreader {
 
 			}
 
+			$additionalCPT = apply_filters( 'wproofreader_add_cpt', $CPT = array() );
+
+			if ( ! empty( $additionalCPT ) ) {
+
+				foreach ( $additionalCPT as $key => $value ) {
+					if ( 0 === strcasecmp( $value, $editable_post_type ) ) {
+						$this->init_proofreader_js();
+					}
+				}
+
+			}
+
 			return $this->js_added = true;
 		}
 
 		return $this->js_added = false;
 	}
 
-	public function includes() {
-		require_once dirname( __FILE__ ) . '/vendor/class.settings-api.php';
-		require_once dirname( __FILE__ ) . '/includes/class-wsc-settings.php';
+
+	function add_action_links( $links ) {
+		$mylinks = array(
+			'<a href="' . admin_url( 'options-general.php?page=spell-checker-settings' ) . '">' . __( 'Settings', 'webspellchecker' ) . '</a>',
+		);
+
+		return array_merge( $links, $mylinks );
 	}
 
 	public function get_editable_post_type() {
@@ -167,14 +189,6 @@ final class WProofreader {
 		}
 
 		return false;
-	}
-
-	function add_action_links( $links ) {
-		$mylinks = array(
-			'<a href="' . admin_url( 'options-general.php?page=spell-checker-settings' ) . '">' . __( 'Settings', 'webspellchecker' ) . '</a>',
-		);
-
-		return array_merge( $links, $mylinks );
 	}
 
 	function register_proofreader_scripts() {
@@ -196,7 +210,7 @@ final class WProofreader {
 			'slang'               => $slang,
 			'settingsSections'    => $settingsSections,
 			'enableGrammar'       => $enableGrammar,
-			'disableBadgeButton' => $badge_button_optinon,
+			'disableBadgeButton'  => $badge_button_optinon,
 		);
 		wp_enqueue_script( 'wscbundle' );
 		wp_enqueue_script( 'ProofreaderConfig' );
@@ -254,6 +268,23 @@ final class WProofreader {
 		wp_localize_script( 'ProofreaderInstance', 'ProofreaderInstance', $wsc_proofreader_config );
 	}
 
+	public static function fix_for_gutenberg() {
+		add_action( 'wp_insert_post_data', function ( $data, $postarr ) {
+			if ( 'publish' == $data['post_status'] ) {
+				$string               = $data['post_content'];
+				$new_string           = preg_replace( '#(<span class=."wsc-spelling-problem." .*?>)(.*?)(</span>)#', '$2', $string );
+				$new_string           = preg_replace( '#(<span class=."wsc-grammar-problem." .*?>)(.*?)(</span>)#', '$2', $new_string );
+				$new_string           = preg_replace( '#(<span class=."rangySelectionBoundary." .*?>)(.*?)(</span>)#', '$2', $new_string );
+				$new_string           = preg_replace( '#(<span class="wsc-spelling-problem".*?>)(.*?)(</span>)#', '$2', $new_string );
+				$new_string           = preg_replace( '#(<span class="wsc-grammar-problem" .*?>)(.*?)(</span>)#', '$2', $new_string );
+				$new_string           = preg_replace( '#(<span class="rangySelectionBoundary" .*?>)(.*?)(</span>)#', '$2', $new_string );
+				$new_string           = preg_replace( '#(<span class=..rangySelectionBoundary.. .*?>)(.*?)(</span>)#', '$2', $new_string );
+				$data['post_content'] = $new_string;
+			}
+
+			return $data;
+		}, 100, 2 );
+	}
 
 	function get_proofreader_info_callback() {
 		$current_lang = $this->get_slang();
@@ -274,23 +305,7 @@ final class WProofreader {
 		wp_die();
 	}
 
-	public static function fix_for_gutenberg() {
-		add_action( 'wp_insert_post_data', function ( $data, $postarr ) {
-			if ( 'publish' == $data['post_status'] ) {
-				$string               = $data['post_content'];
-				$new_string           = preg_replace( '#(<span class=."wsc-spelling-problem." .*?>)(.*?)(</span>)#', '$2', $string );
-				$new_string           = preg_replace( '#(<span class=."wsc-grammar-problem." .*?>)(.*?)(</span>)#', '$2', $new_string );
-				$new_string           = preg_replace( '#(<span class=."rangySelectionBoundary." .*?>)(.*?)(</span>)#', '$2', $new_string );
-				$new_string           = preg_replace( '#(<span class="wsc-spelling-problem".*?>)(.*?)(</span>)#', '$2', $new_string );
-				$new_string           = preg_replace( '#(<span class="wsc-grammar-problem" .*?>)(.*?)(</span>)#', '$2', $new_string );
-				$new_string           = preg_replace( '#(<span class="rangySelectionBoundary" .*?>)(.*?)(</span>)#', '$2', $new_string );
-				$new_string           = preg_replace( '#(<span class=..rangySelectionBoundary.. .*?>)(.*?)(</span>)#', '$2', $new_string );
-				$data['post_content'] = $new_string;
-			}
 
-			return $data;
-		}, 100, 2 );
-	}
 }
 
 function WSC() {

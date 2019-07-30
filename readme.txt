@@ -1,9 +1,9 @@
-=== WProofreader ===
+﻿=== WProofreader ===
 Contributors: webspellchecker
 Tags:  Proofreader, multi-language proofreading, spelling check, grammar check, proofreading in Gutenberg, wproofreader, spell checker, spellcheck, proofread as you type, spelling mistakes, spelling errors, spellchecker, correct spellings, improve spelling, multi-language spellchecker, grammar checker, proofread posts, proofread pages, check grammar in gutenberg, spellcheck in gutenberg
 Donate link: https://www.webspellchecker.com/
 Requires at least: 4.4
-Tested up to: 5.2.0
+Tested up to: 5.2.2
 Stable tag: trunk
 License: GPL-2.0+
 Requires PHP: 5.6
@@ -87,9 +87,20 @@ Automatic updates should work like a charm; as always though, ensure you backup 
 License Key is a special key that is required for migration to the Pro version of the WProofreader plugin. This key will be provided by WebSpellChecker after your purchase of a Pro license. Contact **info@webspellchecker.net** for more details.
 
 = Can WProofreader plugin check the entire website? =
+Here is the list of content types which can be checked by the plugin: content of pages, content of posts, tag descriptions, category descriptions, WooCommerce and WP eCommerce product descriptions, any Custom Post Type, Meta description fields of Yoast SEO plugin.
 
-Here is the list of content types which can be checked by the plugin: content of pages, content of posts, tag descriptions, category descriptions,  WooCommerce and WP eCommerce product descriptions.
+= How can I enable the plugin in Custom Post Types? =
+You need to add a special 'wproofreader_add_cpt' filter in your function.php. 
+Example:
+			
+		function wproofreader_add_cpt_callback() {
+			return  array(
+				'my-custom-post-type'
+            );
+		}
 
+		add_filter( 'wproofreader_add_cpt', 'wproofreader_add_cpt_callback' );
+		
 = What other languages are available for WProofreader plugin? = 
 By default the free version of our plugin is provided with 6 languages:
 
@@ -209,6 +220,10 @@ Sure, please let us know how we can make the plugin more useful for you. Your id
 14. WProofreader Plugin Settings Pages.
 
 == Changelog ==
+= 2.5 - 2019-07-29 =
+* Enabled spelling and grammar check in the Meta description fields of Yoast SEO plugin.
+* Enabled support of Custom Post Types using the “wproofreader_add_cpt“ filter.
+
 = 2.4 - 2019-04-15 =
 * Added a new option “Disable WProofreader Badge” to the plugin settings which allows disabling an orange badge button. If disabled, the orange badge won’t appear in each editable box on the page. Users will see only underlined spelling and grammar errors that were detected by WProofreader. 
 * Fixed the issue with “Uncaught TypeError” in the browser console which appeared after the update of the event system in the WProofreader core.

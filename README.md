@@ -85,7 +85,7 @@ Automatic updates should work like a charm; as always though, ensure you backup 
 
 > Here is the list of content types which can be checked by the plugin: content of pages, content of posts, tag descriptions, category descriptions, WooCommerce and WP eCommerce product descriptions, any Custom Post Type, Meta description fields of Yoast SEO plugin.
 
-** How can I enable the plugin in Custom Post Types? **
+**How can I enable the plugin in Custom Post Types?**
 
 > You need to add a special 'wproofreader_add_cpt' filter in your function.php. 
 > Example:

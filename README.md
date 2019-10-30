@@ -16,7 +16,7 @@ The WProofreader plugin automatically checks spelling and grammar in multiple la
 Here are a few highlights of how the plugin can be useful for your websites:
 
 ### Multilingual
-The Pro version proofreads in 15 languages, plus spell checking in Finnish and Norwegian Bokmal. You can also extend the spell checking with any of 150+ additional languages.
+The Pro version proofreads in 15 languages, plus spell checking in Finnish and Norwegian Bokmal. You can also extend the spell checking with any of 150+ additional languages and the specialized dictionaries such as [medical] (https://webspellchecker.com/additional-dictionaries/#medical-dictionary) or [legal](https://webspellchecker.com/additional-dictionaries/#legal-dictionary).
 
 6 languages are spell checked in the Free version.
 

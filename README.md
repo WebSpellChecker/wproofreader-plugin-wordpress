@@ -145,9 +145,17 @@ Automatic updates should work like a charm; as always though, ensure you backup 
 > *	Personal user dictionaries:  Stored in the cloud, available from any browser or device. The user can freely access, review and modify the list of words in the dictionary.
 > *	Global custom dictionaries: The subscription admin can create global dictionaries that will be available across all the connected websites
 
+**How to add specialized medical or legal dictionary to the Pro version?**
+
+> With the Pro version, the default list of languages can be extended with specialized English [medical](https://webspellchecker.com/additional-dictionaries/#medical-dictionary) and [legal](https://webspellchecker.com/additional-dictionaries/#legal-dictionary) dictionaries. The purchased dictionary will be added to your Pro license once the payment is made. [Contact](https://webspellchecker.com/contact-us/) our sales team for more details.
+
+> *	The medical dictionary ($14 per year). It includes over 192K terms related to anatomy, diseases, health care, generic and trademark drug names. Available for American and British English, French.
+
+> *	The legal dictionary ($9 per year). It contains about 5K terms related to jurisprudence, law, criminology, and law enforcement. Available for American and British English.
+
 **What is global custom dictionary and how I can use it?**
 
-> The global custom dictionary functionality is available in the Pro version only and is aimed at extending a list of words in the default dictionaries with your custom words and terms. It helps to improve the quality of spelling check services. Using a personal account on the [webspellchecker.com] (https://webspellchecker.com/) website. You may create a custom wordlist which includes specific terms, abbreviations, etc. These words won’t be considered as misspellings.
+> The global custom dictionary functionality is available in the Pro version only and is aimed at extending a list of words in the default dictionaries with your custom words and terms. It helps to improve the quality of spelling check services. Using a personal account on the [webspellchecker.com](https://webspellchecker.com/) website. You may create a custom wordlist which includes specific terms, abbreviations, etc. These words won’t be considered as misspellings.
 
 **What are the Terms of Service?**
 

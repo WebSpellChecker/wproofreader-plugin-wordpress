@@ -158,7 +158,7 @@ Yes, the Pro version checks grammar in 15 languages:
 - Italian
 - Portuguese
 - Spanish
-– Ukrainian
+- Ukrainian
 
 = Is support provided with this plugin? =
 

@@ -187,7 +187,7 @@ Please see the comparison of the functionality:
 
 = How to add specialized medical or legal dictionary to the Pro version? =
 
- With the Pro version, the default list of languages can be extended with specialized English [medical](https://webspellchecker.com/additional-dictionaries/#medical-dictionary) and [legal] (https://webspellchecker.com/additional-dictionaries/#legal-dictionary) dictionaries. The purchased dictionary will be added to your Pro license once the payment is made. [Contact](https://webspellchecker.com/contact-us/) our sales team for more details.
+ With the Pro version, the default list of languages can be extended with specialized English [medical](https://webspellchecker.com/additional-dictionaries/#medical-dictionary) and [legal](https://webspellchecker.com/additional-dictionaries/#legal-dictionary) dictionaries. The purchased dictionary will be added to your Pro license once the payment is made. [Contact](https://webspellchecker.com/contact-us/) our sales team for more details.
  
  **Medical Dictionary ($14 per year)**
  
@@ -203,7 +203,7 @@ The Pro version can be extended with more than 150+ [additional languages](https
 
 = What is global custom dictionary and how I can use it? =
 
-The global custom dictionary functionality is available in the Pro version only and is aimed at extending a list of words in the default dictionaries with your custom words and terms. It helps to improve the quality of spelling check services. Using a personal account on the [webspellchecker.com] (https://webspellchecker.com/) website. You may create a custom wordlist which includes specific terms, abbreviations, etc. These words won’t be considered as misspellings.
+The global custom dictionary functionality is available in the Pro version only and is aimed at extending a list of words in the default dictionaries with your custom words and terms. It helps to improve the quality of spelling check services. Using a personal account on the [webspellchecker.com](https://webspellchecker.com/) website. You may create a custom wordlist which includes specific terms, abbreviations, etc. These words won’t be considered as misspellings.
 
 = What are the Terms of Service? =
 

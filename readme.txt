@@ -42,7 +42,7 @@ In the Free version the users can create their Personal User Dictionaries as wel
 = Powerful =
 The Pro version proofreads up to 100 million words per year, and can be used in up to 5 websites.  
 
-The free version checks spelling in to 50 thousand words per day on one website. Once the limit is reached the proofreading stops until the next day.
+The free version checks spelling in up to to 50 thousand words per day on one website. Once the limit is reached the proofreading stops until the next day.
 
 = Modern =
 The plugin seamlessly integrates with websites, built in WordPress 4.x, and the new WordPress 5.x with the Gutenberg editor.
@@ -85,7 +85,7 @@ Automatic updates should work like a charm; as always though, ensure you backup 
 
 = What is License Key or how to obtain one? =
 
-License Key is a special key that is required for migration to the Pro version of the WProofreader plugin. This key will be provided by WebSpellChecker after your purchase of a Pro license. Contact **info@webspellchecker.net** for more details.
+License Key is a special key that is required for migration to the Pro version of the WProofreader plugin. This key will be provided by WebSpellChecker after your purchase of a Pro license. Contact our [sales team](https://webspellchecker.com/contact-us/) for more details.
 
 = Can WProofreader plugin check the entire website? =
 The plugin doesn’t check the whole website at a time. It is enabled only when the content on your website is in editing mode. Here is the list of content types which can be checked by the plugin: content of pages, content of posts, tag descriptions, category descriptions, WooCommerce and WP eCommerce product descriptions, any Custom Post Type, Meta description fields of Yoast SEO plugin.
@@ -162,7 +162,7 @@ Yes, the Pro version checks grammar in 15 languages:
 
 = Is support provided with this plugin? =
 
-Support service is provided by WebSpellChecker LLC technical team and available for Pro users. Contact us at **support@webspellchecker.net**. 
+Support service is provided by WebSpellChecker LLC technical team and available for Pro users. Contact our [support team](https://webspellchecker.com/contact-us/) for more details. 
 
 = What is the difference between Free and Pro versions? =
 Please see the comparison of the functionality:
@@ -219,7 +219,7 @@ The plugin supports latest versions of Chrome, Firefox, Safari, and MS Edge, and
 
 = Can I suggest a feature? =
 
-Sure, please let us know how we can make the plugin more useful for you. Your ideas and comments are welcome at **support@webspellchecker.net**.
+Sure, please let us know how we can make the plugin more useful for you. Create a new topic under the [support section](https://wordpress.org/support/plugin/webspellchecker/) of this plugin.
 
 
 == Screenshots ==

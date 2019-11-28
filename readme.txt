@@ -3,7 +3,7 @@ Contributors: webspellchecker
 Tags:  Proofreader, multi-language proofreading, spelling check, grammar check, proofreading in Gutenberg, wproofreader, spell checker, spellcheck, proofread as you type, spelling mistakes, spelling errors, spellchecker, correct spellings, improve spelling, multi-language spellchecker, grammar checker, proofread posts, proofread pages, check grammar in gutenberg, spellcheck in gutenberg
 Donate link: https://www.webspellchecker.com/
 Requires at least: 4.4
-Tested up to: 5.2.2
+Tested up to: 5.3.0
 Stable tag: trunk
 License: GPL-2.0+
 Requires PHP: 5.6
@@ -233,11 +233,8 @@ Sure, please let us know how we can make the plugin more useful for you. Create 
 8. WProofreader Settings with Options for Check Spelling.
 9. WProofreader Settings with Languages List.
 10. WProofreader Settings with Personal Dictionary Management View.
-11. WProofreader Checks Spelling and Grammar on Pages.
-12. WProofreader Checks Spelling and Grammar on WooCommerce Products.
-13. WProofreader Checks Spelling and Grammar on Gutenberg Editor of WordPress 5.
-14. WProofreader Plugin Settings Pages.
-
+11. WProofreader Plugin Settings Pages.
+12. WProofreader with Disabled Badge Button.
 == Changelog ==
 = 2.5 - 2019-07-29 =
 * Enabled spelling and grammar check in the Meta description fields of Yoast SEO plugin.

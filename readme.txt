@@ -40,7 +40,7 @@ The Pro version provides an option of adding specialized terminology, acronyms, 
 In the Free version the users can create their Personal User Dictionaries as well. However, they will not be saved to cloud, so the dictionary can only be used from a single browser and device.  The Global Custom Dictionaries are not available in the Free version.
 
 = Powerful =
-The Pro version proofreads up to 100 million words per year, and can be used in up to 5 websites.  
+The Pro version proofreads up to 200 million words per year, and can be used in up to 5 websites.  
 
 The free version checks spelling in up to to 50 thousand words per day on one website. Once the limit is reached the proofreading stops until the next day.
 

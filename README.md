@@ -1,4 +1,4 @@
-# WProofreader Plugin for WordPress
+# WProofreader plugin for WordPress
 
 Check spelling and grammar on your site automatically with multilingual [WProofreader plugin for WordPress](https://wordpress.org/plugins/webspellchecker/).  
 
@@ -20,7 +20,7 @@ The Pro version proofreads in 15 languages, plus spell checking in Finnish and N
 
 6 languages are spell checked in the Free version.
 
-### Grammar-Savvy
+### Grammar-savvy
 
 The Pro version is able of checking of not only spelling, but grammar in 15 languages as well.
 
@@ -75,7 +75,7 @@ It might be particularly handy:
 
 Automatic updates should work like a charm; as always though, ensure you backup your site just in case.
 
-## Frequently Asked Questions
+## Frequently asked questions
 
 **What is License Key or how to obtain one?**
 

@@ -10,9 +10,11 @@ jQuery(document).ready(function ($) {
         enableGrammar: CheckEnableGrammar,
         serviceId: ProofreaderInstance.key_for_proofreader,
         lang: ProofreaderInstance.slang,
+        appType:'wp_plugin',
         function(instance) {
             AppInstance = instance;
         },
+
     });
     AppInstance.getInfo({
         success: function (result) {
@@ -28,12 +30,15 @@ jQuery(document).ready(function ($) {
                     $('#wsc_proofreader select ').html(data);
                 },
                 error: function (errorThrown) {
-                    console.log(errorThrown);
+                    /// console.log(errorThrown);
                 }
             });
         },
-        error: function (res) {
-            $('#wsc_proofreader').prepend('<span class="description" style="font-size:15px;color: red;"> Oooops! Something went wrong. Open browser console for details. For technical assistance contact us at <a href="mailto:support@webspellchecker.net">support@webspellchecker.net</a></span>');
+        error: function (e) {
+            if(e.message){
+                var message = '<strong>WProofreader:</strong> '+e.message;
+                $('#wsc_proofreader').prepend('<div class="error"><p>'+message+'.</p><p><a target="_blank" href="https://webspellchecker.com/contact-us/">Contact us</a> for technical assistance.</p></div>');
+            }
         }
     });
 });

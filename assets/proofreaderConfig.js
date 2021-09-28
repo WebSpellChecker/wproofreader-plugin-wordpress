@@ -6,6 +6,7 @@ if (!disableBadgeButton) {
 }
 window.WEBSPELLCHECKER_CONFIG = {
     autoSearch: true,
+    appType:'wp_plugin',
     serviceProtocol: 'https',
     serviceHost: 'svc.webspellchecker.net',
     servicePath: 'spellcheck31/script/ssrv.cgi',
@@ -16,6 +17,7 @@ window.WEBSPELLCHECKER_CONFIG = {
     lang: WSCProofreaderConfig.slang,
     enableBadgeButton: disableBadgeButton,
     actionItems: actionItems,
+    disableAutoSearchIn: ['.wp-block-table__cell-content'],
     onLoad:
         function () {
             var self = this;

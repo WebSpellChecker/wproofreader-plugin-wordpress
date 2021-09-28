@@ -89,7 +89,7 @@ if ( ! class_exists( 'WeDevs_Settings_API_Test' ) ) {
 					array(
 						'name'              => 'customer_id',
 						'label'             => __( 'License Key', 'webspellchecker' ),
-						'desc'              => __( 'Upgrade to WProofreader Pro for <strong>$49 per year</strong> to check spelling and grammar across a list of your websites. <br>Contact us at <a href="mailto:info@webspellchecker.net">info@webspellchecker.net</a> to find out how to proceed with the upgrade.', 'webspellchecker' ),
+						'desc'              => __( 'Upgrade to WProofreader Pro to access the grammar/style checking capabilities and lift the usage limits for your websites. <br><a href="https://webspellchecker.com/free-trial/" target="_blank">Give it a try for 14-days free</a>.', 'webspellchecker' ),
 						'type'              => 'text',
 						'default'           => '',
 						'sanitize_callback' => 'sanitize_text_field'
@@ -114,7 +114,7 @@ if ( ! class_exists( 'WeDevs_Settings_API_Test' ) ) {
 					),
 					array(
 						'name'    => 'disable_badge_button',
-						'label'   => __( 'Disable WProofreader Badge', 'webspellchecker' ),
+						'label'   => __( 'Enable Badge', 'webspellchecker' ),
 						'type'    => 'checkbox',
 						'default' => 'off'
 					),

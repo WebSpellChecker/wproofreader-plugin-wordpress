@@ -3,7 +3,7 @@
  * Plugin Name: WProofreader
  * Plugin URI: https://webspellchecker.com/
  * Description: Check spelling and grammar on your site automatically with multilingual WProofreader plugin.
- * Version:     2.6.4
+ * Version:     2.6.5
  * Author:      WebSpellChecker
  * Author URI:  https://webspellchecker.com/
  * Text Domain: webspellchecker
@@ -17,7 +17,7 @@ final class WProofreader {
 	const TRIAL_CUSTOMER_ID = '1:cma3h3-HTiyU3-JL08g4-SRyuS1-a9c0F3-kH6Cu-OlMHS-thcSV2-HlGmv3-YzRCN2-qrKY42-uPc';
 	const SLANG = 'en_US';
 	const BADGE_BUTTON = 'off';
-	const PLUGIN_VERSION = "2.6.4";
+	const PLUGIN_VERSION = "2.6.5";
 	private static $instance = null;
 	private $js_added = false;
 	private $settings;
@@ -205,8 +205,8 @@ final class WProofreader {
 		$key_for_proofreader    = $this->get_customer_id();
 		$slang                  = $this->get_slang();
 		$settingsSections       = ( $this->get_customer_id() === self::TRIAL_CUSTOMER_ID ) ?
-			[ 'options', 'languages', 'about' ]
-			: [ 'options', 'languages', 'dictionaries', 'about' ];
+			[ 'options', 'languages', 'about', 'general' ]
+			: [ 'options', 'languages', 'dictionaries', 'about', 'general' ];
 		$enableGrammar          = ( $this->get_customer_id() === self::TRIAL_CUSTOMER_ID ) ? 'false' : 'true';
 		$badge_button_optinon   = ( $this->get_badge_button_optinon() === self::BADGE_BUTTON ) ? 'false' : 'true';
 		$wsc_proofreader_config = array(

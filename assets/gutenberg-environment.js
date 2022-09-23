@@ -35,7 +35,6 @@ jQuery(document).ready(function ($){
     function createInstance(element){
         WEBSPELLCHECKER.init({
             container: element,
-            disableDialog: true
         });
     }
 

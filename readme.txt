@@ -1,27 +1,30 @@
-﻿=== WordPress spell & grammar check plugin | WProofreader ===
+﻿=== WProofreader spell & grammar check plugin for WordPress ===
 Contributors: webspellchecker
 Tags: spell check, grammar, spelling, proofreading, corrector
 Donate link: https://www.webspellchecker.com/
 Requires at least: 5.2
-Tested up to: 5.7
+Tested up to: 6.0.1
 Stable tag: trunk
 License: GPL-2.0+
 Requires PHP: 7.0
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
 
-WProofreader plugin for WordPress adds AI based grammar and spell check capabilities to your website content in multiple languages.  
+WProofreader plugin for WordPress adds AI based grammar and spell check capabilities to your website content in multiple languages.
 
 == Description ==
 
 WProofreader plugin for WordPress naturally scans and checks your website content not only limited to grammar and spell check but also punctuation and style of your content.
 
-Caveat though, WProofreader plugin does not proofread the whole website at a time. It proofreads only when the content on your website is in editing mode.
+WProofreader plugin for WordPress uses the cloud-based WebSpellChecker spelling and grammar checking services governed by the [Terms of Service](https://webspellchecker.com/legal/terms-of-service/).
+
+Caveat though, WProofreader plugin does not proofread the whole website at a time. **It proofreads only when the content on your website is in editing mode.**
 
 Compatible with the following WordPress versions:
 
 *	WordPress 4.x
 *	WordPress 5.x
+*	WordPress 6.x
 
 Here is a list of the supported content types:
 
@@ -48,7 +51,11 @@ Content of pages - Content of posts - Tag descriptions - Category descriptions -
 	*	German
 	*	Italian
 	*	Spanish
-	
+
+Extra features language autodetect and spelling autocorrect speed up your writing. Autodetect checks multilingual texts instantly detecting the language and giving relevant spelling and grammar recommendations.
+
+Autocorrect provides text replacements for commonly misspelled words like “hte”, “google, and “dont”. The feature is available for all supported languages and enabled by default.
+
 = CUSTOMIZABLE DICTIONARY =
 
 The Pro version is shipped with:
@@ -57,18 +64,20 @@ The Pro version is shipped with:
 *	**Company-level custom dictionary** – Same as the user-level dictionary yet managed centrally – company wide – by the admin to ensure uniformity across the organization.
 *	Specialized medical for English, French and Spanish and legal dictionaries for English.
 
-Free version dictionary – Company-level custom dictionary is not available for the free version. 
+Free version dictionary – Company-level custom dictionary is not available for the free version.
 The user-level custom dictionary content is saved on the browser storage.
 
 = ELEGANT AND USER-FRIENDLY =
-*	Straightforward configuration
-*	There is no ad banners
-*	Color-coded spelling, grammar, and punctuation
+*   Straightforward configuration
+*	There is NO BANNER ADDs
+*   Color-coded spelling, grammar, and punctuation
+*	Spelling autocorrect
+*	Language autodetection
 *	Easily toggle on/off button
 *	Add words to custom dictionary and access it everywhere
 *	Support the latest version of WordPress
 
-= SCALABLE = 
+= SCALABLE =
 
 *	Proofread up to 100 million words per year in the Pro version and supports up to 5 websites.
 *	The free version is limited to spell checking 10,000 words per day one a single website. Upon reaching the limit, it stops working until the next day.
@@ -83,7 +92,7 @@ The user-level custom dictionary content is saved on the browser storage.
 	*	Microsoft Edge
 	*	Internet Explorer 11
 
-**For good measure, most of our clients use WProofreader plugin for WordPress because:**	
+**For good measure, most of our clients use WProofreader plugin for WordPress because:**
 
 *	To save time proofreading using anyone of the two modes – check as you type and in floating dialog.
 *	They are heavy posters, with multiple articles to release.
@@ -140,6 +149,10 @@ To create a **Company-level custom dictionary** to be used across all the websit
 
 Not all listed languages support grammar checks. [Here](https://docs.webspellchecker.net/display/WebSpellCheckerCloud/Supported+languages) is the updated list of supported languages and the ones marked for grammar-check.
 
+= Does WProofreader plugin work in Elementor? =
+
+At the moment WProofreader plugin doesn't work in Elementor Website Builder. However, we may re-prioritize our backlog based on the demand. Contact us.
+
 = Is Technical support available for WProofreader plugin? =
 Support service is provided by WebSpellChecker LLC for Pro version users. For more details, please contact [support@webspellchecker.net](support@webspellchecker.net).
 
@@ -158,7 +171,7 @@ Support service is provided by WebSpellChecker LLC for Pro version users. For mo
 
 *	**Usage limit**: Up to 100 million words processed per year. No daily limits apply
 *	**Allowed number of websites**: Up to 5 websites
-*	**Languages available for spell checking**: Select up to 17 languages from a pool of 160+ languages. 
+*	**Languages available for spell checking**: Select up to 17 languages from a pool of 160+ languages.
 *	**Languages available for grammar checking**: Not all listed languages support grammar checks. [Here](https://docs.webspellchecker.net/display/WebSpellCheckerCloud/Supported+languages) is the updated list of supported languages and the ones marked for grammar-check.
 *	**Personal user-level custom dictionary**: Stored in the cloud, available from any browser or device. The user can freely access, review and modify the list of words in the dictionary.
 *	**Company-level custom dictionary**: The subscription admin can create global dictionaries that will be available across all the connected websites.
@@ -182,7 +195,7 @@ If you need to select more than 17 languages, please contact our [sales team](ht
 = What is a Company-level custom dictionary and how I can use it? =
 The Company-level custom dictionary functionality is available in the Pro version only and is aimed at extending a list of words in the default dictionaries with your custom words and terms. It helps to improve the quality of spelling check services. Using an account on the WebSpellChecker website, you may create a custom wordlist which includes specific terms, abbreviations, etc. These words won’t be considered as misspellings.
 
-= What are the Terms of Service? = 
+= What are the Terms of Service? =
 Please see the complete [Terms of Service](https://webspellchecker.com/legal/terms-of-service/) for the plugin here.
 
 = Is my text secure? What is your Privacy Policy? =
@@ -191,9 +204,20 @@ We have an extensive Privacy Policy in place to protect your texts. Please see t
 = What browsers are supported? =
 The plugin supports latest versions of Chrome, Firefox, Safari, and MS Edge, and Internet Explorer 11.
 
-= Can I suggest a feature? = 
+= Can I suggest a feature? =
 Sure, please let us know how we can make the plugin more useful for you. Create a new topic under the support section of this plugin.
 
+= How can I uninstall the plugin? =
+To uninstall the plugin, you need to be a website administrator. Please login to the website admin area and go to Plugins. Locate WProofreader on the list of the plugins and click Deactivate below the plugin title. The last step is to simply click Delete that appears after the deactivation.
+
+= My website exceeded word usage quota. What does it mean? =
+Both the Free and Pro versions of the plugin have usage limitations. One of them is the aggregated number of words checked during a certain period.
+
+The Free version is limited to 10,000 words for a single website aggregated for all users per day. Once the aggregated usage for a website exceeds this number, the plugin stops checking text until the next day (00:00 UTC-0) and the next error message will be shown on the plugin's settings page: “Word usage quota for the free plan exceeded. Contact support for more details.“
+
+Below is the example explaining how the usage is calculated. The plugin doesn't run in a background or doesn't generate false data usage. If the plugin is enabled, it works only when a page or blog post is in the **editing** mode.
+
+Let's assume you have a page which contains 1000 words. You open it for editing and this is when the plugin starts. All the text from this page will be sent for checking. Thus, 1000 words are checked and recorded as usage. You still continue editing, let's say you decided to make some changes in the 2nd paragraph which contains 100 words. Since there were some changes, the plugin needs to recheck this part. As a result extra 100 words will be sent for checking. We can't send individual words as checking relies on sentences. So, now 1100 words are recorded in usage. Later you decide that you want to save the page as a draft and preview changes. After previewing changes, you decide to go back to editing and open the page for editing again (again this is when the plugin starts). The plugin doesn't know that this is the same page and does rechecking again. As a result plus 1000 words are added to the general statistics. The total is now 2100 words. Also, let's imagine that while editing mode is ON you have to reload a page a few times, the whole page will be rechecked after each reload of the page or browser.
 
 == Screenshots ==
 1. WProofreader Checks Spelling and Grammar on Posts.
@@ -208,6 +232,18 @@ Sure, please let us know how we can make the plugin more useful for you. Create 
 10. WProofreader Plugin Settings Pages.
 
 == Changelog ==
+= 2.6.7 – 2022-09-14 =
+* Fixed warning in class-wsc-settings.php on line 180.
+
+
+= 2.6.6 – 2022-07-29 =
+* Fixed issue with the dialog mode.
+* Updated text.
+
+= 2.6.5 – 2021-09-28 =
+* Enabled WProofreader badge by default. If needed, it can be disabled from the plugin's settings tab.
+* Enabled the General section on the settings dialog for managing spelling autocorrection. By default, the spelling autocorrection is enabled. If needed, the user can disable it. To do so, please navigate to the badge (orange bubble located at the right bottom corner of the editable block) > click on the gear icon > toggle “Correct spelling automatically”.
+
 = 2.6.4 - 2020-11-26 =
 * Fixed a minor issue with the plugin permissions and an error shown on the settings page.
 
@@ -222,7 +258,7 @@ Sure, please let us know how we can make the plugin more useful for you. Create 
 * Enabled error logging mechanism. Now errors will be displayed on the plugin settings page, which will help to troubleshoot issues faster.
 
 = 2.6 - 2020-09-14 =
-* Improved the integration with the Gutenberg editor. Now WProofreader will be automatically started in all editable elements of the editor without the necessity to click on each element to enable the spelling/grammar checking. 
+* Improved the integration with the Gutenberg editor. Now WProofreader will be automatically started in all editable elements of the editor without the necessity to click on each element to enable the spelling/grammar checking.
 * The orange badge is disabled by default for all types of elements including the Gutenberg editor. There is a setting allowing to reactivate the badge.
 * The dialog mode option for proofreading is disabled by default for the Gutenberg editor.
 
@@ -231,7 +267,7 @@ Sure, please let us know how we can make the plugin more useful for you. Create 
 * Enabled support of Custom Post Types using the “wproofreader_add_cpt“ filter.
 
 = 2.4 - 2019-04-15 =
-* Added a new option “Disable WProofreader Badge” to the plugin settings which allows disabling an orange badge button. If disabled, the orange badge won’t appear in each editable box on the page. Users will see only underlined spelling and grammar errors that were detected by WProofreader. 
+* Added a new option “Disable WProofreader Badge” to the plugin settings which allows disabling an orange badge button. If disabled, the orange badge won’t appear in each editable box on the page. Users will see only underlined spelling and grammar errors that were detected by WProofreader.
 * Fixed the issue with “Uncaught TypeError” in the browser console which appeared after the update of the event system in the WProofreader core.
 
 = 2.3 - 2019-02-25 =
@@ -259,7 +295,7 @@ The new version of the WProofreader (WebSpellChecker Proofreader) plugin introdu
 
 
 
-= 1.1 = 
+= 1.1 =
 New version of the WebSpellChecker plugin introduces the following updates:
 
 * Support of the Yoast SEO and ACF text fields
@@ -267,7 +303,7 @@ New version of the WebSpellChecker plugin introduces the following updates:
 * Fixes for minor issues
 
 
-= 1.0 = 
+= 1.0 =
 Initial Release of the WebSpellChecker plugin. The multi-language spell checking functionality is available for Visual Editor and excerpt all fields.
 
 == Upgrade Notice ==

@@ -89,7 +89,7 @@ if ( ! class_exists( 'WeDevs_Settings_API_Test' ) ) {
 					array(
 						'name'              => 'customer_id',
 						'label'             => __( 'License Key', 'webspellchecker' ),
-						'desc'              => __( 'Upgrade to WProofreader Pro to access the grammar/style checking capabilities and lift the usage limits for your websites. <br><a href="https://webspellchecker.com/free-trial/" target="_blank">Give it a try for 14-days free</a>.', 'webspellchecker' ),
+						'desc'              => __( 'Upgrade to WProofreader Pro to access the grammar/style checking, text autocomplete capabilities and lift the usage limits for your websites. Leave it empty if you prefer to use the Free version. <br><a href="https://webspellchecker.com/free-trial/" target="_blank">Try Pro for 14-days free ></a>.', 'webspellchecker' ),
 						'type'              => 'text',
 						'default'           => '',
 						'sanitize_callback' => 'sanitize_text_field'
@@ -116,7 +116,7 @@ if ( ! class_exists( 'WeDevs_Settings_API_Test' ) ) {
 						'name'    => 'disable_badge_button',
 						'label'   => __( 'Enable Badge', 'webspellchecker' ),
 						'type'    => 'checkbox',
-						'default' => 'off'
+						'default' => 'on'
 					),
 					array(
 						'name'    => 'enable_on_posts',
@@ -177,7 +177,7 @@ if ( ! class_exists( 'WeDevs_Settings_API_Test' ) ) {
 		function get_lang_list() {
 			$get_info = get_option( 'wsc_proofreader_info' );
 
-			return $get_info['langList']['ltr'];
+            return !empty($get_info['langList']['ltr']) ? $get_info['langList']['ltr'] : array();
 		}
 
 	}

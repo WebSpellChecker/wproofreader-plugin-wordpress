@@ -4,6 +4,7 @@ actionItems = ['addWord', 'ignoreAll', 'settings', 'toggle', 'proofreadDialog'];
 if (!disableBadgeButton) {
     actionItems = ['addWord', 'ignoreAll', 'settings', 'proofreadDialog'];
 }
+
 window.WEBSPELLCHECKER_CONFIG = {
     autoSearch: true,
     appType:'wp_plugin',
@@ -15,6 +16,9 @@ window.WEBSPELLCHECKER_CONFIG = {
     settingsSections: WSCProofreaderConfig.settingsSections,
     serviceId: WSCProofreaderConfig.key_for_proofreader,
     lang: WSCProofreaderConfig.slang,
+    globalBadge: true,
+    badgeOffsetX: 300,
+    badgeOffsetY: 34,
     enableBadgeButton: disableBadgeButton,
     actionItems: actionItems,
     disableAutoSearchIn: ['.wp-block-table__cell-content'],

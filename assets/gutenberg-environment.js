@@ -43,6 +43,7 @@ jQuery(document).ready(function ($){
     }
 
     function handleGutenbergReady(){
+
         $(".rich-text").each(function (index) {
             const element = jQuery(this).get(0);
             if (ignoreElement(element)) {
@@ -51,12 +52,35 @@ jQuery(document).ready(function ($){
             createInstance(element);
         });
 
+        wp.data.subscribe(function () {
+            var isSidebarOpened = wp.data.select('core/edit-post').isEditorSidebarOpened();
+            if (isSidebarOpened) {
+                jQuery('.wsc-badge__wrapper').css('right', '300px');
+            } else {
+                jQuery('.wsc-badge__wrapper').css('right', '30px');
+            }
+        });
     }
-
+    function handleTinyMceInit(editor) {
+        const element = editor.getBody();
+        if (ignoreElement(element)) {
+            return;
+        }
+        createInstance(element);
+    }
     function handleGutenbergReadyWithDelay(){
         setTimeout(handleGutenbergReady, 100);
     }
 
     window._wpLoadBlockEditor.then(handleGutenbergReadyWithDelay);
+
+    if (window.tinymce) {
+        tinymce.on('addeditor', function (event) {
+            const editor = event.editor;
+            editor.on('init', function () {
+                handleTinyMceInit(editor);
+            });
+        });
+    }
 
 });

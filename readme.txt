@@ -3,7 +3,7 @@ Contributors: webspellchecker
 Tags: spell check, grammar, spelling, proofreading, corrector
 Donate link: https://www.webspellchecker.com/
 Requires at least: 5.2
-Tested up to: 6.0.1
+Tested up to: 6.2.1
 Stable tag: trunk
 License: GPL-2.0+
 Requires PHP: 7.0
@@ -232,9 +232,12 @@ Let's assume you have a page which contains 1000 words. You open it for editing 
 10. WProofreader Plugin Settings Pages.
 
 == Changelog ==
+= 2.6.8 – 2023-05-17 =
+* Enabled the global badge view instead of the standard one. It will add just one badge at the very bottom of the page instead of adding a small badge on each editable element within Gutenber editor. This badge can be disabled from the plugin settings page.
+* Fixed issue when WProofreader doesn't start automatically in classic editor inside default Gutenberg editor.
+
 = 2.6.7 – 2022-09-14 =
 * Fixed warning in class-wsc-settings.php on line 180.
-
 
 = 2.6.6 – 2022-07-29 =
 * Fixed issue with the dialog mode.

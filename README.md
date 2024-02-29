@@ -6,56 +6,74 @@ Check spelling and grammar on your site automatically with multilingual [WProofr
 
 ## Description
 
-The WProofreader plugin automatically checks spelling and grammar in multiple languages on websites, built with WordPress 4.x, and the new WordPress 5.x.
+WProofreader plugin for WordPress scans and checks your website content for spelling,  grammar, punctuation and style issues. No banner ads on your website!
 
-**The plugin works in two comfortable modes:**
+Compatible with the following WordPress versions:
+* WordPress 4.x
+* WordPress 5.x
+* WordPress 6.x
 
-* instant, underlining mistakes while you type, and 
-* dialog, proofreading all the text at once in a separate pop-up window.
+Free WProofreader plugin supports only spell-check for 6 languages and comes with a usage limit of 10,000 words processed per day for a single website. Upon reaching the limit, the plugin stops working until the next day. Check more differences between WProofreader plugin free and pro versions below. 
 
-Here are a few highlights of how the plugin can be useful for your websites:
+[![Watch the video](https://img.youtube.com/vi/mhrZN87jydA/sddefault.jpg)](https://www.youtube.com/watch?v=mhrZN87jydA)
 
-### Multilingual
-The Pro version proofreads in 15 languages, plus spell checking in Finnish and Norwegian Bokmal. You can also extend the spell checking with any of [150+ additional languages](https://webspellchecker.com/additional-dictionaries/) and the specialized dictionaries such as [medical](https://webspellchecker.com/additional-dictionaries/#medical-dictionary) or [legal](https://webspellchecker.com/additional-dictionaries/#legal-dictionary).
+**WProofreader Free and Pro versions**
 
-6 languages are spell checked in the Free version.
+**Free version: ($0)**
 
-### Grammar-savvy
+* **Usage limit:** Up to 10,000 words processed per day for a single website. Once the daily limit is reached, the plugin will stop working.
+* **Allowed number of websites:** 1 website.
+* **Languages available for spell checking:** (6 languages) American English, British English, French, German, Italian and Spanish.
+* **Languages available for grammar checking:** Not available.
+* **User-level custom dictionary:** No cloud backup. The dictionary is only available in one browser on a single device. The dictionary is not available for review and modification.
+* **Organization-level custom dictionary:** Not available.
 
-The Pro version is able of checking of not only spelling, but grammar in 15 languages as well.
+**Pro version: ($49)**
 
-### Customizable
+* **Usage limit:** Up to 100 million words processed per year. No daily limits applied
+* **Allowed number of websites:** unlimited
+* **Languages available for spell checking:** 20+ popular languages. 
+* **Languages available for grammar checking:** Not all listed languages support grammar checks. Here is the updated list of supported languages and the ones marked for grammar check.
+* **User-level custom dictionary:** Stored in the cloud, available from any browser or device. The user can freely access, review and modify the list of words in the dictionary.
+* **Organization-level custom dictionary:** The subscription owner can create global dictionaries that will be available across all the connected websites.
 
-The Pro version provides an option of adding specialized terminology, acronyms, proper names, etc. into Personal User Dictionaries, stored in the cloud and available for review and management from any browser, or to Global Custom Dictionaries, managed at the subscription admin level and available across all the websites under given license key.
+### User functionality
 
-In the Free version the users can create their Personal User Dictionaries as well. However, they will not be saved to cloud, so the dictionary can only be used from a single browser and device.  The Global Custom Dictionaries are not available in the Free version.
+**Proofreading modes**
 
-### Powerful
+* The check-as-you-type mode instantaneously detects writing mistakes and provides suggestions on-hover.
+* The proofread-in-dialog mode aggregates all the issues detected and suggestions provided.
 
-The Pro version proofreads up to 200 million words per year, and can be used in up to 5 websites.  
+**Customizable dictionaries**
 
-The free version checks spelling in to 50 thousand words per day on one website. Once the limit is reached the proofreading stops until the next day.
+The Pro version is shipped with:
+* **User-level custom dictionary** allows end users to create personal dictionaries with specific words and terms (complex words, acronyms, proper names, etc.) and use them while working with WordPress. Once a word is added to a personal dictionary, it will not be considered as a misspelling, and will appear in the suggestions list. All customly added words are stored either in the browser local storage or on our cloud and are accessible from the browser. 
+* **Organization-level custom dictionary** allows creating company-wide dictionaries that extend the vocabulary of the standard dictionary with custom words specific to your company culture, industry, domain, etc. All the words added to an organization-level custom dictionary by the admin will be available to all users within your company. This type of dictionary is available only under the Pro version.
+* **Specialized medical spelling dictionaries** for English, German, French and Spanish  and legal dictionaries for English. Available for both — free and Pro versions of the plugin.
 
-### Modern
+**Feature-rich**
 
-The plugin seamlessly integrates with websites, built in WordPress 4.x, and the new WordPress 5.x with the Gutenberg editor.
+* Multi-language support
+* Spelling autocorrect functionality for instant correction of common typos
+* Autocomplete suggestions functionality for faster writing
+* Style guide functionality with pre-defined non-inclusive and profanity language check for professional writing
+* User-level and organization-level dictionaries
 
-The following browsers are supported: 
+**User-friendly and up-to-date**
 
-* Chrome
-* Firefox 
-* Safari
-* MS Edge
-* Internet Explorer 11
+* Straightforward plugin configuration ([check the video tutorial](https://www.youtube.com/watch?v=mhrZN87jydA))
+* Visible and intuitive text check with different colors used for spelling, grammar, and style guide issues
+* Easily toggle on/off the plugin button
+* Support the latest version of WordPress
+* Seamlessly integrates with the WordPress latest editor — Gutenberg and compatible with the classic editor of WordPress 4.x.
+* Support of the browsers: Chrome, Firefox, Safari, Microsoft Edge, Internet Explorer 11
+* _Content elements supported: pages, posts, tag descriptions, category descriptions, WooCommerce, WP eCommerce product descriptions, any custom post types, meta description fields of Yoast SEO plugin._
 
-With all the content to post, the Proofreader plugin is a real time-saver, carefully checking texts right in your text editor. 
+### Benefits of  WProofreader plugin for WordPress:
 
-It might be particularly handy:
-
-* for heavy-posters, with multiple articles to release daily
-* for owners and keepers the  websites, which need to be maintained in several languages
-* for editors working with content created by third parties
-* for perfection enthusiasts eager to keep their texts flawless (we are also from this bunch).
+* It saves time proofreading in any of the two modes – check-as-you type and proofread-in-dialog.
+* You can create and maintain quality posts in different languages without being worriesy about possible mistakes.
+* Advanced functionality for spelling autocorrect, autocomplete suggestions and style guide for faster and more productive writing.
 
 ## Installation
 
@@ -73,102 +91,74 @@ It might be particularly handy:
 
 ## Updating
 
-Automatic updates should work like a charm; as always though, ensure you backup your site just in case.
+Automatic updates should run smoothly, but it's always a good idea to back up your site, just in case.
 
 ## Frequently asked questions
 
 **What is License Key or how to obtain one?**
 
-> **License Key** is a special key that is required for migration to the Pro version of the WProofreader plugin. This key will be provided by WebSpellChecker after your purchase of a Pro license. [Contact](https://webspellchecker.com/contact-us/) our sales team for more details.
+> A **license key** is a special data string that verifies authorized access to the Pro version of WProofreader plugin. The license key is provided by the WebSpellChecker when the Pro version is purchased.
 
 **Can WProofreader plugin check the entire website?**
 
-> The plugin doesn’t check the whole website at a time. It is enabled only when the content on your website is in editing mode. Here is the list of content types which can be checked by the plugin: content of pages, content of posts, tag descriptions, category descriptions, WooCommerce and WP eCommerce product descriptions, any Custom Post Type, Meta description fields of Yoast SEO plugin.
-
-**How can I enable the plugin in Custom Post Types?**
-
-> You need to add a special 'wproofreader_add_cpt' filter in your function.php. 
-> Example:
-
-			function wproofreader_add_cpt_callback() {
-			return  array(
-				'my-custom-post-type'
-            );
-		}
-
-		add_filter( 'wproofreader_add_cpt', 'wproofreader_add_cpt_callback' );
-		
-		
+> The plugin does not check the whole website at a time. It is enabled only when the content on your website is in editing mode. Here is the list of content types which can be checked by the plugin: content of pages, content of posts, tag descriptions, category descriptions, WooCommerce and WP eCommerce product descriptions, any Custom Post Type, Meta description fields of Yoast SEO plugin.
+	
 **What other languages are available for WProofreader plugin?** 
 
-> By default the free version of our plugin is provided with 6 languages: American English, British English, French, German, Italian, Spanish.
+> The free version of WProofreader plugin supports 6 languages, including:
+> * American English
+> * British English
+> * French
+> * German
+> * Italian
+> * Spanish
 
-> The Pro version has an extended list of the default languages and supports the following 17 languages: American English, British English, Brazilian Portuguese, Canadian English, Canadian French, Danish, Dutch, Finnish, French, German, Greek, Italian, Norwegian Bokmal, Portuguese, Spanish, Swedish, Ukrainian.
+> The Pro version of WProofreader plugin supports 20+ popular languages.
 
-> Also, with the Pro version, the default list of languages can be extended with more than 150+ [additional languages](https://webspellchecker.com/additional-dictionaries/).
+> ****Note that not all languages support grammar checks.*** [Here](https://webspellchecker.com/supported-languages/) is the list of available languages. Languages with grammar enabled are marked.
 
-**How can I create a personal dictionary?**
+**What is a user-level custom dictionary and how can I create one?**
 
-> **WProofreader** plugin has a special functionality called User Dictionary. It allows creating personal dictionaries with custom words (complex words, acronyms, proper names etc.) and using it across your website. All words added to a personal dictionary will not be considered as misspellings. 
+> WProofreader plugin has a special functionality called a custom dictionary. It allows creating personal dictionaries with specific words and terms (complex words, acronyms, proper names, etc.) and using them across your website. Words added to a personal dictionary will not be marked as misspellings. 
 
-> In order to create a new personal dictionary click the orange badge in bottom right corner of the text field and select Settings. Then go to Dictionaries, Name your new dictionary and click Create.   All new words will be added to a newly created dictionary.
+> To create a new **user-level custom dictionary**, click the badge in the bottom right corner of the text field and select Settings. Then go to Dictionaries. Name your new dictionary and click Create. All new words will be added to a brand-new dictionary. If you have several personal dictionaries, for example, with different term types – new words will be added to the one, which is currently in use.
 
-> You can create the global custom dictionaries to be used across all the websites under your subscription via your subscription management panel. Please see the detailed instructions [here](https://docs.webspellchecker.net/display/WebSpellCheckerCloud/Configuring+Cloud+Custom+Dictionary).
+> To create an **organization-level custom dictionary** to be used across all the websites under your subscription, please follow the instructions in this [link](https://docs.webspellchecker.com/display/WebSpellCheckerCloud/Configuring+Cloud+Custom+Dictionary).
 
-**Can I check grammar with this plugin as well?**
+**Does WProofreader plugin check grammar as well?**
 
-> Yes, the Pro version checks grammar in 15 languages: American English, British English, Brazilian Portuguese, Canadian English, Canadian French, Danish, Dutch, French, German, Greek, Italian, Portuguese, Spanish, Ukrainian. 
+> Not all languages in the list support grammar checks. [Here](https://webspellchecker.com/supported-languages/) is the updated list of supported languages and the ones that can be used for grammar-check.
 
-**Is support provided with this plugin?**
+**Is technical support available for WProofreader plugin?**
 
-> Support service is provided by WebSpellChecker LLC technical team and available for Pro users. [Get in touch with us](https://webspellchecker.com/contact-us/). If you are using the Free version, you still have an option to report an issue using GitHub Issues. We will do our best to reply the earliest.
+> Support service is provided by WebSpellChecker LLC for Pro version users. For more details, please [contact us](https://webspellchecker.com/contact-us/).
 
-**What is the difference between Free and Pro versions?**
+**How to add a specialized medical or legal dictionary to the Pro version?**
 
-> Please see the comparison of the functionality:
+> With the Pro version, the default list is already extended with specialized English [medical](https://webspellchecker.com/supported-languages/#medical-dictionary) and [legal](https://webspellchecker.com/supported-languages/#legal-dictionary) dictionaries.
 
-> **Free version ($0)**
+> **Medical dictionary**
+The medical dictionary includes over 192K terms related to anatomy, diseases, health care, generic and trademark drug names. Available for English, German, French and Spanish.
 
-> *	Usage limitations: Up to 50 thousand words processed per day.  Once the daily limit is reached, the tool will stop working.
-> *	Allowed number of websites: 1 website
-> *	Languages available  for spell checking (6 languages): American English, British English, French, German, Italian, Spanish.
-> *	Languages available for grammar checking: Not available
-> *	Personal user dictionaries:  No cloud backup. The dictionary is only available in one browser on a single device. The dictionary is not available for review and modification.
-> *	Global custom dictionaries: Not available
+> **Legal dictionary**
+The legal dictionary contains about 5K terms related to jurisprudence, law, criminology, and law enforcement. Available for English.
 
-> **Pro version ($49 per year)**
+**What is an organization-level custom dictionary and how can I use it?**
 
-> *	Usage limitations: Up to 200 million of words processed per year. No daily limits apply.
-> *	Allowed number of websites: Up to 5 websites
-> *	Languages available  for spell checking (17 languages): American English, British English, Brazilian Portuguese, Canadian English, Canadian French, Danish, Dutch, Finnish, French, German, Greek, Italian, Norwegian Bokmal, Portuguese, Spanish, Swedish, Ukrainian.
-> *	Languages available for grammar checking (15 languages): American English, British English, Brazilian Portuguese, Canadian English, Canadian French, Danish, Dutch, French, German, Greek, Italian, Portuguese, Spanish, Swedish, Ukrainian.
-> *	Personal user dictionaries:  Stored in the cloud, available from any browser or device. The user can freely access, review and modify the list of words in the dictionary.
-> *	Global custom dictionaries: The subscription admin can create global dictionaries that will be available across all the connected websites
-
-**How to add specialized medical or legal dictionary to the Pro version?**
-
-> With the Pro version, the default list of languages can be extended with specialized English [medical](https://webspellchecker.com/additional-dictionaries/#medical-dictionary) and [legal](https://webspellchecker.com/additional-dictionaries/#legal-dictionary) dictionaries. The purchased dictionary will be added to your Pro license once the payment is made. [Contact](https://webspellchecker.com/contact-us/) our sales team for more details.
-
-> *	The medical dictionary ($14 per year). It includes over 192K terms related to anatomy, diseases, health care, generic and trademark drug names. Available for American and British English, French.
-
-> *	The legal dictionary ($9 per year). It contains about 5K terms related to jurisprudence, law, criminology, and law enforcement. Available for American and British English.
-
-**What is global custom dictionary and how I can use it?**
-
-> The global custom dictionary functionality is available in the Pro version only and is aimed at extending a list of words in the default dictionaries with your custom words and terms. It helps to improve the quality of spelling check services. Using a personal account on the [webspellchecker.com](https://webspellchecker.com/) website. You may create a custom wordlist which includes specific terms, abbreviations, etc. These words won’t be considered as misspellings.
+> The organization-level custom dictionary functionality is available in the Pro version only and is aimed at extending a list of words in the default dictionaries with your custom words and terms. It helps to improve the quality of spelling check services. Using an account on the WebSpellChecker website, you may create a custom wordlist which includes specific terms, abbreviations, etc. These words won’t be flagged as misspellings.
 
 **What are the Terms of Service?**
 
-> Please see the complete [Terms of Service](https://webspellchecker.com/terms-of-service/) for the plugin here.
+> Please see the complete [WebSpellChecker Terms of Service](https://webspellchecker.com/legal/terms-of-service/) for WProofreader plugin.
 
 **Is my text secure? What is your Privacy Policy?**
 
-> We have an extensive Privacy Policy in place to protect your texts. Please see the details [here](https://webspellchecker.com/privacy-policy/).
+> We have an extensive Privacy Policy in place to protect your texts. Please see the details [here](https://webspellchecker.com/legal/privacy-policy/).
 
 **What browsers are supported?**
 
-> The plugin supports latest versions of Chrome, Firefox, Safari, and MS Edge, and Internet Explorer 11.
+> The plugin supports the latest versions of Chrome, Firefox, Safari, and MS Edge, and Internet Explorer 11.
 
 **Can I suggest a feature?**
 
-> Sure, please let us know how we can make the plugin more useful for you. Your ideas and comments are welcomed. 
+> Sure, please let us know how we can make the plugin more useful for you. Create a new topic under the support section of this plugin.

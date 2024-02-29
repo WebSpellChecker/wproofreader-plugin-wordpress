@@ -2,7 +2,7 @@
 
 Check spelling and grammar on your site automatically with multilingual [WProofreader plugin for WordPress](https://wordpress.org/plugins/webspellchecker/).  
 
-![User Interface of WProofreader Plugin for WordPress](https://webspellchecker.com/app/images/wproofreader-plugin-wordpress.png)
+![User Interface of WProofreader Plugin for WordPress](https://ps.w.org/webspellchecker/assets/screenshot-2.png?rev=3041860)
 
 ## Description
 

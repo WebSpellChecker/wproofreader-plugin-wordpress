@@ -33,7 +33,7 @@ Free WProofreader plugin supports only spell-check for 6 languages and comes wit
 * **Usage limit:** Up to 100 million words processed per year. No daily limits applied
 * **Allowed number of websites:** unlimited
 * **Languages available for spell checking:** 20+ popular languages. 
-* **Languages available for grammar checking:** Not all listed languages support grammar checks. Here is the updated list of supported languages and the ones marked for grammar check.
+* **Languages available for grammar checking:** Not all listed languages support grammar checks. [Here](https://webspellchecker.com/supported-languages/) is the updated list of supported languages and the ones marked for grammar check.
 * **User-level custom dictionary:** Stored in the cloud, available from any browser or device. The user can freely access, review and modify the list of words in the dictionary.
 * **Organization-level custom dictionary:** The subscription owner can create global dictionaries that will be available across all the connected websites.
 

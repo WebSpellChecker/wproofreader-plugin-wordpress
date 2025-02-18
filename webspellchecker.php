@@ -2,8 +2,8 @@
 /**
  * Plugin Name: WProofreader
  * Plugin URI: https://webspellchecker.com/
- * Description: Check spelling and grammar on your site automatically with multilingual WProofreader plugin.
- * Version:     2.6.8
+ * Description: WProofreader checks spelling, grammar, and style in real-time while editing in WordPress.
+ * Version:     2.7.0
  * Author:      WebSpellChecker
  * Author URI:  https://webspellchecker.com/
  * Text Domain: webspellchecker
@@ -17,7 +17,7 @@ final class WProofreader {
 	const TRIAL_CUSTOMER_ID = '1:cma3h3-HTiyU3-JL08g4-SRyuS1-a9c0F3-kH6Cu-OlMHS-thcSV2-HlGmv3-YzRCN2-qrKY42-uPc';
 	const SLANG = 'en_US';
 	const BADGE_BUTTON = 'on';
-	const PLUGIN_VERSION = "2.6.8";
+	const PLUGIN_VERSION = "2.7.0";
 	private static $instance = null;
 	private $js_added = false;
 	private $settings;
@@ -190,9 +190,9 @@ final class WProofreader {
 	}
 
 	function register_proofreader_scripts() {
-		wp_register_script( 'wscbundle', 'https://svc.webspellchecker.net/spellcheck31/wscbundle/wscbundle.js', array(), '081120181109', false );
-		wp_register_script( 'ProofreaderConfig', plugin_dir_url( __FILE__ ) . '/assets/proofreaderConfig.js', array( 'wscbundle' ), '081120181110', true );
-		wp_register_script( 'ProofreaderInstance', plugin_dir_url( __FILE__ ) . '/assets/instance.js', array( 'wscbundle' ), '171220181251', true );
+		wp_register_script( 'wscbundle', 'https://svc.webspellchecker.net/spellcheck31/wscbundle/wscbundle.js', array(), '23090950', false );
+		wp_register_script( 'ProofreaderConfig', plugin_dir_url( __FILE__ ) . '/assets/proofreaderConfig.js', array( 'wscbundle' ), '23090950', true );
+		wp_register_script( 'ProofreaderInstance', plugin_dir_url( __FILE__ ) . '/assets/instance.js', array( 'wscbundle' ), '23090950', true );
 		wp_register_script( 'GutenbergEnvironment', plugin_dir_url( __FILE__ ) . '/assets/gutenberg-environment.js', array(
 			'ProofreaderConfig',
 			'wp-blocks'
@@ -280,24 +280,28 @@ final class WProofreader {
 	}
 
 
-	function get_proofreader_info_callback() {
-		$current_lang = $this->get_slang();
-		check_ajax_referer( 'webspellchecker-proofreader', 'security' );
-		$proofreader_info = $_POST['getInfoResult'];
-		update_option( 'wsc_proofreader_info', $proofreader_info );
-		ob_start();
-		?>
+    function get_proofreader_info_callback() {
+        $current_lang = $this->get_slang();
+        check_ajax_referer( 'webspellchecker-proofreader', 'security' );
+        $proofreader_info = $_POST['getInfoResult'];
+        update_option( 'wsc_proofreader_info', $proofreader_info );
+        $languages = array_merge(
+            $proofreader_info['langList']['ltr'] ?? [],
+            $proofreader_info['langList']['rtl'] ?? []
+        );
+        ob_start();
+        ?>
         <select class="regular" name="wsc_proofreader[slang]" id="wsc_proofreader[slang]">
-			<?php foreach ( $proofreader_info['langList']['ltr'] as $key => $value ): ?>
+            <?php foreach ( $languages as $key => $value ): ?>
                 <option <?php if ( $current_lang === $key ) {
-					echo 'selected';
-				} ?> value="<?php echo $key; ?>"><?php echo $value; ?></option>
-			<?php endforeach; ?>
+                    echo 'selected';
+                } ?> value="<?php echo $key; ?>"><?php echo $value; ?></option>
+            <?php endforeach; ?>
         </select>
-		<?php
-		wp_send_json( ob_get_clean() );
-		wp_die();
-	}
+        <?php
+        wp_send_json( ob_get_clean() );
+        wp_die();
+    }
 
 	public static function fix_for_gutenberg() {
 		add_action( 'wp_insert_post_data', function ( $data, $postarr ) {

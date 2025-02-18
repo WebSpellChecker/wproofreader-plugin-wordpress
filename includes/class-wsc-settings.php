@@ -174,11 +174,20 @@ if ( ! class_exists( 'WeDevs_Settings_API_Test' ) ) {
 			return $pages_options;
 		}
 
-		function get_lang_list() {
-			$get_info = get_option( 'wsc_proofreader_info' );
+        function get_lang_list() {
+            $info = get_option('wsc_proofreader_info');
 
-            return !empty($get_info['langList']['ltr']) ? $get_info['langList']['ltr'] : array();
-		}
+            if (!is_array($info) || !isset($info['langList'])) {
+                return [];
+            }
+
+            $langList = $info['langList'];
+
+            $ltrLanguages = is_array($langList['ltr'] ?? null) ? $langList['ltr'] : [];
+            $rtlLanguages = is_array($langList['rtl'] ?? null) ? $langList['rtl'] : [];
+
+            return array_merge($ltrLanguages, $rtlLanguages);
+        }
 
 	}
 

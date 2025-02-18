@@ -21,7 +21,7 @@ window.WEBSPELLCHECKER_CONFIG = {
     badgeOffsetY: 34,
     enableBadgeButton: disableBadgeButton,
     actionItems: actionItems,
-    disableAutoSearchIn: ['.wp-block-table__cell-content'],
+    disableAutoSearchIn: ['.wp-block-table__cell-content','.ui-autocomplete-input','#wp-link-url'],
     onLoad:
         function () {
             var self = this;

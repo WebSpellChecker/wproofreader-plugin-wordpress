@@ -1,5 +1,41 @@
 # WProofreader Plugin for WordPress Changelog
 
+## 2.6.9 - 2024-02-27
+* Updated plugin’s graphics and texts.
+
+## 2.6.8 – 2023-05-17
+* Enabled the global badge view instead of the standard one. It will add just one badge at the very bottom of the page instead of adding a small badge on each editable element within Gutenber editor. This badge can be disabled from the plugin settings page.
+* Fixed issue when WProofreader doesn't start automatically in classic editor inside default Gutenberg editor.
+
+## 2.6.7 – 2022-09-14
+* Fixed warning in class-wsc-settings.php on line 180.
+
+## 2.6.6 – 2022-07-29
+* Fixed issue with the dialog mode.
+* Updated text.
+
+## 2.6.5 – 2021-09-28
+* Enabled WProofreader badge by default. If needed, it can be disabled from the plugin's settings tab.
+* Enabled the General section on the settings dialog for managing spelling autocorrection. By default, the spelling autocorrection is enabled. If needed, the user can disable it. To do so, please navigate to the badge (orange bubble located at the right bottom corner of the editable block) > click on the gear icon > toggle “Correct spelling automatically”.
+
+## 2.6.4 - 2020-11-26
+* Fixed a minor issue with the plugin permissions and an error shown on the settings page.
+
+## 2.6.3 - 2020-11-20
+* WProofreader is disabled in the table element in the Gutenberg editor to prevent breaking a table and overall glitching.
+
+## 2.6.2 - 2020-09-22
+* Fixed the integration issue that appeared in v2.6 with the Classic editor when Gutenberg is disabled.
+
+## 2.6.1 - 2020-09-21
+* Enabled error logging mechanism. Now errors will be displayed on the plugin settings page, which will help to troubleshoot issues faster.
+
+## 2.6 - 2020-09-14
+* Improved the integration with the Gutenberg editor. Now WProofreader will be automatically started in all editable elements of the editor without the necessity to click on each element to enable the spelling/grammar checking.
+* The orange badge is disabled by default for all types of elements including the Gutenberg editor. There is a setting allowing to reactivate the badge.
+* The dialog mode option for proofreading is disabled by default for the Gutenberg editor.
+
+
 ## 2.5 - 2019-07-29
 
 * Enabled spelling and grammar check in the Meta description fields of [Yoast SEO](https://wordpress.org/plugins/wordpress-seo/) plugin.

@@ -1,5 +1,10 @@
 # WProofreader Plugin for WordPress Changelog
 
+## 2.7.1 - 2024-10-01
+* Renamed WeDevs_Settings_API to WSC_Settings_API and WeDevs_Settings_API_Test to WSC_Settings to avoid naming conflicts with other plugins using similar settings API classes.
+
+## 2.7.0 – 2025-02-18 
+* Fixed issue with RTL (right-to-left) languages visibility in the Language dropdown on the plugin Settings page.
 ## 2.6.9 - 2024-02-27
 * Updated plugin’s graphics and texts.
 

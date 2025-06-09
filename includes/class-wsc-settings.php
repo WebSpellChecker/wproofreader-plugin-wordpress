@@ -7,12 +7,12 @@ if ( ! defined( 'ABSPATH' ) ) {
  * WordPress settings API class
  *
  */
-if ( ! class_exists( 'WeDevs_Settings_API_Test' ) ) {
+if ( ! class_exists( 'WSC_Settings' ) ) {
 	class WSC_Settings {
 		const OPTION_NAME = 'wsc_proofreader';
 
 		/**
-		 * @var WeDevs_Settings_API
+		 * @var WSC_Settings_API
 		 */
 		private $settings_api;
 		private $page_title;
@@ -20,7 +20,7 @@ if ( ! class_exists( 'WeDevs_Settings_API_Test' ) ) {
 		private $menu_slug;
 
 		function __construct( $page_title, $menu_title, $menu_slug ) {
-			$this->settings_api = new WeDevs_Settings_API;
+			$this->settings_api = new WSC_Settings_API;
 			$this->menu_title   = $menu_title;
 			$this->menu_slug    = $menu_slug;
 			$this->page_title   = $page_title;

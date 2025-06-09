@@ -179,6 +179,9 @@ Sure, please let us know how we can make the plugin more useful for you. Create 
 10. WProofreader WordPress plugin settings page.
 
 == Changelog ==
+= 2.7.1 – 2025-02-18 =
+* Renamed WeDevs_Settings_API to WSC_Settings_API and WeDevs_Settings_API_Test to WSC_Settings to avoid naming conflicts with other plugins using similar settings API classes.
+
 = 2.7.0 – 2025-02-18 =
 * Fixed issue with RTL (right-to-left) languages visibility in the Language dropdown on the plugin Settings page.
 

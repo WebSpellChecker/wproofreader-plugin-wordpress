@@ -179,6 +179,7 @@ Sure, please let us know how we can make the plugin more useful for you. Create 
 10. WProofreader WordPress plugin settings page.
 
 == Changelog ==
+
 = 2.8.0 – 2025-06-25 =
 * Fixed issue with user preferences not being remembered. A recent issue caused user-selected options (e.g., selected language, ignore settings, enabled check types) to reset on every page reload. Now, these preferences are stored.
 * Compact badge enabled by default. Users can now click directly on the badge to launch the proofreading dialog. In earlier versions, this required hovering over the badge and selecting the “proofread in dialog” option.

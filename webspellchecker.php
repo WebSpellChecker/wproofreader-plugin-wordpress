@@ -190,13 +190,13 @@ final class WProofreader {
 	}
 
 	function register_proofreader_scripts() {
-		wp_register_script( 'wscbundle', 'https://svc.webspellchecker.net/spellcheck31/wscbundle/wscbundle.js', array(), '23090950', false );
-		wp_register_script( 'ProofreaderConfig', plugin_dir_url( __FILE__ ) . '/assets/proofreaderConfig.js', array( 'wscbundle' ), '23090950', true );
-		wp_register_script( 'ProofreaderInstance', plugin_dir_url( __FILE__ ) . '/assets/instance.js', array( 'wscbundle' ), '23090950', true );
+		wp_register_script( 'wscbundle', 'https://svc.webspellchecker.net/spellcheck31/wscbundle/wscbundle.js', array(), '20250625', false );
+		wp_register_script( 'ProofreaderConfig', plugin_dir_url( __FILE__ ) . '/assets/proofreaderConfig.js', array( 'wscbundle' ), '20250625', true );
+		wp_register_script( 'ProofreaderInstance', plugin_dir_url( __FILE__ ) . '/assets/instance.js', array( 'wscbundle' ), '20250625', true );
 		wp_register_script( 'GutenbergEnvironment', plugin_dir_url( __FILE__ ) . '/assets/gutenberg-environment.js', array(
 			'ProofreaderConfig',
 			'wp-blocks'
-		), '171220181251', true );
+		), '171220181252', true );
 	}
 
 	function init_proofreader_js() {

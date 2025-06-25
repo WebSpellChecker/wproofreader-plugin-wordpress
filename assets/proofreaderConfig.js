@@ -16,12 +16,15 @@ window.WEBSPELLCHECKER_CONFIG = {
     settingsSections: WSCProofreaderConfig.settingsSections,
     serviceId: WSCProofreaderConfig.key_for_proofreader,
     lang: WSCProofreaderConfig.slang,
-    globalBadge: true,
     badgeOffsetX: 300,
     badgeOffsetY: 34,
     enableBadgeButton: disableBadgeButton,
     actionItems: actionItems,
     disableAutoSearchIn: ['.wp-block-table__cell-content','.ui-autocomplete-input','#wp-link-url'],
+    disableOptionsStorage: [],
+    globalBadge: true,
+    compactBadge: true,
+    allSuggestionsMode: true,
     onLoad:
         function () {
             var self = this;

@@ -5,7 +5,7 @@ Donate link: https://www.webspellchecker.com/
 Requires at least: 6.6
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 2.7.0
+Stable tag: 2.8.0
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -179,7 +179,12 @@ Sure, please let us know how we can make the plugin more useful for you. Create 
 10. WProofreader WordPress plugin settings page.
 
 == Changelog ==
-= 2.7.1 – 2025-02-18 =
+= 2.8.0 – 2025-06-25 =
+* Fixed issue with user preferences not being remembered. A recent issue caused user-selected options (e.g., selected language, ignore settings, enabled check types) to reset on every page reload. Now, these preferences are stored.
+* Compact badge enabled by default. Users can now click directly on the badge to launch the proofreading dialog. In earlier versions, this required hovering over the badge and selecting the “proofread in dialog” option.
+* Improved suggestion mode in dialog. The dialog now opens in an extended view that shows all suggestions at once. Previously, users had to go through suggestions one by one.
+
+= 2.7.1 – 2025-06-09 =
 * Renamed WeDevs_Settings_API to WSC_Settings_API and WeDevs_Settings_API_Test to WSC_Settings to avoid naming conflicts with other plugins using similar settings API classes.
 
 = 2.7.0 – 2025-02-18 =

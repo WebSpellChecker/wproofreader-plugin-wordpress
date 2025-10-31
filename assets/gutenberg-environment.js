@@ -1,86 +1,78 @@
-jQuery(document).ready(function ($){
+(function () {
+    'use strict';
+    const SELECTORS = {
+        RICH_TEXT: '.rich-text',
+        MCE_CONTENT_BODY: '.mce-content-body',
+        GUTENBERG_PAGE: 'block-editor-page',
+        GUTENBERG_IFRAME: 'block-editor-iframe__body',
+        TABLE_CELL: 'wp-block-table__cell-content'
+    };
 
-    function isGutenbergActive() {
-        return document.body.classList.contains('block-editor-page');
-    }
+    const INSTANCE_ATTRIBUTE = 'data-wsc-instance';
+    const INIT_DELAY = 100;
 
-    function isContentEditable(element){
+    const isGutenbergActive = () => {
+        return document.body.classList.contains(SELECTORS.GUTENBERG_PAGE) ||
+               document.body.classList.contains(SELECTORS.GUTENBERG_IFRAME);
+    };
+
+    function isContentEditable(element) {
         return element.isContentEditable;
     }
-
-    function isInstanceCreated(element){
-        return element.hasAttribute('data-wsc-instance');
+    function isInstanceCreated(element) {
+        return element.hasAttribute(INSTANCE_ATTRIBUTE);
     }
 
-    function isGutenbergTableCell(element){
-        return element.classList.contains('wp-block-table__cell-content');
+    function isGutenbergTableCell(element) {
+        return element.classList.contains(SELECTORS.TABLE_CELL);
     }
 
-    function ignoreElement(element) {
-        if (!isContentEditable(element)){
+    const shouldIgnoreElement = (element) => {
+        if (!isContentEditable(element)) {
             return true;
         }
 
-        if (isInstanceCreated(element)){
+        if (isInstanceCreated(element)) {
             return true;
         }
 
-        if (isGutenbergTableCell(element)){
+        if (isGutenbergTableCell(element)) {
             return true;
         }
 
         return false;
-    }
+    };
 
-    function createInstance(element){
+    const createInstance = (element) => {
         WEBSPELLCHECKER.init({
             container: element,
         });
-    }
+    };
 
-    if (!isGutenbergActive()){
-        return;
-    }
-
-    function handleGutenbergReady(){
-
-        $(".rich-text").each(function (index) {
-            const element = jQuery(this).get(0);
-            if (ignoreElement(element)) {
+    const initializeElements = (selector) => {
+        document.querySelectorAll(selector).forEach((element) => {
+            if (shouldIgnoreElement(element)) {
                 return;
             }
+
             createInstance(element);
         });
+    };
 
-        wp.data.subscribe(function () {
-            var isSidebarOpened = wp.data.select('core/edit-post').isEditorSidebarOpened();
-            if (isSidebarOpened) {
-                jQuery('.wsc-badge__wrapper').css('right', '300px');
-            } else {
-                jQuery('.wsc-badge__wrapper').css('right', '30px');
-            }
-        });
-    }
-    function handleTinyMceInit(editor) {
-        const element = editor.getBody();
-        if (ignoreElement(element)) {
+    const handleGutenbergReady = () => {
+        initializeElements(SELECTORS.RICH_TEXT);
+        initializeElements(SELECTORS.MCE_CONTENT_BODY);
+    };
+
+    const handleGutenbergReadyWithDelay = () => {
+        setTimeout(handleGutenbergReady, INIT_DELAY);
+    };
+
+    window.webspellcheckerAlreadyLoaded = () => {
+        if (!isGutenbergActive() || !window.WEBSPELLCHECKER_CONFIG?.globalBadge) {
             return;
         }
-        createInstance(element);
-    }
-    function handleGutenbergReadyWithDelay(){
-        setTimeout(handleGutenbergReady, 100);
-    }
 
-    window._wpLoadBlockEditor.then(handleGutenbergReadyWithDelay);
-
-    if (window.tinymce) {
-        tinymce.on('addeditor', function (event) {
-            const editor = event.editor;
-            editor.on('init', function () {
-                handleTinyMceInit(editor);
-            });
-        });
-    }
-
-});
+        handleGutenbergReadyWithDelay();
+    };
+})();

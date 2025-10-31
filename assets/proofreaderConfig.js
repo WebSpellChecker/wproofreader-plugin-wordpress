@@ -1,32 +1,43 @@
-var CheckEnableGrammar = (WSCProofreaderConfig.enableGrammar === 'true');
-var disableBadgeButton = (WSCProofreaderConfig.disableBadgeButton === 'true');
-actionItems = ['addWord', 'ignoreAll', 'settings', 'toggle', 'proofreadDialog'];
-if (!disableBadgeButton) {
-    actionItems = ['addWord', 'ignoreAll', 'settings', 'proofreadDialog'];
-}
+(function () {
+    var WSC_DISABLE_AUTO_SEARCH_IN = [
+        '.wp-block-table__cell-content',
+        '.ui-autocomplete-input',
+        '#wp-link-url',
+        '#url',
+        '#billing_phone',
+        '#shipping_phone',
+        '#siteurl',
+        '#new_admin_email',
+        '#home',
+        '#billing_postcode',
+        '#billing_email',
+        '#shipping_postcode',
+        '#mailserver_url',
+        '#mailserver_login',
+        '#ping_sites',
+        '#permalink_structure',
+        '.inline-edit-password-input'
+    ];
 
-window.WEBSPELLCHECKER_CONFIG = {
-    autoSearch: true,
-    appType:'wp_plugin',
-    serviceProtocol: 'https',
-    serviceHost: 'svc.webspellchecker.net',
-    servicePath: 'spellcheck31/script/ssrv.cgi',
-    servicePort: '443',
-    enableGrammar: CheckEnableGrammar,
-    settingsSections: WSCProofreaderConfig.settingsSections,
-    serviceId: WSCProofreaderConfig.key_for_proofreader,
-    lang: WSCProofreaderConfig.slang,
-    badgeOffsetX: 300,
-    badgeOffsetY: 34,
-    enableBadgeButton: disableBadgeButton,
-    actionItems: actionItems,
-    disableAutoSearchIn: ['.wp-block-table__cell-content','.ui-autocomplete-input','#wp-link-url'],
-    disableOptionsStorage: [],
-    globalBadge: true,
-    compactBadge: true,
-    allSuggestionsMode: true,
-    onLoad:
-        function () {
+    window.WEBSPELLCHECKER_CONFIG = {
+        autoSearch: true,
+        appType: 'wp_plugin',
+        serviceProtocol: 'https',
+        serviceHost: 'svc.webspellchecker.net',
+        servicePath: 'spellcheck31/api',
+        servicePort: '443',
+        enableGrammar: (WSCProofreaderConfig.enableGrammar === 'true'),
+        settingsSections: WSCProofreaderConfig.settingsSections,
+        serviceId: WSCProofreaderConfig.key_for_proofreader,
+        lang: WSCProofreaderConfig.slang,
+        enableBadgeButton: (WSCProofreaderConfig.enableBadgeButton !== 'true'),
+        actionItems: (WSCProofreaderConfig.disableBadgeButton === 'true') ? ['addWord', 'ignoreAll', 'settings', 'toggle', 'proofreadDialog'] : ['addWord', 'ignoreAll', 'settings', 'proofreadDialog'],
+        disableAutoSearchIn: WSC_DISABLE_AUTO_SEARCH_IN,
+        disableOptionsStorage: [],
+        globalBadge: (WSCProofreaderConfig.globalBadge === 'true'),
+        compactBadge: false,
+        allSuggestionsMode: true,
+        onLoad: function () {
             var self = this;
 
             this.subscribe('replaceProblem', function () {
@@ -40,6 +51,11 @@ window.WEBSPELLCHECKER_CONFIG = {
                 }
             });
 
+        },
+        onBeforeAutoSearchInstanceCreate: function (activeElement, options) {
+            var id = activeElement.element.id;
+            return !(id && id.indexOf('url-input-control') === 0);
         }
-}
-;
+    }
+})();
+

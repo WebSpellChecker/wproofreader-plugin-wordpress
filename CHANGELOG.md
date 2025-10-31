@@ -1,5 +1,18 @@
 # WProofreader Plugin for WordPress Changelog
 
+## 3.0.0 - 2025-10-31
+
+* Added a few global activation toggles (disabled by default):
+* * Enable in admin area to run WProofreader across the WordPress admin.
+* * Enable on front end to run WProofreader on the public site.
+* Fixed issue where spelling autocorrect could modify URLs; now disabled by default in link-related fields.
+* Updated service path to remove the legacy component ssrv.cgi, which is no longer used.
+* Improved dedicated loading for the Block Editor (enqueue_block_assets), with safe exclusions for the Site Editor and Permalinks settings screen.
+* Improved asset versioning based on file modification time to reduce caching issues.
+* Improved unified script handles and localization objects for consistency.
+* Hardened AJAX endpoint for the language list with nonce verification, capability checks, strict sanitization, and structured JSON response.
+* Comprehensive refactoring and code cleanup: simplified initialization flow for admin, Block Editor, and front end; consolidated settings bootstrap and defaults.
+
 ## 2.8.0 - 2025-06-25
 
 * Fixed issue with user preferences not being remembered. A recent issue caused user-selected options (e.g., selected language, ignore settings, enabled check types) to reset on every page reload. Now, these preferences are stored.

@@ -25,7 +25,7 @@ Free WProofreader plugin supports only spell-check for 6 languages and comes wit
 * **Allowed number of websites:** 1 website.
 * **Languages available for spell checking:** (6 languages) American English, British English, French, German, Italian and Spanish.
 * **Languages available for grammar checking:** Not available.
-* **User-level custom dictionary:** No cloud backup. The dictionary is only available in one browser on a single device. The dictionary is not available for review and modification.
+* **User-level custom dictionary:** No cloud backup. The dictionary is only available in one browser on a single device.
 * **Organization-level custom dictionary:** Not available.
 
 **Pro version: ($49)**

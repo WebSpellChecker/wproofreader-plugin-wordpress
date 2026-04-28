@@ -13,7 +13,7 @@
 
     const isGutenbergActive = () => {
         return document.body.classList.contains(SELECTORS.GUTENBERG_PAGE) ||
-               document.body.classList.contains(SELECTORS.GUTENBERG_IFRAME);
+            document.body.classList.contains(SELECTORS.GUTENBERG_IFRAME);
     };
 
     function isContentEditable(element) {

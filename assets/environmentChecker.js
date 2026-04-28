@@ -1,5 +1,6 @@
 window.addEventListener("load", (event) => {
-    var  bundlePath = 'https://svc.webspellchecker.net/spellcheck31/wscbundle/wscbundle.js';
+    var serviceConfig = window.WSCServiceConfig || {};
+    var bundlePath = serviceConfig.bundleUrl || 'https://svc.webspellchecker.net/spellcheck31/wscbundle/wscbundle.js';
 
     function loadScript(doc, src) {
         const script = doc.createElement('script');
@@ -14,7 +15,7 @@ window.addEventListener("load", (event) => {
     }
 
     window.gutenbergIframe = document.querySelector('[name=editor-canvas]');
-    window.WEBSPELLCHECKER_CONFIG.globalBadge= true;
+    window.WEBSPELLCHECKER_CONFIG.globalBadge = true;
 
     if (window.gutenbergIframe) {
         window.WEBSPELLCHECKER_CONFIG.globalBadge = false;

@@ -43,7 +43,6 @@ if ( ! class_exists( 'WSC_Settings' ) ) {
 		 * Register sections/fields and augment fields if e-commerce is active.
 		 */
 		public function on_admin_init() {
-			// Add WooCommerce / WP eCommerce specific field if those plugins are active.
 			if ( $this->is_ecommerce_active() ) {
 				add_filter( 'wsc_admin_fields', array( $this, 'add_products_toggle_field' ), 1 );
 			}
@@ -52,7 +51,6 @@ if ( ! class_exists( 'WSC_Settings' ) ) {
 			$this->settings_api->set_fields( $this->get_settings_fields() );
 
 			$this->settings_api->admin_init();
-			// $this->set_default_settings( $this->get_settings_fields() ); // Optional seeding hook.
 		}
 
 		/**
@@ -69,23 +67,12 @@ if ( ! class_exists( 'WSC_Settings' ) ) {
 		}
 
 		/**
-		 * Helper: detect if WooCommerce or WP eCommerce is active.
+		 * Detect if WooCommerce or WP eCommerce is active.
 		 *
 		 * @return bool
 		 */
 		protected function is_ecommerce_active(): bool {
-			// WooCommerce.
-			if ( class_exists( 'WooCommerce' ) ) {
-				// If is_plugin_active exists, confirm it's active; otherwise class_exists is enough.
-				return true;
-			}
-
-			// WP eCommerce.
-			if ( class_exists( 'WP_eCommerce' ) ) {
-				return true;
-			}
-
-			return false;
+			return class_exists( 'WooCommerce' ) || class_exists( 'WP_eCommerce' );
 		}
 
 		/**
@@ -138,17 +125,6 @@ if ( ! class_exists( 'WSC_Settings' ) ) {
 		}
 
 		/**
-		 * (Optional) Override fields at runtime.
-		 *
-		 * @param array $settings
-		 *
-		 * @return void
-		 */
-		public function set_default_settings( array $settings ): void {
-			$this->settings_api->set_fields( $settings );
-		}
-
-		/**
 		 * Define the single settings section.
 		 *
 		 * @return array[]
@@ -195,11 +171,12 @@ if ( ! class_exists( 'WSC_Settings' ) ) {
 						'sanitize_callback' => 'sanitize_text_field',
 					),
 					array(
-						'name'    => 'slang',
-						'label'   => __( 'Default Language', 'webspellchecker' ),
-						'type'    => 'select',
-						'options' => $language_options,
-						'default' => 'en_US',
+						'name'              => 'slang',
+						'label'             => __( 'Default Language', 'webspellchecker' ),
+						'type'              => 'select',
+						'options'           => $language_options,
+						'default'           => 'en_US',
+						'sanitize_callback' => 'sanitize_text_field',
 					),
 					array(
 						// Historical toggle: 'on' means "badge shown".
@@ -275,7 +252,10 @@ if ( ! class_exists( 'WSC_Settings' ) ) {
 		 * @return array<string,string> key => label
 		 */
 		protected function get_language_options(): array {
-			$info = get_option( 'wsc_proofreader_info' );
+			$info = get_transient( 'wsc_proofreader_info_cache' );
+			if ( false === $info ) {
+				$info = get_option( 'wsc_proofreader_info' );
+			}
 
 			if ( ! is_array( $info ) || empty( $info['langList'] ) || ! is_array( $info['langList'] ) ) {
 				return array();
@@ -308,25 +288,6 @@ if ( ! class_exists( 'WSC_Settings' ) ) {
 			};
 
 			return array_merge( $sanitize_map( $ltr ), $sanitize_map( $rtl ) );
-		}
-
-		/**
-		 * (Legacy helper) Get pages list if needed elsewhere.
-		 *
-		 * @return array<int,string> page_id => title
-		 */
-		protected function get_pages_list(): array {
-			$pages  = get_pages();
-			$result = array();
-
-			if ( is_array( $pages ) ) {
-				foreach ( $pages as $page ) {
-					// phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
-					$result[ (int) $page->ID ] = (string) $page->post_title;
-				}
-			}
-
-			return $result;
 		}
 	}
 }

@@ -5,7 +5,7 @@ Donate link: https://www.webspellchecker.com/
 Requires at least: 6.3
 Tested up to: 6.8
 Requires PHP: 7.4
-Stable tag: 3.0.0
+Stable tag: 3.1.0
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -179,6 +179,14 @@ Sure, please let us know how we can make the plugin more useful for you. Create 
 10. WProofreader WordPress plugin settings page.
 
 == Changelog ==
+
+= 3.1.0 - 2026-04-24 =
+* Refactored plugin internals into focused classes while preserving the public WProofreader class and option names.
+* Fixed PHP 8 compatibility issue in the bundled settings API.
+* Enabled local user dictionary access for Free edition and disabled autocomplete for Free edition via supported bundle configuration.
+* Enabled AI writing assistant for Premium edition by default.
+* Added filterable WProofreader service configuration and reduced hard-coded endpoint duplication.
+* Hardened the settings AJAX handler and content cleanup.
 
 = 3.0.0 - 2025-10-31 =
 * Added a few global activation toggles (disabled by default):

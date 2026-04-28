@@ -1,5 +1,25 @@
 (function () {
-    var WSC_DISABLE_AUTO_SEARCH_IN = [
+    'use strict';
+
+    function asBoolean(value, fallback) {
+        if (value === true || value === 'true') return true;
+        if (value === false || value === 'false') return false;
+        return fallback;
+    }
+
+    function asArray(value) {
+        return Array.isArray(value) ? value : [];
+    }
+
+    const serviceConfig = window.WSCServiceConfig || {};
+    const proofreaderConfig = window.WSCProofreaderConfig || {};
+
+    const isBadgeEnabled = asBoolean(proofreaderConfig.enableBadgeButton, true);
+    const badgeActions = isBadgeEnabled
+        ? ['addWord', 'ignoreAll', 'settings', 'toggle', 'proofreadDialog']
+        : ['addWord', 'ignoreAll', 'settings', 'proofreadDialog'];
+
+    const disableAutoSearchIn = [
         '.wp-block-table__cell-content',
         '.ui-autocomplete-input',
         '#wp-link-url',
@@ -16,46 +36,49 @@
         '#mailserver_login',
         '#ping_sites',
         '#permalink_structure',
-        '.inline-edit-password-input'
+        '.inline-edit-password-input',
     ];
 
     window.WEBSPELLCHECKER_CONFIG = {
         autoSearch: true,
         appType: 'wp_plugin',
-        serviceProtocol: 'https',
-        serviceHost: 'svc.webspellchecker.net',
-        servicePath: 'spellcheck31/api',
-        servicePort: '443',
-        enableGrammar: (WSCProofreaderConfig.enableGrammar === 'true'),
-        settingsSections: WSCProofreaderConfig.settingsSections,
-        serviceId: WSCProofreaderConfig.key_for_proofreader,
-        lang: WSCProofreaderConfig.slang,
-        enableBadgeButton: (WSCProofreaderConfig.enableBadgeButton !== 'true'),
-        actionItems: (WSCProofreaderConfig.disableBadgeButton === 'true') ? ['addWord', 'ignoreAll', 'settings', 'toggle', 'proofreadDialog'] : ['addWord', 'ignoreAll', 'settings', 'proofreadDialog'],
-        disableAutoSearchIn: WSC_DISABLE_AUTO_SEARCH_IN,
-        disableOptionsStorage: [],
-        globalBadge: (WSCProofreaderConfig.globalBadge === 'true'),
-        compactBadge: false,
+        serviceProtocol: serviceConfig.serviceProtocol || 'https',
+        serviceHost: serviceConfig.serviceHost || 'svc.webspellchecker.net',
+        servicePath: serviceConfig.servicePath || 'api',
+        servicePort: serviceConfig.servicePort || '443',
+        enableGrammar: asBoolean(proofreaderConfig.enableGrammar, false),
+        aiWritingAssistant: asBoolean(proofreaderConfig.aiWritingAssistant, false),
+        settingsSections: asArray(proofreaderConfig.settingsSections),
+        serviceId: proofreaderConfig.key_for_proofreader,
+        lang: proofreaderConfig.slang,
+        enableBadgeButton: isBadgeEnabled,
+        actionItems: badgeActions,
+        disableAutoSearchIn: disableAutoSearchIn,
+        disableOptionsStorage: asArray(proofreaderConfig.disableOptionsStorage),
+        disableDictionariesPreferences: asBoolean(proofreaderConfig.disableDictionariesPreferences, false),
+        autocomplete: asBoolean(proofreaderConfig.autocomplete, false),
+        globalBadge: asBoolean(proofreaderConfig.globalBadge, true),
+        compactBadge: asBoolean(proofreaderConfig.compactBadge, false),
         allSuggestionsMode: true,
         onLoad: function () {
-            var self = this;
+            const instance = this;
 
             this.subscribe('replaceProblem', function () {
                 try {
-                    var element = self.getContainerNode(),
-                        event = document.createEvent('Event');
-
-                    event.initEvent('input', true, false);
-                    element.dispatchEvent(event);
+                    const element = instance.getContainerNode();
+                    element.dispatchEvent(new Event('input', { bubbles: true }));
                 } catch (e) {
+                    // Container may have been detached by the host editor — safe to ignore.
                 }
             });
-
         },
-        onBeforeAutoSearchInstanceCreate: function (activeElement, options) {
-            var id = activeElement.element.id;
+        onBeforeAutoSearchInstanceCreate: function (activeElement) {
+            const id = activeElement.element.id;
             return !(id && id.indexOf('url-input-control') === 0);
-        }
+        },
+    };
+
+    if (Array.isArray(proofreaderConfig.generalOptions) && proofreaderConfig.generalOptions.length) {
+        window.WEBSPELLCHECKER_CONFIG.generalOptions = proofreaderConfig.generalOptions;
     }
 })();
-

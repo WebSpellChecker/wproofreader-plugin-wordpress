@@ -15,3 +15,4 @@ delete_option( 'wsc' );
 delete_option( 'wsc_proofreader_version' );
 delete_option( 'wsc_proofreader_info' );
 delete_option( 'wsc_proofreader' );
+delete_transient( 'wsc_proofreader_info_cache' );

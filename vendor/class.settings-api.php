@@ -95,8 +95,10 @@ class WSC_Settings_API {
             }
 
             if ( isset($section['desc']) && !empty($section['desc']) ) {
-                $section['desc'] = '<div class="inside">' . $section['desc'] . '</div>';
-                $callback = create_function('', 'echo "' . str_replace( '"', '\"', $section['desc'] ) . '";');
+                $desc = '<div class="inside">' . $section['desc'] . '</div>';
+                $callback = function () use ( $desc ) {
+                    echo wp_kses_post( $desc );
+                };
             } else if ( isset( $section['callback'] ) ) {
                 $callback = $section['callback'];
             } else {
@@ -149,7 +151,7 @@ class WSC_Settings_API {
      */
     public function get_field_description( $args ) {
         if ( ! empty( $args['desc'] ) ) {
-            $desc = sprintf( '<p class="description">%s</p>', $args['desc'] );
+            $desc = sprintf( '<p class="description">%s</p>', wp_kses_post( $args['desc'] ) );
         } else {
             $desc = '';
         }
@@ -167,9 +169,9 @@ class WSC_Settings_API {
         $value       = esc_attr( $this->get_option( $args['id'], $args['section'], $args['std'] ) );
         $size        = isset( $args['size'] ) && !is_null( $args['size'] ) ? $args['size'] : 'regular';
         $type        = isset( $args['type'] ) ? $args['type'] : 'text';
-        $placeholder = empty( $args['placeholder'] ) ? '' : ' placeholder="' . $args['placeholder'] . '"';
+        $placeholder = empty( $args['placeholder'] ) ? '' : ' placeholder="' . esc_attr( $args['placeholder'] ) . '"';
 
-        $html        = sprintf( '<input type="%1$s" class="%2$s-text" id="%3$s[%4$s]" name="%3$s[%4$s]" value="%5$s"%6$s/>', $type, $size, $args['section'], $args['id'], $value, $placeholder );
+        $html        = sprintf( '<input type="%1$s" class="%2$s-text" id="%3$s[%4$s]" name="%3$s[%4$s]" value="%5$s"%6$s/>', esc_attr( $type ), esc_attr( $size ), esc_attr( $args['section'] ), esc_attr( $args['id'] ), $value, $placeholder );
         $html       .= $this->get_field_description( $args );
 
         echo $html;
@@ -193,12 +195,12 @@ class WSC_Settings_API {
         $value       = esc_attr( $this->get_option( $args['id'], $args['section'], $args['std'] ) );
         $size        = isset( $args['size'] ) && !is_null( $args['size'] ) ? $args['size'] : 'regular';
         $type        = isset( $args['type'] ) ? $args['type'] : 'number';
-        $placeholder = empty( $args['placeholder'] ) ? '' : ' placeholder="' . $args['placeholder'] . '"';
-        $min         = empty( $args['min'] ) ? '' : ' min="' . $args['min'] . '"';
-        $max         = empty( $args['max'] ) ? '' : ' max="' . $args['max'] . '"';
-        $step        = empty( $args['max'] ) ? '' : ' step="' . $args['step'] . '"';
+        $placeholder = empty( $args['placeholder'] ) ? '' : ' placeholder="' . esc_attr( $args['placeholder'] ) . '"';
+        $min         = empty( $args['min'] ) ? '' : ' min="' . esc_attr( $args['min'] ) . '"';
+        $max         = empty( $args['max'] ) ? '' : ' max="' . esc_attr( $args['max'] ) . '"';
+        $step        = empty( $args['max'] ) ? '' : ' step="' . esc_attr( $args['step'] ) . '"';
 
-        $html        = sprintf( '<input type="%1$s" class="%2$s-number" id="%3$s[%4$s]" name="%3$s[%4$s]" value="%5$s"%6$s%7$s%8$s%9$s/>', $type, $size, $args['section'], $args['id'], $value, $placeholder, $min, $max, $step );
+        $html        = sprintf( '<input type="%1$s" class="%2$s-number" id="%3$s[%4$s]" name="%3$s[%4$s]" value="%5$s"%6$s%7$s%8$s%9$s/>', esc_attr( $type ), esc_attr( $size ), esc_attr( $args['section'] ), esc_attr( $args['id'] ), $value, $placeholder, $min, $max, $step );
         $html       .= $this->get_field_description( $args );
 
         echo $html;
@@ -214,10 +216,10 @@ class WSC_Settings_API {
         $value = esc_attr( $this->get_option( $args['id'], $args['section'], $args['std'] ) );
 
         $html  = '<fieldset>';
-        $html  .= sprintf( '<label for="wpuf-%1$s[%2$s]">', $args['section'], $args['id'] );
-        $html  .= sprintf( '<input type="hidden" name="%1$s[%2$s]" value="off" />', $args['section'], $args['id'] );
-        $html  .= sprintf( '<input type="checkbox" class="checkbox" id="wpuf-%1$s[%2$s]" name="%1$s[%2$s]" value="on" %3$s />', $args['section'], $args['id'], checked( $value, 'on', false ) );
-        $html  .= sprintf( '%1$s</label>', $args['desc'] );
+        $html  .= sprintf( '<label for="wpuf-%1$s[%2$s]">', esc_attr( $args['section'] ), esc_attr( $args['id'] ) );
+        $html  .= sprintf( '<input type="hidden" name="%1$s[%2$s]" value="off" />', esc_attr( $args['section'] ), esc_attr( $args['id'] ) );
+        $html  .= sprintf( '<input type="checkbox" class="checkbox" id="wpuf-%1$s[%2$s]" name="%1$s[%2$s]" value="on" %3$s />', esc_attr( $args['section'] ), esc_attr( $args['id'] ), checked( $value, 'on', false ) );
+        $html  .= sprintf( '%1$s</label>', wp_kses_post( $args['desc'] ) );
         $html  .= '</fieldset>';
 
         echo $html;
@@ -277,10 +279,10 @@ class WSC_Settings_API {
 
         $value = esc_attr( $this->get_option( $args['id'], $args['section'], $args['std'] ) );
         $size  = isset( $args['size'] ) && !is_null( $args['size'] ) ? $args['size'] : 'regular';
-        $html  = sprintf( '<select class="%1$s" name="%2$s[%3$s]" id="%2$s[%3$s]">', $size, $args['section'], $args['id'] );
+        $html  = sprintf( '<select class="%1$s" name="%2$s[%3$s]" id="%2$s[%3$s]">', esc_attr( $size ), esc_attr( $args['section'] ), esc_attr( $args['id'] ) );
 
         foreach ( $args['options'] as $key => $label ) {
-            $html .= sprintf( '<option value="%s"%s>%s</option>', $key, selected( $value, $key, false ), $label );
+            $html .= sprintf( '<option value="%s"%s>%s</option>', esc_attr( $key ), selected( $value, $key, false ), esc_html( $label ) );
         }
 
         $html .= sprintf( '</select>' );
@@ -499,7 +501,7 @@ class WSC_Settings_API {
         ?>
         <div class="metabox-holder">
             <?php foreach ( $this->settings_sections as $form ) { ?>
-                <div id="<?php echo $form['id']; ?>" class="group" style="display: none;">
+                <div id="<?php echo esc_attr( $form['id'] ); ?>" class="group" style="display: none;">
                     <form method="post" action="options.php">
                         <?php
                         do_action( 'wsa_form_top_' . $form['id'], $form );
@@ -508,7 +510,7 @@ class WSC_Settings_API {
                         do_action( 'wsa_form_bottom_' . $form['id'], $form );
                         if ( isset( $this->settings_fields[ $form['id'] ] ) ):
                         ?>
-                            <div><i>We encourage you to take the time to review our revised <a href="https://webspellchecker.com/privacy-policy/" target="_blank">Privacy Policy</a> ‌and <a href="https://webspellchecker.com/terms-of-service/" target="_blank">Terms of Service</a>. By continuing to use WebSpellChecker Services, you acknowledge our Privacy Policy and agree to our Terms of Service.</i></div>
+                            <div><i>We encourage you to take the time to review our revised <a href="<?php echo esc_url( 'https://webspellchecker.com/privacy-policy/' ); ?>" target="_blank">Privacy Policy</a> ‌and <a href="<?php echo esc_url( 'https://webspellchecker.com/terms-of-service/' ); ?>" target="_blank">Terms of Service</a>. By continuing to use WebSpellChecker Services, you acknowledge our Privacy Policy and agree to our Terms of Service.</i></div>
                         <div style="padding-left: 10px">
                             <?php submit_button(); ?>
                         </div>

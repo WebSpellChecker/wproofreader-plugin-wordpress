@@ -8,6 +8,7 @@ jQuery(function ($) {
     // Guards
     if (typeof WEBSPELLCHECKER === 'undefined' || typeof ProofreaderInstance === 'undefined') return;
 
+    const serviceConfig = window.WSCServiceConfig || {};
     const $root = $('#wsc_proofreader');
     let $select = $root.find('select[name="wsc_proofreader[slang]"]');
     if (!$select.length) return;
@@ -17,16 +18,15 @@ jQuery(function ($) {
     // Init WebSpellChecker
     const app = WEBSPELLCHECKER.initWebApi({
         autoSearch: true,
-        serviceProtocol: 'https',
-        serviceHost: 'svc.webspellchecker.net',
-        servicePath: 'spellcheck31/api',
-        servicePort: '443',
+        serviceProtocol: serviceConfig.serviceProtocol || 'https',
+        serviceHost: serviceConfig.serviceHost || 'svc.webspellchecker.net',
+        servicePath: serviceConfig.servicePath || 'api',
+        servicePort: serviceConfig.servicePort || '443',
         enableGrammar: enableGrammar,
         serviceId: ProofreaderInstance.key_for_proofreader,
         lang: ProofreaderInstance.slang,
         appType: 'wp_plugin'
     });
-
     // Get info → send to WP → render languages
     app.getInfo({
         success(result) {
@@ -43,7 +43,7 @@ jQuery(function ($) {
                     // Support both: raw HTML string OR {success:true, data:"..."} OR {success:true, data:{html:"..."}}
                     const html =
                         (typeof res === 'string') ? res :
-                            (res && res.success && typeof res.data?.html === 'string') ? res.data.html :
+                            (res && res.success && res.data && typeof res.data.html === 'string') ? res.data.html :
                                 (res && res.success && typeof res.data === 'string') ? res.data : '';
 
                     if (!html) {
@@ -51,17 +51,11 @@ jQuery(function ($) {
                         return;
                     }
 
-                    // If a full <select> returned — replace; otherwise swap <option>s
-                    if (/<\s*select[^>]*>/i.test(html)) {
-                        $select.replaceWith(html);
-                        $select = $root.find('select[name="wsc_proofreader[slang]"]');
-                    } else {
-                        $select.html(html);
-                    }
+                    replaceLanguageSelect(html);
                 })
                 .fail((jqXHR, textStatus) => {
                     let msg = 'Failed to load language list.';
-                    if (jqXHR?.responseJSON?.data?.message) {
+                    if (jqXHR && jqXHR.responseJSON && jqXHR.responseJSON.data && jqXHR.responseJSON.data.message) {
                         msg = jqXHR.responseJSON.data.message;
                     } else if (textStatus) {
                         msg += ` (${textStatus})`;
@@ -70,9 +64,28 @@ jQuery(function ($) {
                 });
         },
         error(err) {
-            displayError(err?.message || 'Unexpected initialization error.');
+            displayError((err && err.message) || 'Unexpected initialization error.');
         }
     });
+
+    function replaceLanguageSelect(html) {
+        const nodes = $.parseHTML(html, document, false) || [];
+        const $newSelect = $(nodes).filter('select[name="wsc_proofreader[slang]"]').first();
+
+        if ($newSelect.length) {
+            $select.replaceWith($newSelect);
+            $select = $root.find('select[name="wsc_proofreader[slang]"]');
+            return;
+        }
+
+        const $options = $(nodes).filter('option');
+        if ($options.length) {
+            $select.empty().append($options);
+            return;
+        }
+
+        displayError('Failed to load language list. Invalid markup.');
+    }
 
     function displayError(message) {
         const html =

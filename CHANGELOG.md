@@ -1,5 +1,14 @@
 # WProofreader Plugin for WordPress Changelog
 
+## 3.1.0 - 2026-04-24
+
+* Refactored plugin internals into focused classes while preserving the public WProofreader class, option names, filters, and AJAX action.
+* Fixed PHP 8 compatibility issue caused by deprecated create_function() usage in the bundled settings API.
+* Enabled local user dictionary access for Free edition and disabled autocomplete for Free edition via supported bundle configuration.
+* Enabled AI writing assistant for Premium edition by default.
+* Added filterable WProofreader service configuration via wsc_service_config.
+* Hardened the settings AJAX language endpoint and post-content cleanup.
+
 ## 3.0.0 - 2025-10-31
 
 * Added a few global activation toggles (disabled by default):
@@ -120,4 +129,3 @@ New version of the WebSpellChecker plugin introduces the following updates:
 ## 1.0
 
 Initial Release of the WebSpellChecker plugin. The multi-language spell checking functionality is available for Visual Editor and excerpt all fields.
-

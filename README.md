@@ -18,7 +18,7 @@ Add instant spell checking to your WordPress site with support for 20+ languages
 
 A full-featured writing assistant for WordPress with unlimited websites, and no daily limits. Includes spell and grammar checking in dozens of languages, AI-powered text rephrasing and proofreading, text autocomplete, and a cloud-synced personal dictionary accessible from any device or browser. Subscription owners can also set up organization-wide custom dictionaries shared across all connected sites for keeping terminology consistent everywhere.
 
-Check more differences between WProofreader plugin Free and Pro versions on the [website](https://wproofreader.com/integrations/wordpress).
+Check more differences between the WProofreader plugin free and Pro versions on the [website](https://wproofreader.com/integrations/wordpress).
 
 [![Watch the video](https://img.youtube.com/vi/mhrZN87jydA/sddefault.jpg)](https://www.youtube.com/watch?v=mhrZN87jydA)
 

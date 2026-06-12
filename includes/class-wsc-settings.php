@@ -43,6 +43,12 @@ if ( ! class_exists( 'WSC_Settings' ) ) {
 		 * Register sections/fields and augment fields if e-commerce is active.
 		 */
 		public function on_admin_init() {
+			// Field/section setup is only needed when rendering the settings page
+			// or when options.php is persisting this option group.
+			if ( ! $this->is_settings_request() ) {
+				return;
+			}
+
 			if ( $this->is_ecommerce_active() ) {
 				add_filter( 'wsc_admin_fields', array( $this, 'add_products_toggle_field' ), 1 );
 			}
@@ -64,6 +70,24 @@ if ( ! class_exists( 'WSC_Settings' ) ) {
 				$this->menu_slug,
 				array( $this, 'render_settings_page' )
 			);
+		}
+
+		/**
+		 * Whether the current request renders or saves this settings page.
+		 *
+		 * @return bool
+		 */
+		protected function is_settings_request(): bool {
+			global $pagenow;
+
+			if ( 'options.php' === $pagenow ) {
+				return true;
+			}
+
+			// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- read-only routing check.
+			$page = isset( $_GET['page'] ) ? sanitize_key( wp_unslash( $_GET['page'] ) ) : '';
+
+			return $this->menu_slug === $page;
 		}
 
 		/**

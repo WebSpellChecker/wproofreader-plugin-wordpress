@@ -39,23 +39,39 @@ class WProofreader_Ajax {
 		);
 	}
 
+	/** Upper bound for the getInfo JSON payload (a language list is a few KB). */
+	const MAX_PAYLOAD_BYTES = 65536;
+
 	/**
+	 * The SDK getInfo result arrives either as a JSON string or, when jQuery
+	 * serializes the result object into form fields, as a nested array.
+	 *
 	 * @param mixed $payload Raw POST payload.
 	 * @return array|null
 	 */
 	private static function parse_payload( $payload ) {
 		if ( is_string( $payload ) ) {
 			$payload = wp_unslash( $payload );
-			if ( '' === $payload ) {
+			if ( '' === $payload || strlen( $payload ) > self::MAX_PAYLOAD_BYTES ) {
 				return null;
 			}
 
 			$decoded = json_decode( $payload, true );
+
 			return ( JSON_ERROR_NONE === json_last_error() && is_array( $decoded ) ) ? $decoded : null;
 		}
 
 		if ( is_array( $payload ) ) {
-			return wp_unslash( $payload );
+			$payload = wp_unslash( $payload );
+
+			// jQuery may submit getInfoResult as nested form fields. Measure the
+			// normalized representation so this path cannot bypass the size cap.
+			$encoded = wp_json_encode( $payload );
+			if ( false === $encoded || strlen( $encoded ) > self::MAX_PAYLOAD_BYTES ) {
+				return null;
+			}
+
+			return $payload;
 		}
 
 		return null;

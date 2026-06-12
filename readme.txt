@@ -3,9 +3,9 @@ Contributors: webspellchecker
 Tags: spell check, grammar, Gutenberg, proofreading, corrector
 Donate link: https://www.webspellchecker.com/
 Requires at least: 6.3
-Tested up to: 6.9
+Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 3.1.0
+Stable tag: 3.2.0
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -136,6 +136,13 @@ Sure, please let us know how we can make the plugin more useful for you. Create 
 10. WProofreader WordPress plugin settings page.
 
 == Changelog ==
+
+= 3.2.0 - 2026-06-12 =
+* Fixed: post content corruption on save in the block editor (content cleanup processed slashed post data and ran on posts merely containing "wsc-" in URLs).
+* Reworked content cleanup to remove proofreading markup without re-serializing the rest of the document; autosaves and revisions are now cleaned too.
+* Improved block editor integration: correct re-init guard, retry while the editor renders, support for blocks added after load, single bundle load per document.
+* Corrections in the classic editor now reliably mark the document as changed.
+* Minor settings page and housekeeping improvements; multisite-aware uninstall.
 
 = 3.1.0 - 2026-04-24 =
 * Refactored plugin internals into focused classes while preserving the public WProofreader class and option names.

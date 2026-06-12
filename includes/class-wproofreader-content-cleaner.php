@@ -5,6 +5,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 /**
  * Removes WProofreader editing artifacts before post content is saved.
+ *
+ * Artifact spans are spliced out of the original byte stream with
+ * WP_HTML_Tag_Processor offsets, so content outside the removed tags is
+ * never re-serialized or normalized.
  */
 class WProofreader_Content_Cleaner {
 
@@ -23,7 +27,7 @@ class WProofreader_Content_Cleaner {
 	}
 
 	/**
-	 * @param array $data Post data.
+	 * @param array $data Post data (slashed, as provided by wp_insert_post_data).
 	 * @param array $postarr Raw post array.
 	 * @return array
 	 */
@@ -32,114 +36,130 @@ class WProofreader_Content_Cleaner {
 			return $data;
 		}
 
-		if ( isset( $data['post_status'] ) && in_array( $data['post_status'], array( 'auto-draft', 'inherit' ), true ) ) {
-			return $data;
-		}
-
-		$original_content = (string) $data['post_content'];
+		// Data on wp_insert_post_data is slashed; clean unslashed HTML and re-slash.
+		$original_content = wp_unslash( (string) $data['post_content'] );
 		$clean_content    = self::clean_content( $original_content );
 
-		// Defensive guard: never let cleanup unexpectedly inflate saved content.
-		if ( strlen( $clean_content ) > strlen( $original_content ) * 1.25 ) {
-			$clean_content = wp_kses_post( $original_content );
+		// Cleanup only removes bytes; anything else means a bug, keep the original.
+		if ( strlen( $clean_content ) > strlen( $original_content ) ) {
+			do_action( 'wproofreader_cleanup_failed', $original_content, $clean_content, $postarr );
+			$clean_content = $original_content;
 		}
 
-		$data['post_content'] = $clean_content;
+		$data['post_content'] = wp_slash( $clean_content );
 
 		return $data;
 	}
 
 	/**
+	 * Remove artifact span tags (open and close), keeping their inner content.
+	 *
 	 * @param string $content Post content.
 	 * @return string
 	 */
 	public static function clean_content( string $content ): string {
-		if ( false === strpos( $content, 'wsc-' ) && false === strpos( $content, 'rangySelectionBoundary' ) ) {
+		$has_artifacts = false;
+		foreach ( self::$artifact_classes as $class ) {
+			if ( false !== strpos( $content, $class ) ) {
+				$has_artifacts = true;
+				break;
+			}
+		}
+
+		if ( ! $has_artifacts || ! class_exists( 'WP_HTML_Tag_Processor' ) ) {
 			return $content;
 		}
 
-		if ( class_exists( 'DOMDocument' ) ) {
-			$cleaned = self::clean_with_dom_document( $content );
-			if ( null !== $cleaned ) {
-				return $cleaned;
+		$scanner = new WProofreader_HTML_Scanner( $content );
+		$ranges  = $scanner->artifact_span_ranges( self::$artifact_classes );
+
+		if ( empty( $ranges ) ) {
+			return $content;
+		}
+
+		// Splice from the end so earlier offsets stay valid.
+		usort(
+			$ranges,
+			static function ( $a, $b ) {
+				return $b['start'] - $a['start'];
 			}
-		}
-
-		return self::clean_with_regex_fallback( $content );
-	}
-
-	/**
-	 * @param string $content Post content.
-	 * @return string|null
-	 */
-	private static function clean_with_dom_document( string $content ) {
-		$previous = libxml_use_internal_errors( true );
-		$document = new DOMDocument();
-		$wrapper_id = 'wproofreader-cleanup-root';
-		$html = '<div id="' . $wrapper_id . '">' . $content . '</div>';
-
-		$loaded = $document->loadHTML(
-			'<?xml encoding="utf-8" ?>' . $html,
-			LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD
-		);
-		libxml_clear_errors();
-		libxml_use_internal_errors( $previous );
-
-		if ( ! $loaded ) {
-			return null;
-		}
-
-		$xpath = new DOMXPath( $document );
-		$query_parts = array();
-		foreach ( self::$artifact_classes as $class ) {
-			$query_parts[] = 'contains(concat(" ", normalize-space(@class), " "), " ' . $class . ' ")';
-		}
-
-		$nodes = $xpath->query( '//*[self::span and (' . implode( ' or ', $query_parts ) . ')]' );
-		if ( ! $nodes ) {
-			return null;
-		}
-
-		for ( $index = $nodes->length - 1; $index >= 0; $index-- ) {
-			$node = $nodes->item( $index );
-			if ( ! $node || ! $node->parentNode ) {
-				continue;
-			}
-
-			while ( $node->firstChild ) {
-				$node->parentNode->insertBefore( $node->firstChild, $node );
-			}
-			$node->parentNode->removeChild( $node );
-		}
-
-		$wrapper = $document->getElementById( $wrapper_id );
-		if ( ! $wrapper ) {
-			return null;
-		}
-
-		$output = '';
-		foreach ( $wrapper->childNodes as $child ) {
-			$output .= $document->saveHTML( $child );
-		}
-
-		return $output;
-	}
-
-	/**
-	 * @param string $content Post content.
-	 * @return string
-	 */
-	private static function clean_with_regex_fallback( string $content ): string {
-		$cleanup_patterns = array(
-			'#<span\s+class=(["\'])wsc-spelling-problem\1[^>]*>(.*?)</span>#si'   => '$2',
-			'#<span\s+class=(["\'])wsc-grammar-problem\1[^>]*>(.*?)</span>#si'    => '$2',
-			'#<span\s+class=(["\'])rangySelectionBoundary\1[^>]*>(.*?)</span>#si' => '$2',
 		);
 
-		foreach ( $cleanup_patterns as $pattern => $replacement ) {
-			$content = preg_replace( $pattern, $replacement, $content );
+		foreach ( $ranges as $range ) {
+			$content = substr_replace( $content, '', $range['start'], $range['length'] );
 		}
 
-		return (string) $content;
+		return $content;
+	}
+}
+
+if ( class_exists( 'WP_HTML_Tag_Processor' ) ) {
+	/**
+	 * Read-only scanner exposing byte ranges of artifact span tags.
+	 */
+	class WProofreader_HTML_Scanner extends WP_HTML_Tag_Processor {
+
+		const BOOKMARK = 'wproofreader_token';
+
+		/**
+		 * Collect byte ranges of every artifact span opener and its matching closer.
+		 *
+		 * @param array $artifact_classes Class names marking artifact spans.
+		 * @return array[] List of array{start: int, length: int}.
+		 */
+		public function artifact_span_ranges( array $artifact_classes ): array {
+			$ranges = array();
+			$stack  = array();
+
+			while ( $this->next_tag( array( 'tag_closers' => 'visit' ) ) ) {
+				if ( 'SPAN' !== $this->get_tag() ) {
+					continue;
+				}
+
+				if ( $this->is_tag_closer() ) {
+					$opener = array_pop( $stack );
+					if ( null !== $opener ) {
+						$ranges[] = $opener;
+						$ranges[] = $this->current_token_range();
+					}
+					continue;
+				}
+
+				$is_artifact = false;
+				foreach ( $artifact_classes as $class ) {
+					if ( true === $this->has_class( $class ) ) {
+						$is_artifact = true;
+						break;
+					}
+				}
+
+				$stack[] = $is_artifact ? $this->current_token_range() : null;
+			}
+
+			// Unclosed artifact openers: drop the opener tag alone.
+			foreach ( $stack as $entry ) {
+				if ( null !== $entry ) {
+					$ranges[] = $entry;
+				}
+			}
+
+			return $ranges;
+		}
+
+		/**
+		 * Byte range of the token the processor is currently stopped on.
+		 *
+		 * @return array{start: int, length: int}
+		 */
+		private function current_token_range(): array {
+			$this->set_bookmark( self::BOOKMARK );
+			$span = $this->bookmarks[ self::BOOKMARK ];
+			$this->release_bookmark( self::BOOKMARK );
+
+			return array(
+				'start'  => $span->start,
+				'length' => $span->length,
+			);
+		}
 	}
 }

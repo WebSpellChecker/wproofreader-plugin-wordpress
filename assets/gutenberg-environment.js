@@ -8,8 +8,21 @@
         TABLE_CELL: 'wp-block-table__cell-content'
     };
 
-    const INSTANCE_ATTRIBUTE = 'data-wsc-instance';
+    // Own marker set right before init: keeps re-init idempotent even when the
+    // SDK instance fails to start (e.g. service unreachable).
+    const OWN_INSTANCE_ATTRIBUTE = 'data-wsc-init';
+    // Attribute the SDK sets on a container once an instance is created.
+    const SDK_INSTANCE_ATTRIBUTE = 'data-wpr-instance';
+
     const INIT_DELAY = 100;
+    const INIT_TIMEOUT = 5000;
+    const MAX_ATTEMPTS = 50;
+    const OBSERVER_DEBOUNCE = 250;
+
+    let attempts = 0;
+    let observer = null;
+    let observerTimer = null;
+    const pendingRoots = new Set();
 
     const isGutenbergActive = () => {
         return document.body.classList.contains(SELECTORS.GUTENBERG_PAGE) ||
@@ -19,8 +32,10 @@
     function isContentEditable(element) {
         return element.isContentEditable;
     }
+
     function isInstanceCreated(element) {
-        return element.hasAttribute(INSTANCE_ATTRIBUTE);
+        return element.hasAttribute(OWN_INSTANCE_ATTRIBUTE) ||
+            element.hasAttribute(SDK_INSTANCE_ATTRIBUTE);
     }
 
     function isGutenbergTableCell(element) {
@@ -44,24 +59,103 @@
     };
 
     const createInstance = (element) => {
-        WEBSPELLCHECKER.init({
-            container: element,
-        });
+        element.setAttribute(OWN_INSTANCE_ATTRIBUTE, '1');
+
+        try {
+            WEBSPELLCHECKER.init({
+                container: element,
+            });
+
+            // The SDK reports successful creation with data-wpr-instance. Do
+            // not let our pending marker suppress retries forever otherwise.
+            window.setTimeout(() => {
+                if (!element.hasAttribute(SDK_INSTANCE_ATTRIBUTE)) {
+                    element.removeAttribute(OWN_INSTANCE_ATTRIBUTE);
+                }
+            }, INIT_TIMEOUT);
+        } catch (e) {
+            // Allow a later retry if init threw synchronously.
+            element.removeAttribute(OWN_INSTANCE_ATTRIBUTE);
+        }
     };
 
-    const initializeElements = (selector) => {
-        document.querySelectorAll(selector).forEach((element) => {
+    const initializeElements = (selector, root = document) => {
+        let found = 0;
+        const elements = [];
+
+        if (root.nodeType === Node.ELEMENT_NODE && root.matches(selector)) {
+            elements.push(root);
+        }
+
+        root.querySelectorAll(selector).forEach((element) => {
+            elements.push(element);
+        });
+
+        elements.forEach((element) => {
+            found++;
+
             if (shouldIgnoreElement(element)) {
                 return;
             }
 
             createInstance(element);
         });
+
+        return found;
+    };
+
+    const initializeAll = (root = document) => {
+        return initializeElements(SELECTORS.RICH_TEXT, root) +
+            initializeElements(SELECTORS.MCE_CONTENT_BODY, root);
+    };
+
+    // Blocks added after load (new paragraphs, async patterns) get instances too.
+    const observeLateBlocks = () => {
+        if (observer || typeof MutationObserver === 'undefined') {
+            return;
+        }
+
+        observer = new MutationObserver((mutations) => {
+            mutations.forEach((mutation) => {
+                mutation.addedNodes.forEach((node) => {
+                    if (node.nodeType === Node.ELEMENT_NODE) {
+                        pendingRoots.add(node);
+                    }
+                });
+            });
+
+            if (pendingRoots.size === 0) {
+                return;
+            }
+
+            if (observerTimer) {
+                window.clearTimeout(observerTimer);
+            }
+
+            observerTimer = window.setTimeout(() => {
+                pendingRoots.forEach((root) => {
+                    if (root.isConnected) {
+                        initializeAll(root);
+                    }
+                });
+                pendingRoots.clear();
+            }, OBSERVER_DEBOUNCE);
+        });
+
+        observer.observe(document.body, { childList: true, subtree: true });
     };
 
     const handleGutenbergReady = () => {
-        initializeElements(SELECTORS.RICH_TEXT);
-        initializeElements(SELECTORS.MCE_CONTENT_BODY);
+        attempts++;
+
+        const found = initializeAll();
+
+        if (found === 0 && attempts < MAX_ATTEMPTS) {
+            window.setTimeout(handleGutenbergReady, INIT_DELAY);
+            return;
+        }
+
+        observeLateBlocks();
     };
 
     const handleGutenbergReadyWithDelay = () => {

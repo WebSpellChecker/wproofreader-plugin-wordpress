@@ -55,7 +55,9 @@ jQuery(function ($) {
                 })
                 .fail((jqXHR, textStatus) => {
                     let msg = 'Failed to load language list.';
-                    if (jqXHR && jqXHR.responseJSON && jqXHR.responseJSON.data && jqXHR.responseJSON.data.message) {
+                    if (jqXHR && jqXHR.status === 403) {
+                        msg = 'Your session has expired. Reload the page and try again.';
+                    } else if (jqXHR && jqXHR.responseJSON && jqXHR.responseJSON.data && jqXHR.responseJSON.data.message) {
                         msg = jqXHR.responseJSON.data.message;
                     } else if (textStatus) {
                         msg += ` (${textStatus})`;

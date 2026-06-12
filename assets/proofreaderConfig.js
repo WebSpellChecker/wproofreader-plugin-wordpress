@@ -14,6 +14,27 @@
     const serviceConfig = window.WSCServiceConfig || {};
     const proofreaderConfig = window.WSCProofreaderConfig || {};
 
+    // TinyMCE does not treat a bare DOM input event as an edit; without this the
+    // classic editor may consider the document unchanged and skip saving a correction.
+    function markTinyMceDirty(element) {
+        try {
+            const win = element.ownerDocument.defaultView;
+            const tinymce = win.tinymce || (win.parent && win.parent.tinymce);
+            if (!tinymce || !tinymce.editors) {
+                return;
+            }
+
+            Array.prototype.forEach.call(tinymce.editors, function (editor) {
+                const body = editor.getBody && editor.getBody();
+                if (body && (body === element || body.contains(element))) {
+                    editor.setDirty(true);
+                }
+            });
+        } catch (e) {
+            // Cross-frame access or missing TinyMCE — nothing to mark.
+        }
+    }
+
     const isBadgeEnabled = asBoolean(proofreaderConfig.enableBadgeButton, true);
     const badgeActions = isBadgeEnabled
         ? ['addWord', 'ignoreAll', 'settings', 'toggle', 'proofreadDialog']
@@ -37,6 +58,9 @@
         '#ping_sites',
         '#permalink_structure',
         '.inline-edit-password-input',
+        '#_sale_price',
+        '#_regular_price',
+        '#_weight',
     ];
 
     window.WEBSPELLCHECKER_CONFIG = {
@@ -66,14 +90,16 @@
             this.subscribe('replaceProblem', function () {
                 try {
                     const element = instance.getContainerNode();
+                    // Gutenberg's RichText syncs block state from the DOM on input.
                     element.dispatchEvent(new Event('input', { bubbles: true }));
+                    markTinyMceDirty(element);
                 } catch (e) {
                     // Container may have been detached by the host editor — safe to ignore.
                 }
             });
         },
         onBeforeAutoSearchInstanceCreate: function (activeElement) {
-            const id = activeElement.element.id;
+            const id = activeElement && activeElement.element ? activeElement.element.id : '';
             return !(id && id.indexOf('url-input-control') === 0);
         },
     };

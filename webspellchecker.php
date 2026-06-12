@@ -3,7 +3,7 @@
  * Plugin Name:  WProofreader
  * Plugin URI:   https://webspellchecker.com/
  * Description:  WProofreader checks spelling, grammar, and style in real-time while editing in WordPress.
- * Version:      3.1.0
+ * Version:      3.2.0
  * Author:       WebSpellChecker
  * Author URI:   https://webspellchecker.com/
  * Text Domain:  webspellchecker
@@ -23,7 +23,7 @@ if ( ! class_exists( 'WProofreader', false ) ) {
 		const TRIAL_CUSTOMER_ID           = '1:cma3h3-HTiyU3-JL08g4-SRyuS1-a9c0F3-kH6Cu-OlMHS-thcSV2-HlGmv3-YzRCN2-qrKY42-uPc';
 		const DEFAULT_LANGUAGE            = 'en_US';
 		const DEFAULT_BADGE_TOGGLE_OPTION = 'on';
-		const PLUGIN_VERSION              = '3.1.0';
+		const PLUGIN_VERSION              = '3.2.0';
 
 		const SCRIPT_HANDLE_BUNDLE        = 'wsc_bundle';
 		const SCRIPT_HANDLE_CONFIG        = 'wsc_config';
@@ -153,10 +153,6 @@ if ( ! class_exists( 'WProofreader', false ) ) {
 			$stored_options = get_option( WSC_Settings::OPTION_NAME, array() );
 			$this->options  = wp_parse_args( $stored_options, $default_options );
 			$this->options[ self::SETTING_CUSTOMER_ID ] = $this->get_customer_id();
-
-			if ( ! get_option( 'wsc_proofreader_version' ) ) {
-				update_option( 'wsc_proofreader_version', self::PLUGIN_VERSION );
-			}
 		}
 
 		/**
@@ -200,8 +196,14 @@ if ( ! class_exists( 'WProofreader', false ) ) {
 
 		/**
 		 * Handle version migration and legacy cleanup.
+		 *
+		 * Runs in admin requests only so REST/cron/front-end loads never write options.
 		 */
 		private function maybe_migrate_version() {
+			if ( ! is_admin() ) {
+				return;
+			}
+
 			if ( get_option( 'wsc_proofreader_version' ) !== self::PLUGIN_VERSION ) {
 				delete_option( 'wsc' );
 				update_option( 'wsc_proofreader_version', self::PLUGIN_VERSION );

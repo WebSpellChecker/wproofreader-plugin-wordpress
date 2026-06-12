@@ -1,5 +1,17 @@
 # WProofreader Plugin for WordPress Changelog
 
+## 3.2.0 - 2026-06-12
+
+* Fixed: post content corruption on save in the block editor. The content cleanup filter processed slashed post data, which added escaped quotes to attribute values (href, id, class) on every save, and it also ran on posts that merely contained "wsc-" in URLs rather than actual proofreading artifacts.
+* Reworked content cleanup to splice artifact markup out of the original byte stream (WP_HTML_Tag_Processor) instead of re-serializing the whole document; content outside removed tags is never modified. Removed the lossy DOMDocument and regex fallbacks.
+* Content cleanup now also covers autosaves and revisions, so restored autosaves no longer contain proofreading markup.
+* Fixed the editor re-init guard to use the data-wpr-instance attribute the SDK actually sets, preventing duplicate instances; added a temporary init marker with timeout recovery so failed initializations can retry safely.
+* Block editor integration now retries initialization while the editor is still rendering and picks up blocks added after load.
+* Corrections in the classic editor now mark TinyMCE as dirty so they are reliably saved.
+* The proofreading bundle is loaded once per document (previously it could be requested twice in iframed block editors).
+* Settings page: clearer message when the session nonce has expired; settings fields are only registered on the settings screen and when saving.
+* Version migration no longer writes options during REST/cron/front-end requests; uninstall now cleans options on all sites in multisite.
+
 ## 3.1.0 - 2026-04-24
 
 * Refactored plugin internals into focused classes while preserving the public WProofreader class, option names, filters, and AJAX action.

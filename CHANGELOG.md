@@ -1,5 +1,9 @@
 # WProofreader Plugin for WordPress Changelog
 
+## 3.2.1 - 2026-08-11
+
+* Fixed: the Report button was missing in the WordPress UI. The plugin passed its own `actionItems` list to the proofreading bundle and omitted the `report` item, so the button never rendered in the suggestion popup, the badge menu, or the proofread dialog. The item is now included in both the badge-enabled and badge-disabled lists.
+
 ## 3.2.0 - 2026-06-12
 
 * Fixed: post content corruption on save in the block editor. The content cleanup filter processed slashed post data, which added escaped quotes to attribute values (href, id, class) on every save, and it also ran on posts that merely contained "wsc-" in URLs rather than actual proofreading artifacts.

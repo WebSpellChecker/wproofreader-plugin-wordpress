@@ -3,14 +3,14 @@
  * Plugin Name:  WProofreader
  * Plugin URI:   https://webspellchecker.com/
  * Description:  WProofreader checks spelling, grammar, and style in real-time while editing in WordPress.
- * Version:      3.2.0
+ * Version:      3.2.1
  * Author:       WebSpellChecker
  * Author URI:   https://webspellchecker.com/
  * Text Domain:  webspellchecker
  * Domain Path:  /languages
  * Requires PHP: 7.4
  * Requires at least: 6.3
- * Tested up to: 6.9
+ * Tested up to: 7.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -23,7 +23,7 @@ if ( ! class_exists( 'WProofreader', false ) ) {
 		const TRIAL_CUSTOMER_ID           = '1:cma3h3-HTiyU3-JL08g4-SRyuS1-a9c0F3-kH6Cu-OlMHS-thcSV2-HlGmv3-YzRCN2-qrKY42-uPc';
 		const DEFAULT_LANGUAGE            = 'en_US';
 		const DEFAULT_BADGE_TOGGLE_OPTION = 'on';
-		const PLUGIN_VERSION              = '3.2.0';
+		const PLUGIN_VERSION              = '3.2.1';
 
 		const SCRIPT_HANDLE_BUNDLE        = 'wsc_bundle';
 		const SCRIPT_HANDLE_CONFIG        = 'wsc_config';

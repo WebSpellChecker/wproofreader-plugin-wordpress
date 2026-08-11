@@ -37,8 +37,8 @@
 
     const isBadgeEnabled = asBoolean(proofreaderConfig.enableBadgeButton, true);
     const badgeActions = isBadgeEnabled
-        ? ['addWord', 'ignoreAll', 'settings', 'toggle', 'proofreadDialog']
-        : ['addWord', 'ignoreAll', 'settings', 'proofreadDialog'];
+        ? ['addWord', 'ignoreAll', 'report', 'settings', 'toggle', 'proofreadDialog']
+        : ['addWord', 'ignoreAll', 'report', 'settings', 'proofreadDialog'];
 
     const disableAutoSearchIn = [
         '.wp-block-table__cell-content',

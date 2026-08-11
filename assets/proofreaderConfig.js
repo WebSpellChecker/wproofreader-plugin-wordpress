@@ -36,9 +36,12 @@
     }
 
     const isBadgeEnabled = asBoolean(proofreaderConfig.enableBadgeButton, true);
+    // Order matters: the bundle keeps the leading items in the visible action row of
+    // the suggestion popup and collapses the rest under the "more" button. Report sits
+    // right after addWord so it stays visible on spelling problems.
     const badgeActions = isBadgeEnabled
-        ? ['addWord', 'ignoreAll', 'report', 'settings', 'toggle', 'proofreadDialog']
-        : ['addWord', 'ignoreAll', 'report', 'settings', 'proofreadDialog'];
+        ? ['addWord', 'report', 'ignoreAll', 'settings', 'toggle', 'proofreadDialog']
+        : ['addWord', 'report', 'ignoreAll', 'settings', 'proofreadDialog'];
 
     const disableAutoSearchIn = [
         '.wp-block-table__cell-content',

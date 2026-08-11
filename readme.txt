@@ -5,7 +5,7 @@ Donate link: https://www.webspellchecker.com/
 Requires at least: 6.3
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 3.2.1
+Stable tag: 3.2.2
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -136,6 +136,9 @@ Sure, please let us know how we can make the plugin more useful for you. Create 
 10. WProofreader WordPress plugin settings page.
 
 == Changelog ==
+
+= 3.2.2 - 2026-08-11 =
+* Changed: the Report button is now shown directly in the suggestion popup instead of the "more" menu.
 
 = 3.2.1 - 2026-08-11 =
 * Fixed: the Report button is now available in the suggestion popup and the proofread dialog. The plugin overrode the action items list and left the report item out.

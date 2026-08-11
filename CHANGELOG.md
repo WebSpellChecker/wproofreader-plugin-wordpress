@@ -1,5 +1,9 @@
 # WProofreader Plugin for WordPress Changelog
 
+## 3.2.2 - 2026-08-11
+
+* Changed: the Report button now stays in the visible action row of the suggestion popup instead of collapsing into the "more" menu. The bundle keeps the leading entries of `actionItems` in the row and moves the rest under the overflow button, so on spelling problems the trailing `report` item ended up hidden. It is now ordered right after `addWord`.
+
 ## 3.2.1 - 2026-08-11
 
 * Fixed: the Report button was missing in the WordPress UI. The plugin passed its own `actionItems` list to the proofreading bundle and omitted the `report` item, so the button never rendered in the suggestion popup, the badge menu, or the proofread dialog. The item is now included in both the badge-enabled and badge-disabled lists.
